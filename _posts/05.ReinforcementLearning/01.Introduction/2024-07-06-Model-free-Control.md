@@ -121,7 +121,7 @@ Q-learning에서는 target policy로 greedy policy ($\pi(S_{t+1}) = \arg\max\lim
 > 단, 무수히 많은 episode를 거치면서 $\epsilon$이 0에 수렴하면 두 알고리즘 모두 optimal path를 찾는다.
 {: .prompt-info}
 
-SARSA는 next state에서의 action을 실제로 수행해보고 이를 현재 state의 value에 반영한다. 즉, optimal path로 가다가 한번 cliff로 떨어지는 경우, 이 때의 경험이 현재 state에 반영되어 cliff 쪽으로 가지 않으려는 성향을 띄게 된다.
+SARSA는 next state에서의 action을 실제로 수행해보고 이를 현재 state의 value에 반영한다. 즉, optimal path로 가다가 한번 cliff로 떨어지는 경우, 이 때의 경험이 현재 state에 반영되어 cliff 쪽으로 가지 않으려는 성향을 띄게 된다. 
 
 반면, Q-learning의 경우 next state에서 cliff에 떨어지는 경험은, next state 에서의 action-state value ($Q(S_{t+1}, A_{t+1}$)에만 반영되며, 현재 state의 value에는 반영되지 않는다 (greedy action으로 선택이 되지 않기 때문). 이러한 이유로 Q-learning은 보다 모험적이나 optimal한 path에 가깝게 행동한다.
 
