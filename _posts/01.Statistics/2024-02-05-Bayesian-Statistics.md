@@ -175,44 +175,44 @@ $$
 By minimizing $\mathbb{E}(L)$, decisions are optimized to account for both the likelihood of outcomes and the associated risks, ensuring that severe misclassification are appropriated penalized.
 
 ## Prior Distribution
-사전분포는 데이터를 보기전에 모수 $\theta$의 불확실성을 나타내는 확률분포이다.
+The prior distribution is the probability distribution of $\theta$, reflecting the uncertainty about $\theta$ before observing data.
 
 ### Conjugate Prior
-사전분포와 사후분포가 같은 분포족(대개, 지수족)에 속하게 만드는 사전분포를 **켤레사전분포 (Conjugate prior)**라고 한다.
+A prior distribution that belongs to the same family of distributions as the posterior distribution (typically, the exponential family) is called a **conjugate prior distribution**.
 
-* 예) 데이터가 정규분포를 따를 때, 평균의 사전분포도 정규분포를 따른다고 할 경우, 평균의 사후 분포도 정규분포를 따른다.
+* E.g.) When the data follows a normal distribution and the prior distribution of the mean is also normal, the posterior distribution of the mean will likewise follow a normal distribution.
 
 ### Informative Prior vs. Non-Informative Prior
-사전분포는 모수에 대해 구체적 정보를 주는 경우(Informative prior, subjective prior)와 일반적 정보 또는 아예 정보가 없는 경우(non-informative prior, diffuse prior, objective prior)로 나눠서 생각할 수 있다.
+The prior distribution can be categorized into two types: **informative prior (subjective prior)**, which provides specific information about the parameter, and **non-informative prior (diffuse prior, objective prior)**, which represents general or no information about the parameter.
 
-Informative prior는 모수에 대한 구체적 정보를 제시하므로, 상대적으로 더 작은 분산을 갖는다. 즉, 모수는 주관적으로 생각한 값에 가까워진다.
+An informative prior presents detailed information about the parameter and typically has a smaller variance, meaning that the parameter is more likely to be concentrated around a subjectively considered value.
 
-* 예) $\mu \sim N(1, 0.1^2)$ vs. $\mu \propto 1 \approx N(1,10^{10})$ or $\mu \sim \text{Unif}(-\infty, \infty)$
+* E.g.) $\mu \sim N(1, 0.1^2)$ vs. $\mu \propto 1 \approx N(1,10^{10})$ or $\mu \sim \text{Unif}(-\infty, \infty)$
 
 ### Proper Prior vs. Improper Prior
-사전분포를 잘 정의된 확률분포일때 (proper prior)와, 잘 정의되지 않은 확률분포(improper prior), 즉, 적분 또는 합이 유한하지 않을때로 나누어 생각할 수 있다.
+The prior distribution can also be categorized into two categories: **proper prior**, which is a well-defined probability distribution with a finite integral or sum, and **improper prior**, which is not a well-defined probability distribution because its integral or sum is not finite.
 
-예를 들어, $X \sim N(\mu, \sigma^2)$ 인 자료가 있다고 하자. 이때 분산은 알려져 있다고 가정한다. 평균에 대한 특별한 정보(믿음)가 없는경우 평균이 어떤 값을 가지던지 동일한 정도의 정보를 주도록 하고 싶으면 $\mu$가 균일분포 $\text{Unif}(-\infty, \infty)$ 를 따른다고 가정할 수 있다. 다만 평균의 범위가 $(-\infty, \infty)$이므로, 이러한 분포는
-적분가능하지 않다.
+For example, let $X \sim N(\mu, \sigma^2)$ represents a dataset, where the variance is assumed to be known. If there is no information (belief) about the mean, we might wish to assign equal information across all possible values of the mean. This can be done by assuming the mean follows a uniform distribution $\text{Unif}(-\infty, \infty)$. However, such a distribution is not integrable and is therefore an improper prior.
 
-사전분포가 improper prior이어도 사후분포가 proper prior가 될 수 있다. 다만 항상 되는 것은 아니기 때문에 확인이 필요하다.
+> Even when a prior is improper, the resulting posterior distribution can still be proper. However, this is not guaranteed in all cases, so verification is necessary.
+{: .prompt-info}
 
 ### Example: Binomial and Beta Prior Distribution
-연속된 $n$번의 독립적 시행에서 각 시행이 확률 $\theta$ (단, $0 \leq \theta \leq 1$)일 때 성공횟수는 이항분포를 따르며, 이항분포의 확률질량함수는 다음과 같다.
+In $n$ independent and consecutive trials, where each has a success probability $\theta$ (with $0 \leq \theta \leq 1$), the number of successes follows a binomial distribution. The PMF of the binomial distribution is given by:
 
 $$
-f(x \vert \theta) = \frac{n!}{x!(n-x)!} \theta^x (1-\theta)^{n-x}, \quad 0 \leq \theta \leq 1
+f(x \vert \theta) = \frac{n!}{x!(n-x)!} \theta^x (1-\theta)^{n-x}, \quad 0 \leq \theta \leq 1.
 $$
 
-이 때, 모수 $\theta$에 대한 사전분포로 베타분포를 고려해 보자: $\theta \sim Beta(\alpha, \beta), \alpha, \beta > 0$
+Let's consider a Beta distribution as the prior distribution for the parameter $\theta$: $\theta \sim Beta(\alpha, \beta), \alpha, \beta > 0$.
 
-베타분포의 확률밀도함수는 다음과 같다.
+The PDF of the Beta distribution is following:
 
 $$
-f(\theta \mid \alpha, \beta) = \frac{1}{B(\alpha, \beta)} \theta^{\alpha-1} (1-\theta)^{\beta-1}
+f(\theta \mid \alpha, \beta) = \frac{1}{B(\alpha, \beta)} \theta^{\alpha-1} (1-\theta)^{\beta-1}.
 $$
 
-데이터 $X$가 관측되었다고 할때, 베이즈 정리를 이용하여 $\theta$의 사후분포를 구할 수 있다.
+Given $n$ trials and $X$ successes, the posterior distribution of $\theta$ can be obtained using Bayes' theorem.
 
 $$
 \begin{aligned}
@@ -223,15 +223,16 @@ f(\theta \vert X) &\propto Lik(\theta \vert X) \pi(\theta) \\
 \end{aligned}
 $$
 
-따라서, $\theta$의 사후분포는
+Therefore, the posterior distribution of $\theta$ is
 
 $$
-\theta \mid X \sim Beta(\alpha + X, \beta + n - X)
+\theta \mid X \sim Beta(\alpha + X, \beta + n - X).
 $$
 
-이항분포인 Likelihood에 대하여 베타사전분포를 사용하면 사후분포 역시 베타분포임을 알 수 있다. 즉, 베타사전분포는 이항가능도함수에 대한 켤레 사전분포가 된다.
+The parameters of the posterior $(\alpha + X, \beta + n - X)$ reflect the updated belief about $\theta$, incorporating both the prior information $(\alpha, \beta)$ and the observed data $(X, n)$. As more data $(n)$ is observed, the posterior becomes increasingly dominated by the data, reducing the influence of the prior.
 
-데이터 X가 추가(관측)되면서 모수 θ의 분포가 수정(업데이트) 되었다는 것 역시 알 수 있다.
+> The Beta distribution is the conjugate prior for the Binomial likelihood, as the posterior distribution remains in the Beta family.
+{: .prompt-info}
 
 ## Naive Bayes Classifier
 $N$개의 특성(feature)들을 가지고 $K$개의 클래스 $(C_1, \cdots, C_K)$ 중 하나로 분류시키는 문제를 생각해보자.
