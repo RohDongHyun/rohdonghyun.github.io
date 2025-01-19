@@ -32,11 +32,11 @@ Thus, the Monte Carlo method requires an algorithm generating random samples fro
 
 ## Sampling Methods
 ### Inverse CDF
-The **inverse CDF*** sampling method utilizes the probability integral transform (PIT).
+The **inverse CDF** sampling method utilizes the probability integral transform (PIT).
 
 * PIT: For a continuous random variable $X$ with a CDF $F_X$, $F_X(X)$ follows $\text{Unif}(0,1)$.
 
-If $F_X(X) \sim U and $U$ is distributed as $(\text{Unif}(0,1))$, the the following holds:
+If $F_X(X) \sim U$ and $U$ is distributed as $(\text{Unif}(0,1))$, the the following holds:
 
 $$
 X \sim F_X^{-1}(U) = \inf \{x : F(x) \ge U\}.
@@ -137,7 +137,7 @@ Consider the same PDF as the above: $f(x) = \frac{1}{2}x, 0 < x < 2$.
 
 We aim to estimate $\theta = E(X^{2})$.
 
-Since $f(x) = \frac{1}{2}x$ and $0 < x < 2$, the exact value of $E(X^{2})$ can be computed as 2 easily. However, it can also be approximated using importance sampling.
+Since $f(x) = \frac{1}{2}x$ and $0 < x < 2$, the exact value of $E(X^{2})=2$. However, it can also be approximated using importance sampling.
 
 Choose $g(x) = \frac{1}{2}$. Then:
 
