@@ -247,9 +247,9 @@ If $P(C_k \vert \mathbf{X}) = f(\mathbf{X})$ is viewed as a function of $\mathbf
 
 $$
 \begin{aligned}
-P(C_k \vert \mathbf{X}) &= \frac{P(\mathbf{X} \vert C_k)P(C_k)}{P(\mathbf{X})} \quad \text{Bayes' theorem}\\
+P(C_k \vert \mathbf{X}) &= \frac{P(\mathbf{X} \vert C_k)P(C_k)}{P(\mathbf{X})} \quad \text{(Bayes' theorem)}\\
 &= \frac{1}{P(\mathbf{X})}P(C_k)P(X_1, X_2, \cdots, X_N \vert C_k)\\
-&\approx \frac{1}{P(\mathbf{X})}P(C_k)\prod_{j=1}^{N} P(X_j \vert C_k) \quad \text{Independence assumption (naive)}
+&\approx \frac{1}{P(\mathbf{X})}P(C_k)\prod_{j=1}^{N} P(X_j \vert C_k) \quad \text{(Independence assumption (naive))}
 \end{aligned}
 $$
 
@@ -258,7 +258,7 @@ Since $\mathbf{X}$ is treated as given in $P(C_k \vert \mathbf{X})$, the Naive B
 $$
 \begin{aligned}
 & \quad \arg \max_{k \in \{1, \ldots, K\}} P(C_k \vert \mathbf{X}) \\
-&= \arg \max_{k \in \{1, \ldots, K\}} \frac{1}{P(\mathbf{X})} P(C_k) \prod_{j=1}^{N} P(X_j \vert C_k) \quad \text{Naive Bayes} \\
+&= \arg \max_{k \in \{1, \ldots, K\}} \frac{1}{P(\mathbf{X})} P(C_k) \prod_{j=1}^{N} P(X_j \vert C_k) \quad \text{(Naive Bayes)} \\
 &= \arg \max_{k \in \{1, \ldots, K\}} P(C_k) \prod_{j=1}^{N} P(X_j \vert C_k) \\
 \end{aligned}
 $$
