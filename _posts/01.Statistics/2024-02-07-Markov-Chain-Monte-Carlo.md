@@ -167,7 +167,7 @@ $$
 > Here, $\pi(\theta) = \pi(\mu)\pi(\sigma^2)$, assuming independence between the parameters.
 {: .prompt-info}
 
-Given the data $X = (X_1, \cdots , X_n)^T$, the conditional posterior distributions are"
+Given the data $X = (X_1, \cdots , X_n)^T$, the conditional posterior distributions are
 
 $$
 \mu \mid X, \sigma^2 \sim N\left( \bar{X}, \frac{\sigma^2}{n} \right),
