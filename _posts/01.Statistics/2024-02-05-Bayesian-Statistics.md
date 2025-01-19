@@ -235,38 +235,38 @@ The parameters of the posterior $(\alpha + X, \beta + n - X)$ reflect the update
 {: .prompt-info}
 
 ## Naive Bayes Classifier
-$N$개의 특성(feature)들을 가지고 $K$개의 클래스 $(C_1, \cdots, C_K)$ 중 하나로 분류시키는 문제를 생각해보자.
+In a classification problem involving $N$ features and $K$ classes $(C_1, \cdots, C_K)$, each observation can be represented as a vector of features. Let this vector be a random vector $\mathbf{X} = (X_1, \cdots, X_N)$, where each components $X_i$ corresponds to a specific feature.
 
-이 경우 하나의 관측값은 $N$개의 특성들을 모아놓은 벡터로 생각할 수 있고, 이 벡터를 확률벡터 $\mathbf{X} = (X_1, \cdots, X_N)$라고 본다면, 주어진 문제는 조건부 확률 $P(C_k \vert \mathbf{X})$를 계산하여 그 값이 가장 큰 클래스로 정하는 문제로 볼 수 있다.
+The classification task can be framed as determining the most probable class $C_k$ for a given observation $\mathbf{X}$, which requires computing the posterior probability $P(C_k \vert \mathbf{X})$.
 
-즉, $\arg \max_{k \in \{1, \cdots, K\}} P(C_k \vert \mathbf{X})$를 찾는 문제이다.
+Therefore, the objective of the problem is to find $\arg \max_{k \in \{1, \cdots, K\}} P(C_k \vert \mathbf{X})$.
 
-$P(C_k \vert \mathbf{X}) = f(\mathbf{X})$를 $\mathbf{X}$에 대한 함수로 본다면, 클래스를 아는 여러개의 $\mathbf{X}$들을 관측하여 $f(\mathbf{X})$를 추정하는 문제로 볼 수 있다.
+If $P(C_k \vert \mathbf{X}) = f(\mathbf{X})$ is viewed as a function of $\mathbf{X}$, the problem can be considered as estimating $f(\mathbf{X})$ by observing multiple $\mathbf{X}$ values for which the class is known.
 
-나이브 베이즈는 이러한 방법 중 하나로, 주어진 클래스 상에서 특성들이 $(X_j)$ 서로 독립이라는 가정을 통해 (실제로 독립이 아닐지라도) $P(C_k \vert \mathbf{X})$를 다음과 같이 단순화 시킨다.
+**Naive Bayes** is one such method that simplifies $P(C_k \vert \mathbf{X})$ by assuming that the features $(X_j)$ are independent of each other within a given class (even if they are not truly independent), as follows.
 
 $$
 \begin{aligned}
-P(C_k \vert \mathbf{X}) &= \frac{P(\mathbf{X} \vert C_k)P(C_k)}{P(\mathbf{X})} \quad \text{베이즈 정리 이용}\\
+P(C_k \vert \mathbf{X}) &= \frac{P(\mathbf{X} \vert C_k)P(C_k)}{P(\mathbf{X})} \quad \text{Bayes' theorem}\\
 &= \frac{1}{P(\mathbf{X})}P(C_k)P(X_1, X_2, \cdots, X_N \vert C_k)\\
-&\approx \frac{1}{P(\mathbf{X})}P(C_k)\prod_{j=1}^{N} P(X_j \vert C_k) \quad \text{독립 가정 (Naive)}
+&\approx \frac{1}{P(\mathbf{X})}P(C_k)\prod_{j=1}^{N} P(X_j \vert C_k) \quad \text{Independence assumption (naive)}
 \end{aligned}
 $$
 
-$P(C_k \vert \mathbf{X})$에서 $\mathbf{X}$는 주어진것으로 보기때문에, 나이브 베이즈 분류기는 다음과 같다.
+Since $\mathbf{X}$ is treated as given in $P(C_k \vert \mathbf{X})$, the Naive Bayes classifier can be expressed as follows:
 
 $$
 \begin{aligned}
 & \quad \arg \max_{k \in \{1, \ldots, K\}} P(C_k \vert \mathbf{X}) \\
-&= \arg \max_{k \in \{1, \ldots, K\}} \frac{1}{P(\mathbf{X})} P(C_k) \prod_{j=1}^{N} P(X_j \vert C_k) \quad \text{NaiveBayes} \\
+&= \arg \max_{k \in \{1, \ldots, K\}} \frac{1}{P(\mathbf{X})} P(C_k) \prod_{j=1}^{N} P(X_j \vert C_k) \quad \text{Naive Bayes} \\
 &= \arg \max_{k \in \{1, \ldots, K\}} P(C_k) \prod_{j=1}^{N} P(X_j \vert C_k) \\
 \end{aligned}
 $$
 
-여기서 $P(C_k)$는 k 번째 클래스에 속할 사전확률로 아무 사전 정보가 없다면 $P(C_k) = \frac{1}{K}$로 놓을수 있다. $P(X_j \vert C_k)$는 클래스 k에 속했을때의 j번째 특성 $X_j$의 확률로 데이터를 통해 추정한다.
+Here, $P(C_k)$ is the prior probability of belonging to the $k$-th class. If no prior information is available, we can set $P(C_k) = \frac{1}{K}$. $P(X_j \vert C_k)$ is the probability of the $j$-th feature $X_j$ given class $k$, which is estimated from the data.
 
-예를 들어 클래스 $k$에 속하는 $n_k$개의 관측값 $X_1^{(k)}, \ldots, X_{n_k}^{(k)}$이 있을때, j번째 특성값의 데이터는 각 $X_i^{(k)}$의 j번째 원소를 뽑은 $X_{1j}^{(k)}, \ldots, X_{n_k j}^{(k)}$ 들이고, j번째 특성값들이 정규분포를 따른다면, 해당 정규분포의 $\mu_{kj}, \sigma_{kj}^2$는 $X_{1j}^{(k)}, \ldots, X_{n_k j}^{(k)}$를 이용하여 추정하여 사용한다.
+For example, if there are $n_k$ observations $X_1^{(k)}, \ldots, X_{n_k}^{(k)}$ belonging to the class $k$, the data for the $j$-th feature can be extracted as $X_{1j}^{(k)}, \ldots, X_{n_k j}^{(k)}$, where each $X_{ij}^{(k)}$ is the $j$-th element of $X_i^{(k)}$. If the $j$-th feature values follow a normal distribution, the parameters $\mu_{kj}$ and $\sigma_{kj}^2$ of the distribution can be estimated using $X_{1j}^{(k)}, \ldots, X_{n_k j}^{(k)}$.
 
 $$
-\hat{P}(X_j \vert C_k) = \frac{1}{\sqrt{2 \pi \sigma_{kj}^2}} e^{-\frac{1}{2 \sigma_{kj}^2} (X_j - \hat{\mu}_{kj})^2}
+\hat{P}(X_j \vert C_k) = \frac{1}{\sqrt{2 \pi \sigma_{kj}^2}} e^{-\frac{1}{2 \sigma_{kj}^2} (X_j - \hat{\mu}_{kj})^2}.
 $$
