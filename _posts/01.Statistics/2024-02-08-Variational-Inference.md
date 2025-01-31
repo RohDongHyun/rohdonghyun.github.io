@@ -7,44 +7,43 @@ tags: [approximate Bayesian, variational inference, statistics]
 math: true
 ---
 ## RECAP: Approximate Bayesian Method
-Bayesian inference를 요약하면 다음과 같다.
+Bayesian inference can be summarized as follows:
 
-* 데이터의 분포에 관한 모형 (likelihood, $L(\theta\mid X)$)와
-* 모델을 정하는 모수 (parameter)의 사전분포 (prior distribution, $\pi(\theta)$)를 이용하여
-* 모수의 사후확률 (posterior probability, $\pi(\theta\mid X)$)를 구하고,
-* 이를 이용하여 모수에 관한 추론을 진행
+* Using a model for the data distribution (likelihood, $L(\theta\mid X)$) and the prior distribution ($\pi(\theta)$) of the parameter,
+* derive the posterior probability ($\pi(\theta\mid X)$), and
+* perform inference regarding the parameters based on the posterior distribution.
 
-이 때, likelihood가 복잡하거나, 데이터가 아주 큰 경우에는 사후확률을 계산하는 것이 쉽지 않다.
+However, when the likelihood is complex or the dataset is very large, calculating the posterior probability becomes challenging.
 
-이에 따라, 여러 **근사 베이지안 방법 (approximate Bayesian method)**들이 제안되었다.
+As a result, various **approximate Bayesian methods** have been proposed.
 
-* 참고: [Markov Chain Monte-Carlo (MCMC)](https://rohdonghyun.github.io/posts/Markov-Chain-Monte-Carlo/)
+* Note: [Markov Chain Monte-Carlo (MCMC)](https://rohdonghyun.github.io/posts/Markov-Chain-Monte-Carlo/)
 
 ## Variational Inference
-**Variational inference (변분 추론)**은 또다른 근사 베이지안 방법의 일종이다. 이는 사후분포에 가까우면서 sampling이 상대적으로 쉬운 분포를 찾아, 이를 이용해 추론을 진행하는 것이다. 일반적으로 사후분포의 후보가 되는 분포에 대한 class를 정해두고, 이 가운데서 분포를 정하게 된다.
+**Variational inference** is a type of approximate Bayesian method. It involves finding a distribution that is close to the posterior distribution while being relatively easier to sample from, and using it for inference. Typically, a class of candidate distributions for the posterior is predefined, and the optimal distribution is selected from this class.
 
-> 일반적으로 variational inference가 MCMC보다 속도가 빠르다.
+> Variational inference is generally faster than MCMC.
 {: .prompt-info}
 
-> 꼭 Bayesian 방법이 아니더라도, MCMC는 분포로부터 표본을 sampling하는 기법으로, variational inference는 분포를 근사시키는 기법으로 사용되고 있다.
+> Even outside the Bayesian method, MCMC is used as a method for sampling from distributions, while variational inference is used as a technique for approximating distributions.
 {: .prompt-info}
 
-Variational inference의 과정을 설명하기 위해 다음을 가정하자.
+To explain the process of variation inference, consider the following assumptions:
 
-* 데이터: $\mathbf{X} = (X_1, \cdots, X_n)$
-* 은닉변수(잠재변수): $\mathbf{Z} = (Z_1, \cdots, Z_m)$
-* 추가 모수: $\alpha$
-* 목적: 사후분포 $p(\mathbf{Z} \mid \mathbf{X}, \alpha)$와 가까우면서 다루기 쉬운 분포(근사분포) $q(\mathbf{Z} \mid \nu)$를 찾아서 $\mathbf{Z}$를 생성하거나 사후분포의 특성값들을 근사적으로 구한다.
+* Data: $\mathbf{X} = (X_1, \cdots, X_n)$
+* Hidden variables (latent variables): $\mathbf{Z} = (Z_1, \cdots, Z_m)$
+* Additional parameter: $\alpha$
+* Objective: Find a tractable approximate distribution $q(\mathbf{Z} \mid \nu)$ that is close to the posterior distribution $p(\mathbf{Z} \mid \mathbf{X}, \alpha)$, in order to generate samples $\mathbf{Z}$ or approximate posterior statistics.
 
 ### Finding the Approximate Distribution
-우선 $p(\mathbf{Z} \mid \mathbf{X}, \alpha)$와 가까운 $q(\mathbf{Z} \mid \nu)$를 찾아내자. 이는 $q(\mathbf{Z} \mid \nu)$가 $p(\mathbf{Z} \mid \mathbf{X}, \alpha)$에 가장 가깝도록 하는 $\nu$를 찾는 문제로 볼 수 있다.
+First, let's find $q(\mathbf{Z} \mid \nu)$ that is close to $p(\mathbf{Z} \mid \mathbf{X}, \alpha)$. This can be viewed as the problem of identifying $\nu$ such that $q(\mathbf{Z} \mid \nu)$ becomes as close as possible to $p(\mathbf{Z} \mid \mathbf{X}, \alpha)$.
 
-여기서 $\nu$는 **variational parameter (변분 모수)**라고 부른다. 
+Here, $\nu$ is referred to as the **variational parameter**. 
 
-그렇다면, 두 분포가 가깝다는 기준, 즉 분포 사이의 "가까움"을 나타내는 기준은 어떻게 정의할 수 있을까? 이에 대해서는 다양한 기준이 존재하지만, 가장 널리 쓰이는 기준으로는 **Kullback–Leibler divergence**, 또는 **KL divergence**가 있다.
+Now, how do we define the criterion for the "closeness" between these two distributions? While there are various possible criteria, the most widely used is the **Kullback–Leibler (KL) divergence**.
 
 #### KL Divergence
-KL divergence는 정보이론 (information theory)에서 온 개념으로, 두 distribution의 가까움을 나타내는 값이다.
+KL divergence is a concept derived from information theory, used to measure the closeness between two distributions.
 
 $$
 \begin{aligned}
@@ -59,19 +58,19 @@ $$
 * $KL(q \parallel p) \geq 0$
 * Asymmetric: $KL(q \parallel p) \neq KL(p \parallel q)$
 
-> KL divergence는 비대칭이므로 거리(distance)로 볼 수 없다.
+> KL divergence cannot be a distance because of its asymmetricity.
 {: .prompt-warning}
 
 ![](/assets/img/mathematics-for-deep-learning-03.png){: width="650"}
 
 ### Minimize KL Divergence
-다시, 원래의 근사분포를 찾는 문제로 돌아가자. KL divergence를 이용하면 해당 문제를 다음과 같이 표현할 수 있다.
+Again, let's return to the original problem. Using the KL divergence, the problem can be expressed as:
 
 $$
-q^\ast = \arg\min_{q\in Q} KL\left(q(\mathbf{Z}) \parallel p(\mathbf{Z} \mid \mathbf{X})\right)
+q^\ast = \arg\min_{q\in Q} KL\left(q(\mathbf{Z}) \parallel p(\mathbf{Z} \mid \mathbf{X})\right).
 $$
 
-$KL(q(\mathbf{Z}) \parallel p(\mathbf{Z} \mid \mathbf{X}))$을 직접 계산하기 위해서는 알지 못하는 분포 $p$에 대한 log 값에 대한 계산이 필요하다. 이에 대한 대체로 **evidence lower bound (ELBO)**라는 값을 이용한다.
+Directly calculating the KL divergence requires the logarithm of the unknown distribution $p$, which is not feasible in practice. Instead, a commonly used substitute is the **evidence lower bound (ELBO)**.
 
 #### Evidence Lower Bound (ELBO)
 
@@ -85,15 +84,15 @@ KL(q(\mathbf{Z}) \parallel p(\mathbf{Z} \mid \mathbf{X})) &= E_q \left( \log \fr
 \end{aligned}
 $$
 
-즉, evidence lower bound (ELBO)는 다음과 같이 정의된다.
+Thus, ELBO is defined as follows:
 
 $$
-ELBO(q) = E_q\left(\log p(\mathbf{Z}, \mathbf{X})\right) - E_q\left(\log q(\mathbf{Z})\right)
+ELBO(q) = E_q\left(\log p(\mathbf{Z}, \mathbf{X})\right) - E_q\left(\log q(\mathbf{Z})\right).
 $$
 
-이 때, $\log p(\mathbf{X})$는 $q$에 대해서 상수이므로 KL divergence 최소화 문제에 필요가 없다.
+In this case, since $\log p(\mathbf{X})$ is constant with respect to $q$, it is not needed in the KL divergence minimization problem.
 
-따라서, KL divergence 최소화 문제는 다음과 같이 쓸 수 있다.
+Therefore, the problem can be written as follows:
 
 $$
 \begin{aligned}
@@ -102,10 +101,10 @@ q^\ast &= \arg\min_{q\in Q} KL\left(q(\mathbf{Z}) \parallel p(\mathbf{Z} \mid \m
 \end{aligned}
 $$
 
-> $\log p(X)$는 관측값의 likelihood로 evidence라고도 불리며, ELBO는 이 evidence의 lower bound를 말한다.
+> $\log p(X)$ is the likelihood of the observed data, alse called the evidence, and ELBO refers to the lower bound of this evidence.
 {: .prompt-info}
 
-ELBO는 다음과 같이 다시 쓸 수 있다.
+ELBO can be written as follows.
 
 $$
 \begin{aligned}
@@ -116,13 +115,13 @@ ELBO(q) &= E_q \left( \log p(\mathbf{Z}, \mathbf{X}) \right) - E_q (\log q(\math
 \end{aligned}
 $$
 
-마지막 식의 첫번째 항의 $\log p(\mathbf{X} \mid \mathbf{Z})$는 잠재변수 $\mathbf{Z}$가 주어졌을 때의 관측값 $\mathbf{X}$의 확률 (log scale)로, $\mathbf{Z}$의 log-likelihood로 볼 수 있다. 따라서, 첫번째 항은 $\mathbf{Z}$의 log-likelihood의 기대값이 된다. 따라서, ELBO를 최대화 하는 것은 $p(\mathbf{X} \mid \mathbf{Z})$를 크게 하도록 하는 것과 같고, 이는 likelihood를 증가시키는 또는 데이터를 더 잘 설명하는 $q(\mathbf{Z})$를 찾으려 하는 것과 같다고 볼 수 있다.
+In the last expression, $\log p(\mathbf{X} \mid \mathbf{Z})$ in the first term represents the probability of the observed data $\mathbf{X}$ (in log scale) given the latent variables $\mathbf{Z}$, which can be seen as the log-likelihood of $\mathbf{Z}$. Therefore, the first term becomes the expectation of log-likelihood of $\mathbf{Z}$. Maximizing the ELBO is equivalent to increasing $p(\mathbf{X} \mid \mathbf{Z})$, or finding a $q(\mathbf{Z})$ that better explains the data.
 
-마지막 식의 두번째 항은 $\mathbf{Z}$의 사전분포 $p(\mathbf{Z})$와 $q(\mathbf{Z})$ 사이의 KL divergence이다. 따라서, ELBO를 최대화 하는 것은 사전분포 $p(\mathbf{Z})$와 가까운 $q(\mathbf{Z})$를 찾으려 하는 것으로 볼 수 있다.
+The second term in the last expression is the KL divergence between the prior distribution of $\mathbf{Z}$, $p(\mathbf{Z})$, and $q(\mathbf{Z})$. Maximizing ELBO is therefore also about finding a $q(\mathbf{Z})$ that is close to the prior distribution $p(\mathbf{Z})$.
 
-즉, ELBO($q$)를 최대화 하는 것은 likelihood와 prior 사이에서 적절한 $q$를 찾는 것을 말한다.
+In other words, maximizing ELBO($q$) means finding an appropriate $q$ that balances the likelihood and the prior.
 
-### Variational Familiy
+### Variational Family
 
 $$
 \begin{aligned}
@@ -131,12 +130,12 @@ q^\ast &= \arg\min_{q\in Q} KL\left(q(\mathbf{Z}) \parallel p(\mathbf{Z} \mid \m
 \end{aligned}
 $$
 
-위 문제에서 $q$를 찾는 것은, $Q$를 어떤 분포 집합 (probability distribution family)으로 놓느냐에 따라 계산 복잡도가 달라진다. 주로 많이 사용되는 가정은 **mean-field variational family**로, 이는 잠재변수가 서로 독립이면서 각기 다른 변분인자 (variational factor)에 의존하는 분포 집합을 말한다. 즉, $q(\mathbf{Z}) = \prod_{j=1}^m q_j(Z_j)$. 따라서, ELBO($q$)를 찾는 $$\{ q_j^\ast \}$$를 찾는 문제가 된다.
+In the above problem, the task of finding $q$ depends on the choice of the family of distributions $Q$, which affects the computational complexity. A commonly used assumption is the **mean-field variational family**, which refers to a set of distributions where the latent variables are independent and each depends on a separate variational factor. That is, $q(\mathbf{Z}) = \prod_{j=1}^m q_j(Z_j)$. Therefore, the problem becomes finding the set of $$\{ q_j^\ast \}$$ that maximizes ELBO($q$).
 
-> 이러한 variational family는 $\mathbf{X}$에 의존하지 않는다.
+> This variational family does not depend on $\mathbf{X}$.
 {: .prompt-info}
 
-Mean-field variational family보다 복잡한 family를 고려할 수도 있으나 일반적으로 계산상의 복잡도가 커진다. 구체적으로 어떤 variational family를 고려할지는 문제에 따라 다르며, variational family가 정해지면 최대화 시키는 최적화 알고리즘을 상황에 맞게 적용한다.
+While more complex families can be considered, they generally increase the computational complexity. The specific choice of the family depends on the problem, and once the family is defined, an appropriate optimization algorithm should be applied.
 
-> 주어진 데이터 $\mathbf{X}$와, variational family $Q$가 정해져서 $$\{ q_j^\ast \}$$를 찾으면 필요에 따라 이를 이용하여 $Z_i$를 생성할수 있다. 이렇게 생성된 $$\{Z_i\}$$를 이용하여 데이터 $\mathbf{X}$와 유사한 $\mathbf{X^\ast}$를 생성할 수도 있다 (generative model).
+> Given the $\mathbf{X}$ and the variational family $Q$, once the set $$\{ q_j^\ast \}$$ is found, it can be used to generate $Z_i$ as needed. The generated $$\{Z_i\}$$ can also be used to create data $\mathbf{X^\ast}$ that is similar to the original $\mathbf{X}$ (generative model).
 {: .prompt-tip}
