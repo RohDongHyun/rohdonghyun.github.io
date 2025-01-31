@@ -16,19 +16,19 @@ math: true
 | **Vector** $\mathbf{x}$ $(n\times 1)$ | $\frac{\partial y}{\partial \mathbf{x}}$: $(1\times n)$ | $\frac{\partial \mathbf{y}}{\partial \mathbf{x}}$: $(m\times n)$ |                                                         |
 | **Matrix** $\mathbf{X}$ $(p\times q)$ | $\frac{\partial y}{\partial \mathbf{X}}$: $(p\times q)$ |                                                                  |
 
-> Dimension을 주의할 것!
+> Pay attention to the dimensions!
 {: .prompt-warning}
 
 ### Gradient and Hessian
 * $\nabla f(x)$ = the **gradient** of $f$
-  * The transpose of the first derivatives of $f$
+  * The transpose of the first derivatives of $f$.
 
 $$
 \nabla f(x) := \begin{bmatrix} \frac{\partial f}{\partial x_1} \\ \vdots \\ \frac{\partial f}{\partial x_n} \end{bmatrix} = \left( \frac{\partial f}{\partial \mathbf{x}} \right)^T \in \mathbb{R}^{n\times 1} $$
 
 * $\nabla^2 f(x)$ = the **Hessian** of $f$
-  * The matrix of second partial derivatives of $f$
-  * The Hessian is a symmetric matrix
+  * The matrix of second partial derivatives of $f$.
+  * The Hessian is a symmetric matrix.
 
 $$ \nabla^2 f(x) := 
 \begin{bmatrix} 
@@ -87,10 +87,10 @@ For $A \in \mathbb{R}^{n \times n}$,
 ### Chain Rule
 **Theorem: Chain Rule**
 
-> When the vector $x$ in turn depens on another vector $t$, the **chain rule** for the univariate function $f:\mathbb{R}^n \rightarrow \mathbb{R}$ can be extended as follows:
+> When the vector $x$ is dependent on another vector $t$, the **chain rule** for the univariate function $f:\mathbb{R}^n \rightarrow \mathbb{R}$ can be extended as follows:
 > 
 >$$ \frac{df({\mathbf{x}(t)})}{dt}
->=\frac{\partial f}{\partial x} \frac{d \mathbf{x}}{d t} = \nabla f(\mathbf{x}(t))^T \frac{d \mathbf{x}}{d t}
+>=\frac{\partial f}{\partial x} \frac{d \mathbf{x}}{d t} = \nabla f(\mathbf{x}(t))^T \frac{d \mathbf{x}}{d t}.
 >$$
 
 * If $z=f(\mathbf{y})$ and $y=g(\mathbf{x})$ where $\mathbf{x}\in \mathbb{R}^n, \mathbf{y}\in \mathbb{R}^m, z\in \mathbb{R}$, then
@@ -98,7 +98,8 @@ For $A \in \mathbb{R}^{n \times n}$,
 $$ 
 \frac{d z}{d x_i}
 = \sum_j \frac{d z}{d y_j}\frac{d y_j}{d x_i}
-= \sum_j \frac{d y_j}{d x_i}\frac{d z}{d y_j}$$
+= \sum_j \frac{d y_j}{d x_i}\frac{d z}{d y_j}
+$$
 
 <p align=center>
 <i>(gradients from all possible paths)</i>
@@ -107,16 +108,17 @@ $$
 * or in vector notation
 
 $$
-\frac{d z}{d \mathbf{x}} = \frac{d z}{d \mathbf{y}} \frac{d \mathbf{y}}{d \mathbf{x}}$$
+\frac{d z}{d \mathbf{x}} = \frac{d z}{d \mathbf{y}} \frac{d \mathbf{y}}{d \mathbf{x}}
+$$
 
 $$
 [1\times n] \quad [1\times m] [m \times n]$$
 
-> Neural Net에서의 BackPropagation 기법의 기초가 된다.
+> It is the basis of the back propagation technique in neural nets.
 {: .prompt-tip}
 
 ### Chain Rule on Level Curve
-* **level curve** : $f(x,y)=c$를 만족하는 $(x,y)$의 집합.
+* **level curve** : the set of $(x,y)$ such that $f(x,y)=c$.
 
 ![](/assets/img/calculus-background-01.png){: width="100%"}
 
@@ -126,29 +128,31 @@ $$
 \frac{df({\mathbf{x}(t)})}{dt} = \nabla f({\mathbf{x}(t)})^T \frac{d\mathbf{x}(t)}{dt} = 0
 $$
 
-> 즉, $\nabla f({\mathbf{x}(t)})$는 level curve에서 수직(orthogonal)이며, $f$가 증가하는 방향(ascent direction)을 가르킨다.
+> In other words, $\nabla f({\mathbf{x}(t)})$ is orthogonal to the level curve and points to the ascent direction in which $f$ increases.
 {: .prompt-info}
 
 ## Directional Derivatives
 * $f$ is continuously differentiable and $p \in \mathbb{R}^n$, **directional derivative** of $f$ in the direction of $p$ is given by
 
 $$
-D(f(x);p) = \lim_{\varepsilon \rightarrow 0}\frac{f(x+\varepsilon p) - f(x)}{\varepsilon} = \nabla f(x)^Tp
+D(f(x);p) = \lim_{\varepsilon \rightarrow 0}\frac{f(x+\varepsilon p) - f(x)}{\varepsilon} = \nabla f(x)^Tp.
 $$
 
 ## Taylor Series Expansion
 * First order
-$$
-f(x+p) \approxeq f(x) + \nabla f(x)^Tp$$
+    $$
+    f(x+p) \approxeq f(x) + \nabla f(x)^Tp
+    $$
 
 * Second order
-$$
-f(x+p) \approxeq f(x) + \nabla f(x)^Tp + \frac{1}{2}p^T\nabla ^2 f(x)p$$
+    $$
+    f(x+p) \approxeq f(x) + \nabla f(x)^Tp + \frac{1}{2}p^T\nabla ^2 f(x)p
+    $$
 
-> 추후 나올 일반적인 search(또는 learning) algorithm에서는 1st order expansion이면 충분하다.
+> In general search (or leaning) algorithms, the first order expansion is sufficient.
 {: .prompt-tip}
 
-Taylor Series Expansion을 통해 간단하게 $\nabla f(x)$가 ascent direction임을 보일 수 있다.
+Through the Taylor series expansion, it can be shown simply that $\nabla f(x)$ is the ascent direction.
 
 $$
 \begin{aligned}
