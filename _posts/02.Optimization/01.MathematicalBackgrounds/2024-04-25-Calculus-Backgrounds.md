@@ -2,7 +2,7 @@
 title: Calculus Backgrounds
 author: rdh
 date: 2024-04-25T04:19:41.575Z
-categories: [02. Optimization, 01. Mathmatical Backgrounds]
+categories: [02. Optimization, 01. Mathematical Backgrounds]
 tags: [vector calculus]
 math: true
 ---
