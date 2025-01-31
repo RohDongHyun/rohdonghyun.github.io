@@ -7,13 +7,13 @@ tags: [optimization]
 math: true
 ---
 
-## Theory of Unconstained Optimization
+## Theory of Unconstrained Optimization
 ### Optimality Conditions
 **Lemma:**
 > Suppose that $f: \mathbb{R}^n \rightarrow \mathbb{R}$ is differentiable at $\bar{x}$. If there is a vector $d \in \mathbb{R}$ such that $\nabla f(\bar{x})^Td < 0$, then $d$ is a ***descent direction*** of $f$ at $\bar{x}$.
 > * _sketch of proof_: $f(x+\lambda d) \approxeq f(x) + \lambda \nabla f(x)^Td \le f(x)$ for $\lambda \ge 0$.
 
-> 추후 나올 Gradient Descent 또는 SGD의 기본 원리이다.
+> This is the basic principle of gradient descent or SGD.
 {: .prompt-tip}
 
 **Theorem: First-Order Necessary Optimality Conditions (FONC)**
@@ -25,7 +25,7 @@ math: true
 > **[Necessary]** If $$x^*$$ is a local minimum, then $$\nabla f(x^*) = 0$$ and $$\nabla^2 f(x^*)$$ is positive semidefinite.\
 > **[Sufficient]** If $$\nabla f(x^*) = 0$$ and $$\nabla^2 f(x^*)$$ is positive definite, then $x^*$ is a strict local minimum.
 
-> $y=f(x)$로 대입하면 쉽게 이해할 수 있다.
+> It is easy to understand by substituting $y=f(x)$.
 {: .prompt-tip}
 
 ### Determining Local Optima
@@ -44,20 +44,20 @@ math: true
 
 ## Line Search Strategy
 ### Line Search
-Line search는 numerical analysis에서 (근사) 해를 찾는 기법으로 복잡한 diffrentiable function에 대해 적절하게 사용될 수 있다.
+**Line search** is a technique in numerical analysis used to find (approximate) solutions and can be appropriately applied to complex differentiable functions.
 
-기본적으로 주어진 점 $x_k$에서 **search direction** $p_k$를 계산하고, 해당 방향으로 positive scalar인 **step length** $\alpha_k$만큼 이동하여 새로운 점 $x_{k+1}$을 찾는다.
+In principle, starting from a given point $x_k$, a **search direction** $p_k$ is computed, and then a new point $x_{k+1}$ is found by moving in that direction by a positive scalar **step length** $\alpha_k$:
 
 $$
-x_{k+1} = x_k + \alpha_k p_k
+x_{k+1} = x_k + \alpha_k p_k.
 $$
 
-따라서, line search method는 적절한 search direction과 step length를 선택하는 것이 중요하다.
+Thus, the line search method is concerned with selecting an appropriate search direction and step length.
 
-> step length는 일반적인 learning algorithm에서 learning rate와 같다.
+> The step length is analogous to the learning rate in typical learning algorithms.
 {: .prompt-info}
 
-$p_k$는 descent direction, _i.e._ $p_k^T\nabla f_k <0$, 으로 정하는 것이 합리적이며 많은 line search methods에서, $p_k$는 다음과 같은 form을 갖는다.
+$p_k$ is chosen as a descent direction, _i.e._ $p_k^T\nabla f_k <0$, and in many line search methods, $p_k$ takes the following form:
 
 $$
 p_k = -B_k^{-1}\nabla f_k
@@ -66,14 +66,11 @@ $$
 where $B_k$ is a symmetric and nonsingular matrix.
 
 ### The Wolfe Conditions
-The Wolfe condition은 inexact line search 방법에서 step length를 결정하기 위한 기준을 제공한다.
-* [Armijo condition : $f(x_k + \alpha_k d_k) \leq f(x_k) + c_1 \alpha_k \nabla f(x_k)^T d_k
-$]  
-새로운 점에서의 함수 값이 현재 점에서의 값보다 충분히 감소해야 한다.
-* [curvature condition : $\nabla f(x_k + \alpha_k d_k)^T d_k \geq c_2 \nabla f(x_k)^T d_k
-$]  
-새로운 점에서의 경사가 원래 경사의 $c_2$배 이상이어야 한다. (너무 멀리 가지 않고, 너무 평평한 구역에 위치하지 않도록 한다.)
-
+The Wolfe condition provide criteria for determining the step length in an inexact line search method.
+* [Armijo condition : $f(x_k + \alpha_k d_k) \leq f(x_k) + c_1 \alpha_k \nabla f(x_k)^T d_k$]  
+The function value at the new point must decrease sufficiently compared to the current point.
+* [Curvature condition : $\nabla f(x_k + \alpha_k d_k)^T d_k \geq c_2 \nabla f(x_k)^T d_k$]  
+The gradient at the new point must be at least $c_2$ times the original gradient. (This ensures the step does not go too far or end up in a very flat region.)
 
 ### Line Search Methods
 * Steepest Descent
@@ -81,7 +78,7 @@ $]
   * The rate-of-convergence is _linear_.
   * _Global convergence_ if $\alpha_k$ satisfies the Wolfe conditions.
   
-> 우리가 흔히 말하는 Gradient Descent 방법이다.
+> This is what we commonly refer to as the gradient descent method.
 {: .prompt-info}
 
 * Quasi-Newton Method
