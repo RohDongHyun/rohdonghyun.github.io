@@ -2,7 +2,7 @@
 title: "Word Representation"
 author: rdh
 date: 2024-10-22 07:38:32.944
-categories: [05. NLP, 01. Introduction to NLP]
+categories: [06. NLP, 01. Introduction to NLP]
 tags: [Word2vec, Skip-gram]
 math: true
 ---
