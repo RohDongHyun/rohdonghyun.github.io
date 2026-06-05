@@ -118,9 +118,9 @@ async function main() {
   console.log("[build] running quartz build…")
   const passThrough = process.argv.slice(2)
   const result = spawnSync(
-    "npx",
-    ["quartz", "build", "-d", BUILD_DIR, ...passThrough],
-    { cwd: root, stdio: "inherit", shell: true },
+    process.execPath,
+    [path.join(root, "quartz", "bootstrap-cli.mjs"), "build", "-d", BUILD_DIR, ...passThrough],
+    { cwd: root, stdio: "inherit" },
   )
   await fs.rm(BUILD_DIR, { recursive: true, force: true })
   if (result.status !== 0) process.exit(result.status ?? 1)
