@@ -46,7 +46,9 @@ jobs:
         run: npx quartz plugin install
 
       - name: Build Quartz
-        run: npx quartz build
+        run: npm run build
+        env:
+          PRIVATE_POSTS_PASSWORD: ${{ secrets.PRIVATE_POSTS_PASSWORD }}
 
       - uses: actions/upload-pages-artifact@v3
         with:

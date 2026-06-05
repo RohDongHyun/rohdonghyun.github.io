@@ -1,4 +1,5 @@
 .DS_Store
+materials/
 node_modules
 public
 prof
@@ -10,3 +11,5 @@ private/
 replit.nix
 .quartz/
 quartz/cli/tui/dist/
+.env
+.claude/settings.local.json
