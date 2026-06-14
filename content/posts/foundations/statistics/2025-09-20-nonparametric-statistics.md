@@ -148,8 +148,8 @@ $$
 $$
 \Delta = 
 \begin{cases} 
-V_{(k+1)}, & mn = 2k + 1일 때 \\
-\frac{V_{(k)} + V_{(k+1)}}{2}, & mn = 2k일 때
+V_{(k+1)}, & mn = 2k + 1 \;\text{일 때} \\
+\frac{V_{(k)} + V_{(k+1)}}{2}, & mn = 2k \;\text{일 때}
 \end{cases}
 $$
 

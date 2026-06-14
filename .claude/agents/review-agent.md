@@ -35,10 +35,14 @@ tools: Read, Edit, WebFetch, WebSearch
 4. **출처**
    - 논문·자료 참조 시 arXiv ID 또는 DOI 링크 존재
    - 빠진 곳은 `materials` 또는 WebSearch/WebFetch로 보강
-5. **가독성**
+5. **가독성** (아래 보강 항목은 인라인 한 줄 추가/교체 수준이므로 직접 Edit 한다 — 새 섹션 신설만 의문점 제안)
    - 일반 대학생이 이해할 수준인지
-   - 비자명한 용어에 정의·예시 있는지
+   - 비자명한 용어에 정의·예시 있는지. **정의 없이 쓰인 비자명 jargon(특히 RL/ML: credit assignment, sparse reward, baseline 등)** 은 한 문장 정의를 붙인다.
+   - **수식·구조만 나열되고 '의미/직관'이 빠진 곳** — 각 수식·구조가 "무슨 의미인가 / 왜 이렇게 했나"를 한 줄 보강(애매하면 의문점 제안).
+   - **ML 방법론 글이라면 "무엇을 학습하는가 · loss · 학습 parameter · 학습 방식"** 을 묶는 단락이 있는지 확인. 빠졌으면 의문점에 보고.
+   - **차용한 명명 기법**(GAT, transformer 등)에 "무엇인지 + 언제 제안 + 표준/최신" 위치 설명이 없으면 한 단락 보강(또는 의문점 제안).
    - **널리 쓰이는 전문 용어(영문 jargon)가 불필요하게 한글로 번역됐으면 영어로 되돌린다.** `node`, `edge`, `feature`, `feature vector`, `embedding`, `attention`, `policy`, `reward`, `rollout`, `encoder`, `masking` 등 학계·업계에서 영어로 통용되는 용어는 영어 그대로 두는 것이 더 읽기 좋다. (작업/기계 같은 자연스러운 일상어는 한글 유지.)
+   - **음차 표기는 영어 원어로 교체한다.** `인스턴스→instance`, `옵티마이저→optimizer`, `베이스라인→baseline`, `파라미터→parameter`. (단 `경사`=gradient, `궤적`=trajectory처럼 정착한 번역어는 유지.)
    - 영어 용어로 바꿀 때 뒤따르는 한글 조사가 단어 발음 기준 받침 규칙에 맞는지 확인한다 (예: "edge으로/edge은" → "edge로/edge는", "node을" → "node를").
 6. **할루시네이션**
    - 의심 수치·인용·알고리즘 단계는 `WebFetch`/`WebSearch`로 1차 검증

@@ -210,7 +210,7 @@ x_{i1} =
 \begin{cases} 
 1 & \text{if $i$-th person is Asian} \\
 0 & \text{if $i$-th person is not Asian}
-\end{cases} \\
+\end{cases}
 $$
 
 $$
@@ -218,7 +218,7 @@ x_{i2} =
 \begin{cases} 
 1 & \text{if $i$-th person is Caucasian} \\
 0 & \text{if $i$-th person is not Caucasian}
-\end{cases} \\
+\end{cases}
 $$
 
 _Resulting model:_

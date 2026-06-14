@@ -25,8 +25,10 @@ GD는 좋은 접근이나, 일반적으로 loss surface는 non-quadratic, highly
 GD에서의 $g_t$는 기본적으로 the law of large number를 이용하여 계산된 cost function의 gradient에 대한 approximation이다.
 
 $$
+\begin{aligned}
 J^*(\theta)=E_{(x,y)\sim P_{data}}[L(y,f(x;\theta))] \\
 \Rightarrow \nabla_\theta J(\theta) = E[\nabla_\theta L] \approx \frac{1}{N} \sum_{i=1}^N \nabla_\theta L(x_i,y_i;\theta)
+\end{aligned}
 $$
 
 이 때, **stochastic gradient descent(SGD)** 은 approximation을 더 적은 수의 sample들(**minibatch**)로 계산하는 방식이다.
