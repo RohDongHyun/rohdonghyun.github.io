@@ -1,111 +1,65 @@
 # Pages CMS 설정 — https://pagescms.org/docs
 #
-# 목적: velog처럼 "웹에서 글 편집 + 이미지 붙여넣기 업로드".
+# 목적: velog처럼 "웹에서 글 편집 + 이미지 붙여넣기 업로드". 저장하면 main에 직접 커밋되고
+#       GitHub Actions가 바로 배포 → 글이 즉시 웹에 노출된다(초안/draft 단계 없음).
+#
 # 사용법:
 #   1) https://app.pagescms.org 에 GitHub 계정으로 로그인
 #   2) Pages CMS GitHub App을 이 repo(rohdonghyun.github.io)에 설치/승인
-#   3) 대시보드에서 repo를 열면 아래 컬렉션(초안/발행글)이 보인다
-#   4) 글을 저장하면 Pages CMS가 해당 .md 파일을 main 브랜치에 직접 커밋 → GitHub Actions가 자동 배포
+#   3) 대시보드에서 repo를 열면 카테고리별 컬렉션이 보인다
+#   4) 글을 저장 → 자동 커밋 → 자동 배포
 #
-# 주의(중요):
-#   - 본문(body)은 rich-text(WYSIWYG, TipTap) 에디터다. 이미지 붙여넣기는 여기서 동작한다.
-#   - 단, KaTeX 수식($...$ / $$...$$)과 위키링크([[...]])는 WYSIWYG가 변형/이스케이프할 수 있다.
-#     수식·위키링크가 많은 글은 저장 후 결과 .md를 반드시 확인할 것. 깨지면 body를 raw markdown
-#     필드(type: code)로 바꾸는 대안이 있다(이미지 붙여넣기는 포기, 미디어 매니저로 수동 삽입).
+# 파일명(슬러그): 글 생성 시 "파일명" 입력란이 날짜+제목 기반 기본값으로 채워진다.
+#   영문 슬러그 컨벤션을 지키려면 이 기본값을 영문 kebab-case로 고치면 된다
+#   (예: 2026-06-14-llm-agent-trends.md). 별도 슬러그 필드는 없앴다.
+#
+# 주의(중요): 본문(body)은 rich-text(WYSIWYG, TipTap). 이미지 붙여넣기는 여기서 동작하지만,
+#   KaTeX 수식($...$ / $$...$$)과 위키링크([[...]])를 변형/이스케이프할 수 있다. 수식·링크가
+#   많은 글은 저장 후 결과 .md를 확인할 것. 깨지면 body를 type: code(raw markdown)로 바꾸는
+#   대안이 있다(이미지 붙여넣기는 포기, 미디어 매니저로 수동 삽입).
 
 media:
   input: content/images   # 업로드된 이미지가 저장되는 repo 경로
   output: /images         # 본문에 박히는 공개 URL 경로 (Quartz가 content/images/* 를 /images/* 로 서빙)
 
 content:
-  # ─────────────── 초안 (drafts/, 빌드 제외) ───────────────
-  - name: drafts-insights
-    label: "초안 · insights"
-    type: collection
-    path: content/drafts/insights
-    format: yaml-frontmatter
-    filename: "{year}-{month}-{day}-{fields.slug}.md"
-    exclude: ["index.md"]
-    view: { primary: title, sort: date, order: desc }
-    fields: &draftFields
-      - { name: title, label: 제목, type: string, required: true }
-      - name: slug
-        label: 슬러그 (영문 파일명)
-        type: string
-        required: true
-        description: "URL·파일명에 쓰이는 영문 소문자-하이픈. 예: llm-agent-horizons"
-      - { name: date, label: 날짜, type: date, options: { format: "yyyy-MM-dd" } }
-      - name: tags
-        label: 태그
-        type: select
-        options:
-          multiple: true
-          values: ["AI Scheduling", "AI Agent"]
-      - { name: private, label: 비공개(암호화), type: boolean, default: false }
-      - { name: body, label: 본문, type: rich-text }
-
-  - name: drafts-foundations
-    label: "초안 · foundations"
-    type: collection
-    path: content/drafts/foundations
-    format: yaml-frontmatter
-    filename: "{year}-{month}-{day}-{fields.slug}.md"
-    exclude: ["index.md"]
-    view: { primary: title, sort: date, order: desc }
-    fields: *draftFields
-
-  - name: drafts-papers
-    label: "초안 · papers"
-    type: collection
-    path: content/drafts/papers
-    format: yaml-frontmatter
-    filename: "{year}-{month}-{day}-{fields.slug}.md"
-    exclude: ["index.md"]
-    view: { primary: title, sort: date, order: desc }
-    fields: *draftFields
-
-  # ─────────────── 발행글 (posts/, 사이트 노출) ───────────────
   - name: posts-insights
-    label: "발행 · insights"
+    label: "insights (세미나·기사·신지식)"
     type: collection
     path: content/posts/insights
     format: yaml-frontmatter
-    filename: "{year}-{month}-{day}-{fields.slug}.md"
+    filename: { template: "{year}-{month}-{day}-{primary}.md", field: create }
     exclude: ["index.md"]
     view: { primary: title, sort: date, order: desc }
     fields: &postFields
       - { name: title, label: 제목, type: string, required: true }
-      - name: slug
-        label: 슬러그 (영문 파일명)
-        type: string
-        required: true
-        description: "URL·파일명에 쓰이는 영문 소문자-하이픈. 예: llm-agent-horizons"
       - { name: date, label: 날짜, type: date, required: true, options: { format: "yyyy-MM-dd" } }
       - name: tags
-        label: 태그
+        label: 태그 (자유 입력, 1개 이상)
         type: select
         options:
+          creatable: true        # 새 태그 자유 생성 허용
           multiple: true
-          values: ["AI Scheduling", "AI Agent"]
+          values: ["AI Scheduling", "AI Agent"]   # 자주 쓰는 태그 제안(강제 아님)
       - { name: private, label: 비공개(암호화), type: boolean, default: false }
       - { name: body, label: 본문, type: rich-text }
 
   - name: posts-foundations
-    label: "발행 · foundations"
+    label: "foundations (학술 기초 지식)"
     type: collection
     path: content/posts/foundations
     format: yaml-frontmatter
-    filename: "{year}-{month}-{day}-{fields.slug}.md"
+    filename: { template: "{year}-{month}-{day}-{primary}.md", field: create }
     exclude: ["index.md"]
     view: { primary: title, sort: date, order: desc }
     fields: *postFields
 
   - name: posts-papers
-    label: "발행 · papers"
+    label: "papers (논문 요약)"
     type: collection
     path: content/posts/papers
     format: yaml-frontmatter
-    filename: "{year}-{month}-{day}-{fields.slug}.md"
+    filename: { template: "{year}-{month}-{day}-{primary}.md", field: create }
     exclude: ["index.md"]
     view: { primary: title, sort: date, order: desc }
     fields: *postFields

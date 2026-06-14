@@ -41,10 +41,9 @@ async function copyDir(src, dst) {
 const FRONTMATTER_RE = /^---\r?\n([\s\S]*?)\r?\n---\r?\n?/
 
 // Controlled vocabulary — keep in sync with CLAUDE.md.
-// Categories are the folder slugs directly under content/posts/.
+// Categories are the folder slugs directly under content/posts/ and stay restricted.
 const CATEGORIES = ["foundations", "insights", "papers"]
-// Topic tags allowed in frontmatter.
-const ALLOWED_TAGS = ["AI Scheduling", "AI Agent"]
+// Tags are free-form: any value is allowed, but each published post needs at least one.
 
 // Fail the build if any published post violates the category/tag vocabulary.
 async function validateTaxonomy(dir) {
@@ -84,12 +83,7 @@ async function validateTaxonomy(dir) {
         }
         const tags = Array.isArray(fm.tags) ? fm.tags : fm.tags ? [fm.tags] : []
         if (tags.length === 0) {
-          errors.push(`'posts/${rel}' has no tags (need at least 1 of: ${ALLOWED_TAGS.join(", ")}).`)
-        }
-        for (const t of tags) {
-          if (!ALLOWED_TAGS.includes(t)) {
-            errors.push(`'posts/${rel}' uses unknown tag '${t}' (allowed: ${ALLOWED_TAGS.join(", ")}).`)
-          }
+          errors.push(`'posts/${rel}' has no tags (need at least 1; tag values are free-form).`)
         }
       }
     }
