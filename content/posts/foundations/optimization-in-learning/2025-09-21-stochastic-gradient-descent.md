@@ -29,7 +29,7 @@ J^*(\theta)=E_{(x,y)\sim P_{data}}[L(y,f(x;\theta))] \\
 \Rightarrow \nabla_\theta J(\theta) = E[\nabla_\theta L] \approx \frac{1}{N} \sum_{i=1}^N \nabla_\theta L(x_i,y_i;\theta)
 $$
 
-이 때, **stochastic gradient descent(SGD)**은 approximation을 더 적은 수의 sample들(**minibatch**)로 계산하는 방식이다.
+이 때, **stochastic gradient descent(SGD)** 은 approximation을 더 적은 수의 sample들(**minibatch**)로 계산하는 방식이다.
 
 $$
 \theta^{(t+1)} = \theta^{(t)} - \frac{\eta_t}{|B_j|} \sum_{i \in B_j} \nabla_{\theta} \mathcal{L}_i, \quad B_j = \text{sample}(D)

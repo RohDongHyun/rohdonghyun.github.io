@@ -5,7 +5,7 @@ tags:
   - Introduction to DL
 ---
 ## Autoencoder
-**Autoencoder (AE)**란 input과 output이 동일하도록 학습하는 neural network를 의미한다. 언뜻보면 아무런 의미가 없는 NN으로 보이지만, 주로 데이터의 dimension reduction 및 feature extraction을 위해 사용되는 모델이다. 
+**Autoencoder (AE)** 란 input과 output이 동일하도록 학습하는 neural network를 의미한다. 언뜻보면 아무런 의미가 없는 NN으로 보이지만, 주로 데이터의 dimension reduction 및 feature extraction을 위해 사용되는 모델이다. 
 
 기본적인 구조는 input 데이터를 encoding하는 **encoder**와 encoding된 vector를 다시 decoding하는 **decoder**로 나뉜다. 이 때, encoding을 거친 hidden vector를 **code** 또는 **feature**라고 한다. 이러한 code들의 space를 latent space라고 한다.
 

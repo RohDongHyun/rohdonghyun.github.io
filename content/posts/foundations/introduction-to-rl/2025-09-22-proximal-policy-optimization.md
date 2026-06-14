@@ -4,7 +4,7 @@ date: 2025-09-22
 tags:
   - Introduction to RL
 ---
-최근 가장 많이 사용되는 policy-based RL 알고리즘으로는 **proximal policy optimization (PPO)**이 있다. PPO는 **trust region policy optimization (TRPO)** 알고리즘으로부터 유도되었기에 PPO를 설명하기 전 우선 TRPO에 대해서 설명한다.
+최근 가장 많이 사용되는 policy-based RL 알고리즘으로는 **proximal policy optimization (PPO)** 이 있다. PPO는 **trust region policy optimization (TRPO)** 알고리즘으로부터 유도되었기에 PPO를 설명하기 전 우선 TRPO에 대해서 설명한다.
 
 ## Trust Region Policy Optimization (TRPO)
 ### Line Search vs. Trust Region

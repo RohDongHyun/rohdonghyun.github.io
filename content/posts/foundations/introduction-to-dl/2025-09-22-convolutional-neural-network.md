@@ -4,7 +4,7 @@ date: 2025-09-22
 tags:
   - Introduction to DL
 ---
-Image 분류 및 처리 등에 있어서 탁월한 성능을 보인 **convolutional neural network (CNN)**에 대해서 정리하고자 한다. CNN은 FNN에서 feedforward 과정에서 진행했던 matrix multiplication 연산을 **convolution** 연산으로 바꾼 것이 가장 큰 핵심으로, 기존의 모델이 image의 spatial structure를 잘 고려하지 못했던 점을 개선하였다.
+Image 분류 및 처리 등에 있어서 탁월한 성능을 보인 **convolutional neural network (CNN)** 에 대해서 정리하고자 한다. CNN은 FNN에서 feedforward 과정에서 진행했던 matrix multiplication 연산을 **convolution** 연산으로 바꾼 것이 가장 큰 핵심으로, 기존의 모델이 image의 spatial structure를 잘 고려하지 못했던 점을 개선하였다.
 
 > 2D image에서의 convolution이 무엇인지, 어떤 성질을 갖는지는 이전 post를 참조하길 바란다: [2D convolution](https://velog.io/@rdh7014/Spatial-Filters/)
 

@@ -6,9 +6,9 @@ tags:
 ---
 ## Deep Learning as a Machine Learning
 
-**Machine Learning (ML)**은 주어진 x (predictor)와 y (response)에 대해 function f (즉, y=f(x))를 data로부터 배우는 것을 말한다. 이는 전통적인 programming 방식인 주어진 x와 f()로부터 y를 계산하는 것과 다르다.
+**Machine Learning (ML)** 은 주어진 x (predictor)와 y (response)에 대해 function f (즉, y=f(x))를 data로부터 배우는 것을 말한다. 이는 전통적인 programming 방식인 주어진 x와 f()로부터 y를 계산하는 것과 다르다.
 
-**Deep Learning (DL)**은 이러한 f (특히 non-linear function에 대해)를 배우는 것에 있어서 굉장히 좋은 성능을 보여준다. 특히, data size가 크고 model이 deep해질수록 (layer 수와 parameter 수가 커질수록) DL이 일반적인 ML보다 좋은 성능을 보여준다.
+**Deep Learning (DL)** 은 이러한 f (특히 non-linear function에 대해)를 배우는 것에 있어서 굉장히 좋은 성능을 보여준다. 특히, data size가 크고 model이 deep해질수록 (layer 수와 parameter 수가 커질수록) DL이 일반적인 ML보다 좋은 성능을 보여준다.
 
 ![](/images/5e874c56-9cb3-4a25-9098-f4d2b19a9d54-image.png)
 
@@ -25,7 +25,7 @@ DL은 다음과 같은 process를 갖는다.
 ![](/images/0141f2f7-7e5a-45ef-9389-c3b2bc530e13-image.png)
 
 ## Overview of Deep Learning
-DL은 brain, 특히 neuron의 동작 방식을 모사한 concept을 가진다. 그렇기에 대부분의 경우 DL model을 **Neural Network (NN)**이라고도 말한다. Neuron 하나의 동작 방식은 매우 간단하나, 이를 유기적으로 결합한 NN은 복잡한 representation을 표현한다.
+DL은 brain, 특히 neuron의 동작 방식을 모사한 concept을 가진다. 그렇기에 대부분의 경우 DL model을 **Neural Network (NN)** 이라고도 말한다. Neuron 하나의 동작 방식은 매우 간단하나, 이를 유기적으로 결합한 NN은 복잡한 representation을 표현한다.
 
 ![](/images/92844882-64ce-43c0-b3ae-f92aa2e26339-image.png)
 

@@ -14,16 +14,16 @@ Bayesian inference를 요약하면 다음과 같다.
 
 이 때, likelihood가 복잡하거나, 데이터가 아주 큰 경우에는 사후확률을 계산하는 것이 쉽지 않다.
 
-이에 따라, 여러 **근사 베이지안 방법 (approximate Bayesian method)**들이 제안되었다.
+이에 따라, 여러 **근사 베이지안 방법 (approximate Bayesian method)** 들이 제안되었다.
 
 ## Markov Chain Monte Carlo (MCMC)
-**Markov Chain Monte Carlo (MCMC)**은 근사 베이지안 방법의 일종으로, 다음과 같이 진행된다.
+**Markov Chain Monte Carlo (MCMC)** 은 근사 베이지안 방법의 일종으로, 다음과 같이 진행된다.
 
 1. 사후분포를 이론적으로 구하는 대신 우리가 원하는 사후분포를 점근분포로 갖는 Markov chain을 만든다.
 2. 해당 chain을 충분히 진행히 진행하여 어느정도 수렴이 되면, 이로부터 sample을 추출한다.
 3. 이 sample을 사후분포의 sample로 볼 수 있으므로 이를 이용하여 추론을 진행한다.
 
-사후분포의 형태에 따라, **깁스 샘플링 (Gibbs sampling)** 또는 **메트로폴리스-헤이스팅 샘플링 (Metropolis-Hastings sampling)**을 사용한다.
+사후분포의 형태에 따라, **깁스 샘플링 (Gibbs sampling)** 또는 **메트로폴리스-헤이스팅 샘플링 (Metropolis-Hastings sampling)** 을 사용한다.
 
 > MCMC 방법은 복잡한 모형인 경우 또는 데이터가 큰 경우 계산속도가 느리다.
 
@@ -38,7 +38,7 @@ $$
 
 **Markov chain**이란 여러 가능한 상태(state) 사이에서, 어느 한 상태로부터 다른 상태로의 전이(transition)를 겪는 수학적 시스템을 뜻하며, Markov property를 갖는 확률 변수 $X_1, X_2, \cdots$들의 수열로써 표현된다.
 
-Markove chain에서 각 상태에서 다음 상태로 넘어갈 수 있는 확률를 **전이확률(transition probability)**라고 하며, 전이확률을 matrix 형태로 나타낸 전이행렬(transition matrix) 또는 전이확률에 대한 함수인 전이함수를 이용하여 현재의 상태로부터 그 다음, 다다음 상태의 확률분포를 계속하여 계산하는 것이 가능하다.
+Markove chain에서 각 상태에서 다음 상태로 넘어갈 수 있는 확률를 **전이확률(transition probability)** 라고 하며, 전이확률을 matrix 형태로 나타낸 전이행렬(transition matrix) 또는 전이확률에 대한 함수인 전이함수를 이용하여 현재의 상태로부터 그 다음, 다다음 상태의 확률분포를 계속하여 계산하는 것이 가능하다.
 
 이러한 과정을 반복하다 보면 특정 조건 하에서 현재 상태 (state)의 확률분포가 그 전 상태의 확률분포와 같아지는 때가 온다. 이렇게 평형상태에 도달한 확률분포를 **정상분포(stationary distribution)** 또는 **점근분포(limiting distribution)** 라고 하며, 이 분포는 초기값에 의존하지 않는다.
 

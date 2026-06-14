@@ -5,7 +5,7 @@ tags:
   - Introduction to DL
 ---
 ## FeedForward Neural Networks (FNN)
-**Feedforward neural network (FNN)**는 가장 핵심적이고 기본적인 deep learning model이다. **Deep feedforward network** 또는 **multi-layer perceptrons (MLP)**로도 불린다.
+**Feedforward neural network (FNN)** 는 가장 핵심적이고 기본적인 deep learning model이다. **Deep feedforward network** 또는 **multi-layer perceptrons (MLP)** 로도 불린다.
 
 FFN도 일종의 input $x$를 넣으면 output $y$가 나오는 함수 $f$에 대한 예측 model $f^\ast$ 이고, data로부터 model의 parameter를 학습한다.
 

@@ -53,7 +53,7 @@ Skip connections through time이란 여러 time step들 사이에 direct connect
 #### Gated RNNs
 Gated RNN은 gate 구조를 추가하여 정보의 흐름을 선택적으로 조절할 수 있도록 만든 RNN 모델이다. 이는 과거 정보 중 불필요한 정보를 제거하고, 중요한 정보 만을 유지할 수 있도록 하여 vanishing/exploding gradient 문제를 해결하고 long-term dependency를 효과적으로 학습할 수 있게한다. 
 
-Gated RNN의 대표적인 모델로는 **long short-term memory (LSTM)**과 **gated recurrent unit (GRU)**이 있다.
+Gated RNN의 대표적인 모델로는 **long short-term memory (LSTM)** 과 **gated recurrent unit (GRU)** 이 있다.
 
 ## LSTM
 LSTM은 RNN에서의 hidden state를 조금 더 복잡한 구조를 갖는 cell로 대체하였다.

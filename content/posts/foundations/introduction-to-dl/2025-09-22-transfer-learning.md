@@ -6,7 +6,7 @@ tags:
 ---
 ## Transfer Learning
 
-Deep learning 분야가 크게 성장할 수 있었던 이유 중 하나는 바로 **transfer learning (전이 학습)**이다. 이는 우리가 풀고자하는 새로운 문제를 해결하고자 할 때, 새로운 모델을 만들고 이를 처음부터 학습하는 것이 아니라 기존에 학습된 모델을 활용하는 방식을 말한다. 이 때, 기존에 학습된 모델에서 풀려고 했던 문제를 **upstream task** 또는 source task라고 하며, 새롭게 풀고자하는 문제를 **downstream task** 또는 target task라고 한다.
+Deep learning 분야가 크게 성장할 수 있었던 이유 중 하나는 바로 **transfer learning (전이 학습)** 이다. 이는 우리가 풀고자하는 새로운 문제를 해결하고자 할 때, 새로운 모델을 만들고 이를 처음부터 학습하는 것이 아니라 기존에 학습된 모델을 활용하는 방식을 말한다. 이 때, 기존에 학습된 모델에서 풀려고 했던 문제를 **upstream task** 또는 source task라고 하며, 새롭게 풀고자하는 문제를 **downstream task** 또는 target task라고 한다.
 
 > 요즘에는 transfer learning을 이용하여 모델을 구성하고 학습을 진행하는 것이 더 일반적이다. 따라서, 풀고자하는 문제가 있는 경우 모델을 새로 구성하기 전에 어떤 식으로 transfer learning이 가능할 지를 확인해보는 것이 더 좋다.
 

@@ -14,12 +14,12 @@ Bayesian inference를 요약하면 다음과 같다.
 
 이 때, likelihood가 복잡하거나, 데이터가 아주 큰 경우에는 사후확률을 계산하는 것이 쉽지 않다.
 
-이에 따라, 여러 **근사 베이지안 방법 (approximate Bayesian method)**들이 제안되었다.
+이에 따라, 여러 **근사 베이지안 방법 (approximate Bayesian method)** 들이 제안되었다.
 
 * 참고: [Markov Chain Monte-Carlo (MCMC)](https://velog.io/@rdh7014/Markov-Chain-Monte-Carlo)
 
 ## Variational Inference
-**Variational inference (변분 추론)**은 또다른 근사 베이지안 방법의 일종이다. 이는 사후분포에 가까우면서 sampling이 상대적으로 쉬운 분포를 찾아, 이를 이용해 추론을 진행하는 것이다. 일반적으로 사후분포의 후보가 되는 분포에 대한 class를 정해두고, 이 가운데서 분포를 정하게 된다.
+**Variational inference (변분 추론)** 은 또다른 근사 베이지안 방법의 일종이다. 이는 사후분포에 가까우면서 sampling이 상대적으로 쉬운 분포를 찾아, 이를 이용해 추론을 진행하는 것이다. 일반적으로 사후분포의 후보가 되는 분포에 대한 class를 정해두고, 이 가운데서 분포를 정하게 된다.
 
 > 일반적으로 variational inference가 MCMC보다 속도가 빠르다.
 
@@ -35,7 +35,7 @@ Variational inference의 과정을 설명하기 위해 다음을 가정하자.
 ### Finding the Approximate Distribution
 우선 $p(\mathbf{Z} \mid \mathbf{X}, \alpha)$와 가까운 $q(\mathbf{Z} \mid \nu)$를 찾아내자. 이는 $q(\mathbf{Z} \mid \nu)$가 $p(\mathbf{Z} \mid \mathbf{X}, \alpha)$에 가장 가깝도록 하는 $\nu$를 찾는 문제로 볼 수 있다.
 
-여기서 $\nu$는 **variational parameter (변분 모수)**라고 부른다. 
+여기서 $\nu$는 **variational parameter (변분 모수)** 라고 부른다. 
 
 그렇다면, 두 분포가 가깝다는 기준, 즉 분포 사이의 "가까움"을 나타내는 기준은 어떻게 정의할 수 있을까? 이에 대해서는 다양한 기준이 존재하지만, 가장 널리 쓰이는 기준으로는 **Kullback–Leibler divergence**, 또는 **KL divergence**가 있다.
 
@@ -66,7 +66,7 @@ $$
 q^\ast = \arg\min_{q\in Q} KL\left(q(\mathbf{Z}) \parallel p(\mathbf{Z} \mid \mathbf{X})\right)
 $$
 
-$KL(q(\mathbf{Z}) \parallel p(\mathbf{Z} \mid \mathbf{X}))$을 직접 계산하기 위해서는 알지 못하는 분포 $p$에 대한 log 값에 대한 계산이 필요하다. 이에 대한 대체로 **evidence lower bound (ELBO)**라는 값을 이용한다.
+$KL(q(\mathbf{Z}) \parallel p(\mathbf{Z} \mid \mathbf{X}))$을 직접 계산하기 위해서는 알지 못하는 분포 $p$에 대한 log 값에 대한 계산이 필요하다. 이에 대한 대체로 **evidence lower bound (ELBO)** 라는 값을 이용한다.
 
 #### Evidence Lower Bound (ELBO)
 

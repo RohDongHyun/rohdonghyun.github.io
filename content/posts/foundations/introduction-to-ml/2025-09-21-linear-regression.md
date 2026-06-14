@@ -97,7 +97,7 @@ $$
 
 여기서 $\sigma^2 = Var(\epsilon)$이다.
 
-이 때, $\sigma$에 대한 estimator로는 **Residual Standard Error (RSE)**를 사용한다.
+이 때, $\sigma$에 대한 estimator로는 **Residual Standard Error (RSE)** 를 사용한다.
 
 $$
 \text{RSE} = \sqrt{\frac{1}{n - 2} \text{RSS}} = \sqrt{\frac{1}{n - 2} \sum_{i=1}^n (y_i - \hat{y}_i)^2},

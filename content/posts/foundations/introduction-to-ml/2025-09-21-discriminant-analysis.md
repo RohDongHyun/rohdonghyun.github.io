@@ -57,7 +57,7 @@ $$
 
 이 때, $\delta_k(x)$는 $x$의 linear function이 된다.
 
-위와 같은 방식의 discriminant analysis를 **linear discriminant analysis (LDA)**라고 말한다.
+위와 같은 방식의 discriminant analysis를 **linear discriminant analysis (LDA)** 라고 말한다.
 
 ![](/images/cbfe2b65-38a5-4c3a-a2f6-a99bd24320ab-image.png)
 
@@ -75,7 +75,7 @@ $$
 $f_k(x)$의 형태에 따라 다양한 discriminant analysis 방법이 존재한다.
 
 ### Quadratic Discriminant Analysis (QDA)
-만약, 각 class 별로 Gaussian이지만 variance가 다 다른 경우, **quadratic discriminant analysis (QDA)**이 된다.
+만약, 각 class 별로 Gaussian이지만 variance가 다 다른 경우, **quadratic discriminant analysis (QDA)** 이 된다.
 
 ![](/images/e26cd3c3-9f02-433c-9376-0de2bf7012b2-image.png)
 

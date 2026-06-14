@@ -66,7 +66,7 @@ Data의 주요 특성은 다음과 같은 것들이 있다.
 ### Basic Statistical Descriptions of Data
 Data의 statistics를 파악하는 것은 data 자체의 이해도를 높이는 것에도 목적이 있지만, missing/noisy data 처리 및 outliers 처리 등의 preprocessing에도 도움이 된다.
 
-Central tendency에 관한 statistics으로는 **mean (평균)**, **median (중앙값)**, **mode (최빈값)**이 있다.
+Central tendency에 관한 statistics으로는 **mean (평균)**, **median (중앙값)**, **mode (최빈값)** 이 있다.
 * Symmetric data: mean = median = mode
 * Skewed data의 경우,
   * positively skewed: mode < median < mean

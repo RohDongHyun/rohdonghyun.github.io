@@ -4,7 +4,7 @@ date: 2025-09-21
 tags:
   - Introduction to ML
 ---
-**Support Vector Machines(SVMs)**는 deep learning model의 큰 발전이 있기 전에는 boosting과 함께 가장 널리 사용되던 machine learning model이다.
+**Support Vector Machines(SVMs)** 는 deep learning model의 큰 발전이 있기 전에는 boosting과 함께 가장 널리 사용되던 machine learning model이다.
 
 ## Seperating Hyperplane
 Classification 문제에 대해서, SVM은 기본적으로 class를 가장 잘 분리하는 plane, 즉 **seperating hyperplane**을 찾는 것을 목적으로 한다.

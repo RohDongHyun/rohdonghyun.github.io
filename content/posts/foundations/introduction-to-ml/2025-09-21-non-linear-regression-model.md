@@ -130,7 +130,7 @@ $$
 > High-dimension data에 대한 local regression은 the curse of dimensionality에 의해 성능이 크게 떨어진다.
 
 ## Generalized Additive Models
-**Generalized additive models (GAMs)**은 여러개의 non-linear function들을 linear model처럼 연결하는 방법이다. 각 coefficient의 효과를 non-linear function으로 나타낼 수 있다. ($\beta_j$는 각 $f_j$에 포함된다.)
+**Generalized additive models (GAMs)** 은 여러개의 non-linear function들을 linear model처럼 연결하는 방법이다. 각 coefficient의 효과를 non-linear function으로 나타낼 수 있다. ($\beta_j$는 각 $f_j$에 포함된다.)
 
 $$
 y_i = \beta_0 + f_1(x_{i1}) + f_2(x_{i2}) + \cdots + f_p(x_{ip}) + \varepsilon_i

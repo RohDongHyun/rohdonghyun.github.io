@@ -4,7 +4,7 @@ date: 2025-09-22
 tags:
   - Introduction to DL
 ---
-**Recurrent neural network (RNN)**은 sequential data를 처리하는 것에 특화된 neural network로, 자연어 처리(natural language processing, NLP), 기계 번역(machine translation) 등 다양한 분야에서 사용된다.
+**Recurrent neural network (RNN)** 은 sequential data를 처리하는 것에 특화된 neural network로, 자연어 처리(natural language processing, NLP), 기계 번역(machine translation) 등 다양한 분야에서 사용된다.
 
 기존의 FNN은 고정된 크기의 input과 output을 다루는 데 적합하지만, sequential data 또는 time-series data의 경우 data의 크기를 한정하는 것은 큰 제약이 된다. 또한, FNN의 경우 data가 independent하다는 가정이 있으나, sequential data는 data 사이의 time-dependency가 있으므로 과거 시점의 data를 고려할 수 있어야 한다.
 
@@ -70,7 +70,7 @@ L(\{x_1,\dots,x_T \}, \{y_1,\dots,y_T \}) &= \sum_t L_t \\
 \end{aligned}
 $$
 
-이렇게 구한 loss 값을 이용해 각 parameter를 update하기 위해서는 **back propagation through time (BPTT)**를 이용한다.
+이렇게 구한 loss 값을 이용해 각 parameter를 update하기 위해서는 **back propagation through time (BPTT)** 를 이용한다.
 
 BPTT는 기본적으로 backprop과 동일하게 진행되나, 특정 time step에서의 gradient가 이전 step에서의 값에 의해서도 영향을 받기 때문에 각 time step에서의 parameter gradient를 모두 계산해야 한다.
 

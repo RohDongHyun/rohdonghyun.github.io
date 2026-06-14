@@ -5,9 +5,9 @@ tags:
   - Statistics
 ---
 ## Monte Carlo Method
-**몬테카를로 방법 (Monte Carlo Method)**이란, 어떤 값 (또는 함수값)을 근사적(approximation)으로 계산하는데 있어 확률분포로부터 생성한 무작위 샘플(표본)들을 이용하는 방법이다.
+**몬테카를로 방법 (Monte Carlo Method)** 이란, 어떤 값 (또는 함수값)을 근사적(approximation)으로 계산하는데 있어 확률분포로부터 생성한 무작위 샘플(표본)들을 이용하는 방법이다.
 
-이를 위해 **큰 수의 법칙 (Law of large number, LLN)**를 이용한다.
+이를 위해 **큰 수의 법칙 (Law of large number, LLN)** 를 이용한다.
 
 * LLN: $X_1, \cdots, X_n \overset{i.i.d.}{\sim} f$에 대하여
 

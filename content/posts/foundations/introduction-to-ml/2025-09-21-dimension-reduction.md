@@ -28,7 +28,7 @@ $$
 이러한 dimension reduction은 다양한 방법이 있으며, 여기서는 널리 사용되는 PCA, PLS, 그리고 MDS에 대해서 소개한다.
 
 ## Principal Components Analysis (PCA)
-**Principal components analysis (PCA)**는 data의 variance를 가장 잘 표현하는 projection axis를 찾아내어 data를 변환하는 방법을 말한다. 그러한 axis를 principal component (PC)라고 말한다.
+**Principal components analysis (PCA)** 는 data의 variance를 가장 잘 표현하는 projection axis를 찾아내어 data를 변환하는 방법을 말한다. 그러한 axis를 principal component (PC)라고 말한다.
 
 > PCA는 target의 label을 필요로 하지 않는다. 따라서, unsupervised learning의 일종이다.
 
@@ -63,7 +63,7 @@ $$
 ![](/images/25fce425-bded-444b-bc7b-e7364f83889e-image.png)
 
 ### Proportion Variance Explained
-각 PC가 얼마나 data를 잘 설명하는지에 대해서는 전체 data의 variance에 대한 각 PC의 variance의 비율, 즉 **the proportion of variance explained (PVE)**를 보면 알 수 있다.
+각 PC가 얼마나 data를 잘 설명하는지에 대해서는 전체 data의 variance에 대한 각 PC의 variance의 비율, 즉 **the proportion of variance explained (PVE)** 를 보면 알 수 있다.
 
 Data set(with zero mean)의 total variance는 다음과 같이 쓸 수 있다.
 
@@ -94,7 +94,7 @@ PCA는 기본적으로 unsupervised 방법으로, target에 대한 labeling data
 
 따라서, PCA를 통한 dimension redction은 feature들을 잘 표현하는 방법으로는 볼 수 있지만 target을 예측하는 관점에서 좋은 feature인지에 대해서는 question이 존재한다.
 
-**Partial Least Sqaures (PLS)**는 PCA의 이런 target과 feature들을 동시에 잘 설명하는 feature를 추출하는 방법으로, 기본적으로 target과 feature간의 covariance를 최대화하는 projection axis를 찾는다.
+**Partial Least Sqaures (PLS)** 는 PCA의 이런 target과 feature들을 동시에 잘 설명하는 feature를 추출하는 방법으로, 기본적으로 target과 feature간의 covariance를 최대화하는 projection axis를 찾는다.
 
 PLS는 다음과 같은 방법으로 $Z_1, Z_2, \dots, Z_M$를 얻는다.
 
@@ -105,7 +105,7 @@ PLS는 다음과 같은 방법으로 $Z_1, Z_2, \dots, Z_M$를 얻는다.
 > PLS는 accuracy 측면에서 특히 장점을 가지고 있다. 하지만, overfitting 가능성이 매우 높다는 단점을 가지고 있기에 사용 시에 주의해야 한다.
 
 ## Multi-Dimensional Scaling (MDS)
-**Multi-dimensional Scaling (MDS)**는 data 간의 distance 또는 dissimilarity를 보존하면서 보다 낮은 dimension space로 data를 mapping한다. MDS는 PCA, PLS와는 다르게 non-linear mapping이 된다.
+**Multi-dimensional Scaling (MDS)** 는 data 간의 distance 또는 dissimilarity를 보존하면서 보다 낮은 dimension space로 data를 mapping한다. MDS는 PCA, PLS와는 다르게 non-linear mapping이 된다.
 
 > MDS는 dimension reduction을 통해 data point들 간의 relationship을 쉽게 파악하는 것이 주 목적이며, distance를 보존하는 mapping이라는 특성 덕분에 clustering 시에 PCA 등보다 더 좋은 성능을 보여주는 경우가 많다.
 
