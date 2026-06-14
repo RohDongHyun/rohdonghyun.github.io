@@ -5,7 +5,7 @@ configuration:
   enableSPA: true
   enablePopovers: true
   analytics: null
-  locale: ko-KR
+  locale: en-US
   baseUrl: rohdonghyun.github.io
   ignorePatterns:
     - private

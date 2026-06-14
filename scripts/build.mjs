@@ -40,6 +40,66 @@ async function copyDir(src, dst) {
 
 const FRONTMATTER_RE = /^---\r?\n([\s\S]*?)\r?\n---\r?\n?/
 
+// Controlled vocabulary — keep in sync with CLAUDE.md.
+// Categories are the folder slugs directly under content/posts/.
+const CATEGORIES = ["foundations", "insights", "papers"]
+// Topic tags allowed in frontmatter.
+const ALLOWED_TAGS = ["AI Scheduling", "AI Agent"]
+
+// Fail the build if any published post violates the category/tag vocabulary.
+async function validateTaxonomy(dir) {
+  const postsDir = path.join(dir, "posts")
+  const errors = []
+  async function walk(d, segments) {
+    let entries
+    try {
+      entries = await fs.readdir(d, { withFileTypes: true })
+    } catch (e) {
+      if (e.code === "ENOENT") return
+      throw e
+    }
+    for (const entry of entries) {
+      const p = path.join(d, entry.name)
+      if (entry.isDirectory()) {
+        await walk(p, [...segments, entry.name])
+      } else if (entry.isFile() && entry.name.endsWith(".md")) {
+        if (entry.name === "index.md") continue // folder landing page
+        const rel = path.relative(postsDir, p).replace(/\\/g, "/")
+        const category = segments[0]
+        if (!category || !CATEGORIES.includes(category)) {
+          errors.push(
+            `'posts/${rel}' is not inside a valid category folder (${CATEGORIES.join(", ")}).`,
+          )
+          continue
+        }
+        const text = await fs.readFile(p, "utf8")
+        const m = text.match(FRONTMATTER_RE)
+        let fm = {}
+        if (m) {
+          try {
+            fm = parseYaml(m[1]) ?? {}
+          } catch {
+            fm = {}
+          }
+        }
+        const tags = Array.isArray(fm.tags) ? fm.tags : fm.tags ? [fm.tags] : []
+        if (tags.length === 0) {
+          errors.push(`'posts/${rel}' has no tags (need at least 1 of: ${ALLOWED_TAGS.join(", ")}).`)
+        }
+        for (const t of tags) {
+          if (!ALLOWED_TAGS.includes(t)) {
+            errors.push(`'posts/${rel}' uses unknown tag '${t}' (allowed: ${ALLOWED_TAGS.join(", ")}).`)
+          }
+        }
+      }
+    }
+  }
+  await walk(postsDir, [])
+  if (errors.length > 0) {
+    throw new Error(`taxonomy validation failed:\n  - ${errors.join("\n  - ")}`)
+  }
+}
+
 async function injectPasswords(dir, password) {
   const privates = []
   async function walk(d) {
@@ -107,6 +167,10 @@ async function main() {
   console.log("[build] preparing content build directory…")
   await fs.rm(BUILD_DIR, { recursive: true, force: true })
   await copyDir(SOURCE_DIR, BUILD_DIR)
+
+  console.log("[build] validating category/tag taxonomy…")
+  await validateTaxonomy(BUILD_DIR)
+
   const privates = await injectPasswords(BUILD_DIR, password)
   if (privates.length > 0) {
     console.log(`[build] encrypting ${privates.length} private post(s):`)
