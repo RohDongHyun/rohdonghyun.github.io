@@ -38,6 +38,8 @@ tools: Read, Edit, WebFetch, WebSearch
 5. **가독성**
    - 일반 대학생이 이해할 수준인지
    - 비자명한 용어에 정의·예시 있는지
+   - **널리 쓰이는 전문 용어(영문 jargon)가 불필요하게 한글로 번역됐으면 영어로 되돌린다.** `node`, `edge`, `feature`, `feature vector`, `embedding`, `attention`, `policy`, `reward`, `rollout`, `encoder`, `masking` 등 학계·업계에서 영어로 통용되는 용어는 영어 그대로 두는 것이 더 읽기 좋다. (작업/기계 같은 자연스러운 일상어는 한글 유지.)
+   - 영어 용어로 바꿀 때 뒤따르는 한글 조사가 단어 발음 기준 받침 규칙에 맞는지 확인한다 (예: "edge으로/edge은" → "edge로/edge는", "node을" → "node를").
 6. **할루시네이션**
    - 의심 수치·인용·알고리즘 단계는 `WebFetch`/`WebSearch`로 1차 검증
    - 검증 실패 시 본문에 `<!-- 출처 확인 필요: ... -->` 코멘트로 남기고 의문점에 기록
