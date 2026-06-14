@@ -1,11 +1,11 @@
 ---
 title: LLM 기반 Agent의 확장 — 연세대 LangAGI Lab 기술 세미나 정리
+slug: llm-agent-horizons
 date: 2026-06-04
 tags:
   - AI Agent
 private: true
 ---
-
 LLM 기반 Agent 연구는 지난 몇 년 사이 "단일 모델로 답하기"에서 "여러 모델·도구·사람이 협업하는 시스템"으로 빠르게 옮겨가고 있다. 이 글은 연세대 LangAGI Lab의 Jinyoung Yeo 교수가 발표한 *Expanding the Horizons of LLM-based Agents* 세미나 슬라이드를 정리한 노트다. Web Agent, GUI Agent, Multi-Agent, Human–AI Collaboration, Self-Evolving Agent까지 연구의 큰 줄기를 한 번에 훑는 자료여서, 반도체 FAB처럼 실제 도메인에 Agent를 붙이려는 사람에게도 지형도를 잡기 좋다.
 
 ## Agent란 무엇인가
@@ -58,10 +58,10 @@ NeurIPS'25 spotlight 결과로 소개된다. 관련 논문은 Chae et al., *Web-
 수식 표기는 다음과 같다. 시점 $t$의 관측 $o_t$, 행동 $a_t$, 그리고 다음 관측 $o_{t+1}$에 대해 world model은 다음을 학습한다.
 
 $$
-\mathcal{L}_{\text{world}} = \mathbb{E}\left[\,\ell\big(\hat{o}_{t+1},\, o_{t+1}\big)\,\right]
+\mathcal{L}*{\text{world}} = \mathbb{E}\left[\ell\big(\hat{o}*{t+1}, o_{t+1}\big)\right]
 $$
 
-여기서 $\hat{o}_{t+1}$은 $(\text{instruction},\, o_t,\, a_t)$로부터 예측한 다음 관측이다.
+여기서 $\hat{o}_{t+1}$은 $(\text{instruction}, o_t, a_t)$로부터 예측한 다음 관측이다.
 
 문제는 웹 관측이 너무 길고, 학습 신호의 정보 이득이 작다는 점이다. 발표는 두 가지 처방을 든다.
 
@@ -109,13 +109,15 @@ Human–AI 협업 파트에서 발표자가 던지는 질문은 직설적이다.
 
 발표는 [OpenAI가 2024년 7월 내부적으로 공유한 5단계 AI 로드맵](https://briansolis.com/2024/08/ainsights-openai-defines-five-stages-to-track-progress-toward-human-level-intelligence/) 분류를 빌려 다음과 같이 정리한다.
 
-| Stage | 키워드        | 시기(발표자 가정)      |
-|------:|---------------|------------------------|
-| 1     | Chatbots      | ~2023                  |
-| 2     | Reasoners     | 2024                   |
-| 3     | Self-Evolving Agents | 2025*           |
-| 4     | Agents (Innovators)  | 2026*           |
-| 5     | Organizations | 2027~                  |
+
+| Stage | 키워드 | 시기(발표자 가정) |
+| ----- | -------------------- | ---------- |
+| 1 | Chatbots | ~2023 |
+| 2 | Reasoners | 2024 |
+| 3 | Self-Evolving Agents | 2025* |
+| 4 | Agents (Innovators) | 2026* |
+| 5 | Organizations | 2027~ |
+
 
 핵심은 Stage 3 — **Self-Evolving Agents**다. 아이디어는 단순하다.
 
@@ -158,3 +160,4 @@ LangAGI Lab이 제안하는 확장은 **Self-Evolving Paradigm을 Human–AI 협
 - Agent0 (2025): [arXiv:2511.16043](https://arxiv.org/abs/2511.16043)
 - R-Zero (2025): [arXiv:2508.05004](https://arxiv.org/abs/2508.05004)
 - 발표자 페이지: [Jinyoung Yeo](https://jinyeo.weebly.com), [LangAGI Lab](https://langlab.yonsei.ac.kr)
+
