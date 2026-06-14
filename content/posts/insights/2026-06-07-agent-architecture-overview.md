@@ -8,6 +8,10 @@ private: false
 ---
 이 글은 "업무 자동화 시스템을 AI Agent로 어떻게 짤 것인가"를 다루는 시리즈의 출발점이다. 여기서 깊게 파고들기보다는, **어떤 구조들이 있고 언제 무엇을 골라야 하는지**를 한눈에 잡는 전체 지도(map)를 그리는 것이 목표다. 각 패턴과 구조는 추후 개별 글에서 더 깊게 다룰 예정이다.
 
+테스트
+
+![image.png](/images/image.png)
+
 ## 왜 "구조 설계"가 첫 결정인가
 
 AI Agent 기반 자동화 시스템을 만들 때 가장 먼저 정해야 할 것은 모델도, 프롬프트도 아니다. **"얼마나 복잡한 구조가 필요한가"** 이다. Anthropic의 [Building Effective Agents](https://www.anthropic.com/research/building-effective-agents)는 이 질문에 대한 출발 원칙을 분명히 한다.
