@@ -1,13 +1,11 @@
 ---
-title: Roh Donghyun
+title: Roh's Warehouse
 ---
 
-강화학습 · 스케줄링 · AI Agent / LLM 노트를 모아두는 개인 지식 저장소.
-
-대부분의 글은 AI Agent가 초안을 작성하고 사람이 검수해 발행한다.
+Machine Learning · 스케줄링 · AI Agent 등 다양한 주제에 대한 글을 모아두는 개인 지식 저장소입니다.
 
 ## 둘러보기
 
-- [[posts/foundations/index|Foundations]] — 학교·학술계에서 보편적으로 다루는 기초 지식
-- [[posts/insights/index|Insights]] — 세미나·기사·글에서 얻은 비교적 최신의 지식
+- [[posts/foundations/index|Foundations]] — 학교·학술계에서 다루는 기초 지식
+- [[posts/insights/index|Insights]] — 세미나·기사·글에서 얻은 최신 지식
 - [[posts/papers/index|Papers]] — 개별 논문 요약·정리
