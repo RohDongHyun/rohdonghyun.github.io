@@ -30,6 +30,7 @@ tools: Read, Write, Edit
    ---
    ```
    - 공개 전 검수가 필요하거나 `private` 입력이 true면 frontmatter에 `private: true`를 추가한다.
+      - `papers` 카테고리 글은 기본적으로 `private` 입력을 true로 지정
 5. 본문 구성 (필요 시 가감):
    - 짧은 도입 (1~2문단): 왜 이 주제를 다루는가, 어떤 문제를 푸는가
    - 핵심 개념 / 정의 / 수식
