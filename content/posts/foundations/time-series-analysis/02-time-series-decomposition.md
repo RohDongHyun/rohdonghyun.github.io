@@ -3,8 +3,8 @@ title: 02. 시계열 분해 기법
 date: 2026-06-20
 tags:
   - Time Series Analysis
+private: false
 ---
-
 [[posts/foundations/time-series-analysis/01-time-series-characteristics-and-arima|이전 글]]에서 시계열을 stochastic process로 보고 stationarity와 ARIMA를 다뤘다. 이번에는 시계열을 *눈에 보이는 구성 요소*로 쪼개어 이해하는 **time series decomposition**(시계열 분해)을 살펴본다. 분해를 통해 데이터를 더 깊이 해석하고, 각 요소에 맞는 모델링을 따로 적용할 수 있다.
 
 ## 시계열의 세 가지 구성 요소
@@ -34,9 +34,11 @@ tags:
 - 이상적으로는 white noise에 가까운, 패턴이 없는 잡음이어야 한다.
 - 만약 trend와 seasonality를 완전히 제거하지 못하면, residual에 여전히 특정 경향성이나 주기성이 남아 있을 수 있다. 이는 분해가 충분하지 않았다는 신호로 볼 수 있다.
 
+![image.png](/images/image-6.png)
+
 ## Additive vs. Multiplicative
 
-세 요소가 결합되는 방식은 크게 **합(additive)**과 **곱(multiplicative)** 두 가지다.
+세 요소가 결합되는 방식은 크게 **합(additive)** 과 **곱(multiplicative)** 두 가지다.
 
 **Case 1) Additive:**
 
@@ -46,6 +48,8 @@ $$
 
 - Trend의 방향과 무관하게, 시간이 지나도 *변동폭(진폭)이 일정*하게 유지되는 경우다.
 
+![image.png](/images/image-7.png)
+
 **Case 2) Multiplicative:**
 
 $$
@@ -53,6 +57,8 @@ $$
 $$
 
 - Trend가 커질수록 *변동폭도 함께 커지는*, 즉 시간에 따라 진폭이 일정하지 않은 경우다.
+
+![image.png](/images/image-8.png)
 
 곱의 형태는 다루기 까다롭지만, **log 변환**을 취하면 합의 형태로 바꿀 수 있다는 유용한 성질이 있다.
 
@@ -78,20 +84,22 @@ $$
 **Moving average**(이동평균)는 가장 간단한 smoothing 방식이다. 한 값을 기준으로, 정해 놓은 크기의 범위만큼 양옆 값들의 평균을 취한다. 예를 들어 윈도우 크기가 5라면,
 
 $$
-X'_t = \frac{X_{t-2} + X_{t-1} + X_t + X_{t+1} + X_{t+2}}{5}
+X'*t = \frac{X*{t-2} + X_{t-1} + X_t + X_{t+1} + X_{t+2}}{5}
 $$
 
 이렇게 주변 값을 평균 내면 무작위한 흔들림이 상쇄되어, 시계열에서 잡음을 제거하는 데 사용할 수 있다.
 
 ### Exponential Moving Average
 
-**Exponential moving average (EMA)**는 모든 값을 같은 중요도로 평균 내지 않는다. *가까운 시점의 관측치일수록 더 높은 가중치*를 주어 평균을 취한다. $0 < w < 1$인 가중치 $w$를 두고, 거리가 멀어질수록 $w$의 거듭제곱으로 가중치가 작아지게 한다.
+**Exponential moving average (EMA)** 는 모든 값을 같은 중요도로 평균 내지 않는다. *가까운 시점의 관측치일수록 더 높은 가중치*를 주어 평균을 취한다. $0 < w < 1$인 가중치 $w$를 두고, 거리가 멀어질수록 $w$의 거듭제곱으로 가중치가 작아지게 한다.
 
 $$
-X'_t = w^3 X_{t-2} + w^2 X_{t-1} + w X_t + w^2 X_{t+1} + w^3 X_{t+2}
+X'*t = w^3 X*{t-2} + w^2 X_{t-1} + w X_t + w^2 X_{t+1} + w^3 X_{t+2}
 $$
 
 $w$가 1보다 작으므로 $w > w^2 > w^3$이고, 따라서 중심에서 멀어질수록 영향력이 빠르게 줄어든다. EMA는 단순 moving average보다 최근 변화에 민감하게 반응하므로, 데이터에서 **trend를 추출**하는 데 특히 효과적이다.
+
+![image.png](/images/image-9.png)
 
 ## 분해 절차
 
@@ -120,4 +128,5 @@ $$
 - 세 요소는 **additive**($+$) 또는 **multiplicative**($\times$) 형태로 결합되며, 곱 형태는 log 변환으로 합 형태로 바꿀 수 있다.
 - **Data smoothing**(moving average, exponential moving average)으로 trend를 추출하고, de-trending과 주기별 평균을 거쳐 seasonality와 residual을 차례로 분리한다.
 
-> 그림 출처: Intel "Time Series Analysis" (2018), Kevin Kotze "Time Series Analysis" (University of Cape Town, 2021), Ceylan Yozgatligil "Applied Time Series Analysis" (METU, 2011).
+> 그림 출처: Kevin Kotze "Time Series Analysis" (University of Cape Town, 2021), Intel "Time Series Analysis" (2018), Ceylan Yozgatligil "Applied Time Series Analysis" (METU, 2011).
+
