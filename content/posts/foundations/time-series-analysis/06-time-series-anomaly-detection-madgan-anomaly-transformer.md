@@ -3,8 +3,8 @@ title: 06. 시계열 이상 탐지 (2) - MAD-GAN과 Anomaly Transformer
 date: 2026-06-20
 tags:
   - Time Series Analysis
+private: false
 ---
-
 [[posts/foundations/time-series-analysis/05-time-series-anomaly-detection-lstmae-usad|5편]]에서 autoencoder 기반 이상 탐지(LSTM-AE, USAD)를 다뤘다. 이번에는 [[posts/foundations/introduction-to-dl/13-generative-adversarial-network|GAN]] 기반의 **MAD-GAN**과 [[posts/foundations/introduction-to-dl/11-transformer-and-self-attention|Transformer]] 기반의 **Anomaly Transformer**를 살펴본다.
 
 ## MAD-GAN
@@ -40,7 +40,7 @@ tags:
 이제 $z^*$와 generator로 reconstruction을 수행하고, **reconstruction error와 discriminator loss의 가중합**을 이상 score로 사용한다.
 
 $$
-\text{Anomaly Score} = \lambda \, | G(z^*) - X_{test} | + (1 - \lambda)(-\log D(X_{test}))
+\text{Anomaly Score} = \lambda  | G(z^*) - X_{test} | + (1 - \lambda)(-\log D(X_{test}))
 $$
 
 - 첫 항 $|G(z^*) - X_{test}|$은 reconstruction error다. 이상 데이터일수록 generator가 잘 재현하지 못해 커진다.
@@ -71,10 +71,10 @@ $$
 
 ### Prior Association $P_i$
 
-**Prior association** $P_i \in \mathbb{R}^N$는 "이상점은 시간적으로 가까운 데이터와 연관성이 높을 것"이라는 *사전 지식(prior)*을 강제로 부여한 연관성 지표다. 두 점 $x_i, x_j$의 연관성을 관측 시간 차이 $|t_i - t_j|$에 대한 **Gaussian kernel**로 정의한다. 즉 $x_i$의 prior association은 자기 위치를 중심으로 하고 학습 가능한 분산 $\sigma_i^2$를 갖는 정규분포의 pdf 값으로 주어진다.
+**Prior association** $P_i \in \mathbb{R}^N$는 "이상점은 시간적으로 가까운 데이터와 연관성이 높을 것"이라는 *사전 지식(prior)* 을 강제로 부여한 연관성 지표다. 두 점 $x_i, x_j$의 연관성을 관측 시간 차이 $|t_i - t_j|$에 대한 **Gaussian kernel**로 정의한다. 즉 $x_i$의 prior association은 자기 위치를 중심으로 하고 학습 가능한 분산 $\sigma_i^2$를 갖는 정규분포의 pdf 값으로 주어진다.
 
 $$
-f(|j - i|) = N(|j - i| \,;\, x_i, \sigma_i^2)
+f(|j - i|) = N(|j - i| ; x_i, \sigma_i^2)
 $$
 
 거리가 가까울수록 prior association 값이 크고, 멀어질수록 작아진다. (이는 "이상이라면 주변과만 닮았을 것"이라는 가정을 수식으로 구현한 것이다.)
@@ -84,7 +84,7 @@ $$
 **Association discrepancy**는 같은 점에 대한 series association $S$와 prior association $P$의 *차이*를 측정한 값이다. 둘 다 확률 분포(확률 벡터)이므로, 분포 간 차이를 재는 대표적 도구인 **KL divergence**를 대칭으로 적용한다.
 
 $$
-\text{AssDis}(P, S; X^i) = \mathrm{KL}(P \,\|\, S) + \mathrm{KL}(S \,\|\, P)
+\text{AssDis}(P, S; X^i) = \mathrm{KL}(P  S) + \mathrm{KL}(S  P)
 $$
 
 여기서 핵심은 다음 성질이다.
@@ -114,4 +114,3 @@ Anomaly Transformer는 SMD, MSL, SMAP, SWaT, PSM 등 주요 시계열 이상 탐
 - **MAD-GAN**: 정상 데이터로 학습한 GAN의 discriminator는 이상을 가짜로 본다는 가정에서, 테스트 데이터를 latent로 역매핑한 뒤 **reconstruction error + discriminator loss**를 이상 score로 사용한다.
 - **Anomaly Transformer**: 이상점은 *주변과만* 연관성이 높다는 관찰을, **series association**(attention)과 **prior association**(Gaussian) 사이의 **association discrepancy**로 포착하고, 이를 reconstruction loss와 결합해 이상 score를 만든다.
 
-> 이로써 시계열 분석 시리즈(데이터 특성·분해 → 예측 → 이상 탐지)를 마무리한다. 그림·표 출처: Li et al. (ICANN 2019), Xu et al. (ICLR 2022).
