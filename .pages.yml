@@ -35,7 +35,7 @@ content:
       - { name: title, label: 제목, type: string, required: true }
       - { name: date, label: 날짜, type: date, required: true, options: { format: "yyyy-MM-dd" } }
       - name: tags
-        label: 태그 (자유 입력, 1개 이상 / 예: AI Scheduling, AI Agent)
+        label: "태그 (자유 입력, 1개 이상 / 예: AI Scheduling, AI Agent)"
         type: string
         list: { min: 1 }   # 자유 입력 태그(값 제약 없음, 최소 1개). select는 creatable 미지원이라 string-list로 둔다.
       - { name: private, label: 비공개(암호화), type: boolean, default: false }
