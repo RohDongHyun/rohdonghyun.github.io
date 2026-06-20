@@ -30,7 +30,7 @@ content:
     format: yaml-frontmatter
     filename: { template: "{year}-{month}-{day}-{primary}.md", field: create }
     exclude: ["index.md"]
-    view: { primary: title, sort: date, order: desc }
+    view: { primary: title, sort: [date], default: { sort: date, order: desc } }
     # NOTE: fields는 세 컬렉션에 동일하게 펼쳐 둔다. YAML 앵커(*alias)는 Pages CMS 설정
     #       검증기가 못 펼쳐 "items must be an array of content entries" 에러를 내므로 쓰지 않는다.
     fields:
@@ -50,7 +50,7 @@ content:
     format: yaml-frontmatter
     filename: { template: "{year}-{month}-{day}-{primary}.md", field: create }
     exclude: ["index.md"]
-    view: { primary: title, sort: date, order: desc }
+    view: { primary: title, sort: [date], default: { sort: date, order: desc } }
     fields:
       - { name: title, label: 제목, type: string, required: true }
       - { name: date, label: 날짜, type: date, required: true, options: { format: "yyyy-MM-dd" } }
@@ -68,7 +68,7 @@ content:
     format: yaml-frontmatter
     filename: { template: "{year}-{month}-{day}-{primary}.md", field: create }
     exclude: ["index.md"]
-    view: { primary: title, sort: date, order: desc }
+    view: { primary: title, sort: [date], default: { sort: date, order: desc } }
     fields:
       - { name: title, label: 제목, type: string, required: true }
       - { name: date, label: 날짜, type: date, required: true, options: { format: "yyyy-MM-dd" } }
