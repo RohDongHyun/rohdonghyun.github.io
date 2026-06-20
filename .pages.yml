@@ -37,7 +37,7 @@ content:
       - name: tags
         label: 태그 (자유 입력, 1개 이상 / 예: AI Scheduling, AI Agent)
         type: string
-        list: true   # 자유 입력 태그(값 제약 없음). select는 creatable 미지원이라 string-list로 둔다.
+        list: { min: 1 }   # 자유 입력 태그(값 제약 없음, 최소 1개). select는 creatable 미지원이라 string-list로 둔다.
       - { name: private, label: 비공개(암호화), type: boolean, default: false }
       - { name: body, label: 본문, type: rich-text }
 
