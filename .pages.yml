@@ -28,53 +28,120 @@ content:
     type: collection
     path: content/posts/insights
     format: yaml-frontmatter
-    filename: { template: "{year}-{month}-{day}-{primary}.md", field: create }
+    filename:
+      template: "{year}-{month}-{day}-{primary}.md"
+      field: create
     exclude: ["index.md"]
-    view: { primary: title, sort: [date], default: { sort: date, order: desc } }
-    # NOTE: fields는 세 컬렉션에 동일하게 펼쳐 둔다. YAML 앵커(*alias)는 Pages CMS 설정
-    #       검증기가 못 펼쳐 "items must be an array of content entries" 에러를 내므로 쓰지 않는다.
+    view:
+      fields: [title, date, tags, private]
+      primary: title
+      sort: [date, title]
+      default:
+        sort: date
+        order: desc
     fields:
-      - { name: title, label: 제목, type: string, required: true }
-      - { name: date, label: 날짜, type: date, required: true, options: { format: "yyyy-MM-dd" } }
+      - name: title
+        label: 제목
+        type: string
+        required: true
+      - name: date
+        label: 날짜
+        type: date
+        required: true
+        options:
+          format: "yyyy-MM-dd"
       - name: tags
         label: "태그 (자유 입력, 1개 이상 / 예: AI Scheduling, AI Agent)"
         type: string
-        list: { min: 1 }   # 자유 입력 태그(값 제약 없음, 최소 1개). select는 creatable 미지원이라 string-list로 둔다.
-      - { name: private, label: 비공개(암호화), type: boolean, default: false }
-      - { name: body, label: 본문, type: rich-text }
+        list:
+          min: 1
+          collapsible: false
+      - name: private
+        label: 비공개(암호화)
+        type: boolean
+        default: false
+      - name: body
+        label: 본문
+        type: rich-text
 
   - name: posts-foundations
     label: "foundations (학술 기초 지식)"
     type: collection
     path: content/posts/foundations
     format: yaml-frontmatter
-    filename: { template: "{year}-{month}-{day}-{primary}.md", field: create }
+    filename:
+      template: "{year}-{month}-{day}-{primary}.md"
+      field: create
     exclude: ["index.md"]
-    view: { primary: title, sort: [date], default: { sort: date, order: desc } }
+    view:
+      fields: [title, date, tags, private]
+      primary: title
+      sort: [date, title]
+      default:
+        sort: date
+        order: desc
     fields:
-      - { name: title, label: 제목, type: string, required: true }
-      - { name: date, label: 날짜, type: date, required: true, options: { format: "yyyy-MM-dd" } }
+      - name: title
+        label: 제목
+        type: string
+        required: true
+      - name: date
+        label: 날짜
+        type: date
+        required: true
+        options:
+          format: "yyyy-MM-dd"
       - name: tags
         label: "태그 (자유 입력, 1개 이상 / 예: AI Scheduling, AI Agent)"
         type: string
-        list: { min: 1 }
-      - { name: private, label: 비공개(암호화), type: boolean, default: false }
-      - { name: body, label: 본문, type: rich-text }
+        list:
+          min: 1
+          collapsible: false
+      - name: private
+        label: 비공개(암호화)
+        type: boolean
+        default: false
+      - name: body
+        label: 본문
+        type: rich-text
 
   - name: posts-papers
     label: "papers (논문 요약)"
     type: collection
     path: content/posts/papers
     format: yaml-frontmatter
-    filename: { template: "{year}-{month}-{day}-{primary}.md", field: create }
+    filename:
+      template: "{year}-{month}-{day}-{primary}.md"
+      field: create
     exclude: ["index.md"]
-    view: { primary: title, sort: [date], default: { sort: date, order: desc } }
+    view:
+      fields: [title, date, tags, private]
+      primary: title
+      sort: [date, title]
+      default:
+        sort: date
+        order: desc
     fields:
-      - { name: title, label: 제목, type: string, required: true }
-      - { name: date, label: 날짜, type: date, required: true, options: { format: "yyyy-MM-dd" } }
+      - name: title
+        label: 제목
+        type: string
+        required: true
+      - name: date
+        label: 날짜
+        type: date
+        required: true
+        options:
+          format: "yyyy-MM-dd"
       - name: tags
         label: "태그 (자유 입력, 1개 이상 / 예: AI Scheduling, AI Agent)"
         type: string
-        list: { min: 1 }
-      - { name: private, label: 비공개(암호화), type: boolean, default: false }
-      - { name: body, label: 본문, type: rich-text }
+        list:
+          min: 1
+          collapsible: false
+      - name: private
+        label: 비공개(암호화)
+        type: boolean
+        default: false
+      - name: body
+        label: 본문
+        type: rich-text
