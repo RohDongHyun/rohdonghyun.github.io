@@ -3,8 +3,8 @@ title: 04. 시계열 예측 모델 (2) - N-Beats, RevIN, Linear Models
 date: 2026-06-20
 tags:
   - Time Series Analysis
+private: false
 ---
-
 [[posts/foundations/time-series-analysis/03-time-series-forecasting-with-transformers|3편]]에서 Transformer 기반 예측(Informer)을 다뤘다. 이번에는 그 외의 대표적인 시계열 예측 방법론으로 순수 MLP 구조인 **N-Beats**, non-stationarity를 정면으로 다루는 정규화 기법 **RevIN**, 그리고 "정말 Transformer가 필요한가?"라는 질문을 던진 **Linear models**를 차례로 살펴본다.
 
 ## N-Beats
@@ -25,7 +25,7 @@ N-Beats는 $K$개의 block으로 이루어진 stack을 $M$개 쌓아 만든다.
 각 block은 FC stack을 거친 뒤 두 갈래로 출력을 낸다.
 
 - **Forecast**: 현재 block의 입력으로 *target(미래 값)을 예측*하는 연산. 각 block의 forecast 출력들이 합쳐져 stack의 출력이 된다.
-- **Backcast**: 현재 block의 입력을 *그대로 재구성(reconstruction)*하는 연산. block의 입력에서 backcast 출력을 뺀 값(residual)이 **다음 block의 입력**이 된다.
+- **Backcast**: 현재 block의 입력을 *그대로 재구성(reconstruction)* 하는 연산. block의 입력에서 backcast 출력을 뺀 값(residual)이 **다음 block의 입력**이 된다.
 
 즉, 각 block이 "자기가 설명할 수 있는 부분"을 backcast로 떼어내고, 설명하지 못한 나머지(residual)를 다음 block에게 넘기는 구조다. 이렇게 잔차를 따라가며 점진적으로 예측을 정교화한다.
 
@@ -39,7 +39,7 @@ N-Beats는 M3, M4, TOURISM 같은 competition 데이터셋에서 기존 통계·
 
 ### 문제: Input과 Output의 분포가 다르다
 
-시계열은 시간이 지나며 평균·분산 같은 통계적 특성이 변한다([[posts/foundations/time-series-analysis/01-time-series-characteristics-and-arima|non-stationary]]). 그래서 모델이 보는 **input series와 예측해야 할 output series 사이에 통계적 특성 차이(distribution shift)**가 존재하고, 이는 forecasting에서 필연적으로 큰 예측 오차를 만든다. RevIN은 이 분포 차이를 **정규화로 없앴다가, 예측 후 되돌리는(reversible)** 방식으로 해결한다.
+시계열은 시간이 지나며 평균·분산 같은 통계적 특성이 변한다([[posts/foundations/time-series-analysis/01-time-series-characteristics-and-arima|non-stationary]]). 그래서 모델이 보는 **input series와 예측해야 할 output series 사이에 통계적 특성 차이(distribution shift)** 가 존재하고, 이는 forecasting에서 필연적으로 큰 예측 오차를 만든다. RevIN은 이 분포 차이를 **정규화로 없앴다가, 예측 후 되돌리는(reversible)** 방식으로 해결한다.
 
 ### 동작: Normalize → 예측 → Denormalize
 
@@ -60,6 +60,8 @@ $$
 $$
 
 정규화 단계에서는 non-stationary한 input과 target의 분포가 서로 비슷해지고, denormalization 단계에서는 원래 분포로 정확히 복원된다. 정규화와 denormalization이 **대칭적(reversible)**으로 짝지어진다는 점이 핵심이다.
+
+![image.png](/images/image-14.png)
 
 ### 결과
 
@@ -106,7 +108,6 @@ distribution shift에 대응하는 간단한 정규화를 더한 모델이다.
 ## 요약
 
 - **N-Beats**: FC layer만으로 block(forecast + backcast) → stack → model의 잔차 기반 계층 구조를 만든, 순수 딥러닝 최초의 competition SOTA.
-- **RevIN**: input series의 통계량으로 정규화했다가 예측 후 되돌리는 reversible 기법으로 **non-stationarity(distribution shift)**를 완화하는, 기존 모델에 끼우는 모듈.
+- **RevIN**: input series의 통계량으로 정규화했다가 예측 후 되돌리는 reversible 기법으로 **non-stationarity(distribution shift)** 를 완화하는, 기존 모델에 끼우는 모듈.
 - **Linear Models (DLinear, NLinear)**: 한 개의 linear layer만으로 Transformer 기반 모델을 능가해, 시계열 예측에서 단순 baseline의 중요성을 일깨운 연구.
 
-> 그림·표 출처: Oreshkin et al. (ICLR 2019), Kim et al. (ICLR 2022), Zeng et al. (AAAI 2023), Kevin Kotze "Time Series Analysis" (University of Cape Town, 2021).
