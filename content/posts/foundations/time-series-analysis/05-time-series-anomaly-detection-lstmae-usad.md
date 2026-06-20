@@ -3,9 +3,9 @@ title: 05. 시계열 이상 탐지 (1) - LSTM-AE와 USAD
 date: 2026-06-20
 tags:
   - Time Series Analysis
+private: false
 ---
-
-지금까지는 시계열 *예측(forecasting)*을 다뤘다. 이번 글부터는 다른 과제인 **시계열 이상 탐지(anomaly detection)**를 살펴본다. 여기서는 [[posts/foundations/introduction-to-dl/09-autoencoder|autoencoder]] 기반의 대표적인 두 모델, **LSTM-AE**와 **USAD**를 소개한다.
+지금까지는 시계열 *예측(forecasting)* 을 다뤘다. 이번 글부터는 다른 과제인 **시계열 이상 탐지(anomaly detection)** 를 살펴본다. 여기서는 [[posts/foundations/introduction-to-dl/09-autoencoder|autoencoder]] 기반의 대표적인 두 모델, **LSTM-AE**와 **USAD**를 소개한다.
 
 ## 시계열 이상 탐지란
 
@@ -44,13 +44,13 @@ LSTM-AE는 [[posts/foundations/introduction-to-dl/08-lstm-and-gru|LSTM]] 기반 
 
 ## USAD (UnSupervised Anomaly Detection)
 
-[USAD (Audibert et al., KDD 2020)](https://dl.acm.org/doi/10.1145/3394486.3403392)는 autoencoder 기반 이상 탐지에 **적대적 학습(adversarial training)**을 더해 성능을 끌어올린 모델이다.
+[USAD (Audibert et al., KDD 2020)](https://dl.acm.org/doi/10.1145/3394486.3403392)는 autoencoder 기반 이상 탐지에 **적대적 학습(adversarial training)** 을 더해 성능을 끌어올린 모델이다.
 
 ### 핵심 아이디어
 
 LSTM-AE에는 약점이 있다. autoencoder가 너무 강력하면 이상 데이터마저 적당히 잘 복원해버려, 정상과 이상의 reconstruction error 차이가 줄어든다. USAD는 [[posts/foundations/introduction-to-dl/13-generative-adversarial-network|GAN]]식 적대적 학습으로 이 차이를 *일부러 키운다*.
 
-구조는 **하나의 공유 encoder $E$와 두 개의 decoder $D_1, D_2$**로 이루어진다. 즉 두 개의 autoencoder $AE_1 = E + D_1$, $AE_2 = E + D_2$가 encoder를 공유한다. 학습은 두 단계로 진행된다.
+구조는 **하나의 공유 encoder $E$와 두 개의 decoder $D_1, D_2$** 로 이루어진다. 즉 두 개의 autoencoder $AE_1 = E + D_1$, $AE_2 = E + D_2$가 encoder를 공유한다. 학습은 두 단계로 진행된다.
 
 ### 단계 1: Reconstruction
 
@@ -66,27 +66,27 @@ $$
 
 이제 두 decoder는 서로 경쟁한다.
 
-- **$D_2$ (discriminator 역할)**: 진짜 데이터 $W$는 잘 복원하고, $D_1$이 만든 "가짜" 데이터 $W^{1\prime}$은 잘 복원하지 못하도록 학습한다. 즉 $\| W - W^{2\prime\prime} \|$을 **키우려** 한다.
-- **$D_1$ (generator 역할)**: 자신이 만든 $W^{1\prime}$을 진짜 $W$와 구별하기 어려울 만큼 비슷하게 만들어 $D_2$를 속이려 한다. $W^{1\prime}$이 $W$와 비슷할수록 $D_2$가 $\| W - W^{2\prime\prime} \|$을 키우기 어려워진다.
+- **$D_2$ (discriminator 역할)**: 진짜 데이터 $W$는 잘 복원하고, $D_1$이 만든 "가짜" 데이터 $W^{1\prime}$은 잘 복원하지 못하도록 학습한다. 즉 $ W - W^{2\prime\prime} $을 **키우려** 한다.
+- **$D_1$ (generator 역할)**: 자신이 만든 $W^{1\prime}$을 진짜 $W$와 구별하기 어려울 만큼 비슷하게 만들어 $D_2$를 속이려 한다. $W^{1\prime}$이 $W$와 비슷할수록 $D_2$가 $ W - W^{2\prime\prime} $을 키우기 어려워진다.
 
-이 경쟁을 반영한 두 autoencoder의 손실은 다음과 같다. ($n$은 epoch 번호, $\| \cdot \|_2$는 L2 norm)
-
-$$
-\mathcal{L}_{AE_1} = \frac{1}{n}\| W - W^{1\prime} \|_2 + \left(1 - \frac{1}{n}\right)\| W - W^{2\prime\prime} \|_2
-$$
+이 경쟁을 반영한 두 autoencoder의 손실은 다음과 같다. ($n$은 epoch 번호, $ \cdot _2$는 L2 norm)
 
 $$
-\mathcal{L}_{AE_2} = \frac{1}{n}\| W - W^{2\prime} \|_2 - \left(1 - \frac{1}{n}\right)\| W - W^{2\prime\prime} \|_2
+\mathcal{L}_{AE_1} = \frac{1}{n} W - W^{1\prime} _2 + \left(1 - \frac{1}{n}\right) W - W^{2\prime\prime} _2
 $$
 
-$\mathcal{L}_{AE_1}$은 $W^{2\prime\prime}$ 오차를 **줄이려**(속이기) 하고, $\mathcal{L}_{AE_2}$는 같은 항을 **늘리려**(구별하기) 한다는 점에서 부호가 반대다. 또한 가중치 $\frac{1}{n}$, $1 - \frac{1}{n}$ 때문에, 학습 초반($n$이 작을 때)에는 reconstruction을 중시하고 epoch이 진행될수록 adversarial 항의 비중이 커진다.
+$$
+\mathcal{L}_{AE_2} = \frac{1}{n} W - W^{2\prime} _2 - \left(1 - \frac{1}{n}\right) W - W^{2\prime\prime} _2
+$$
+
+$\mathcal{L}*{AE_1}$은 $W^{2\prime\prime}$ 오차를 **줄이려**(속이기) 하고, $\mathcal{L}*{AE_2}$는 같은 항을 **늘리려**(구별하기) 한다는 점에서 부호가 반대다. 또한 가중치 $\frac{1}{n}$, $1 - \frac{1}{n}$ 때문에, 학습 초반($n$이 작을 때)에는 reconstruction을 중시하고 epoch이 진행될수록 adversarial 항의 비중이 커진다.
 
 ### 탐지 과정
 
 학습이 끝나면, 검사할 데이터 $W$에 대해 두 종류의 reconstruction error를 가중합하여 이상 탐지 score $\mathcal{A}$로 사용한다.
 
 $$
-\mathcal{A} = \alpha \, \| W - W^{1\prime} \|_2 + \beta \, \| W - W^{2\prime\prime} \|_2
+\mathcal{A} = \alpha   W - W^{1\prime} _2 + \beta   W - W^{2\prime\prime} _2
 $$
 
 여기서 $W^{1\prime} = D_1(E(W))$, $W^{2\prime\prime} = D_2(E(W^{1\prime}))$이고, $\alpha, \beta$는 두 오차의 비중을 정하는 hyperparameter다. $\mathcal{A}$가 threshold $\lambda$ 이상이면 이상($y=1$), 미만이면 정상($y=0$)으로 판정한다. 첫 번째 항은 기본적인 reconstruction 능력을, 두 번째 항은 적대적으로 증폭된 이상 민감도를 반영한다.
@@ -98,3 +98,4 @@ $$
 - **USAD**: encoder를 공유하는 두 decoder를 **적대적으로 학습**시켜, 정상과 이상의 reconstruction error 차이를 키운다. 두 오차의 가중합을 이상 score로 사용한다.
 
 > 참고: 시계열 이상 탐지 개요는 [Choi et al., "Deep Learning for Anomaly Detection in Time-Series Data" (IEEE Access 2021)](https://ieeexplore.ieee.org/document/9523565), [Darban et al., "Deep Learning for Time Series Anomaly Detection: A Survey" (arXiv 2022)](https://arxiv.org/abs/2211.05244)를 참고했다.
+
