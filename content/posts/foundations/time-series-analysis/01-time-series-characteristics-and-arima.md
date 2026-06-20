@@ -1,7 +1,8 @@
 ---
 title: 01. 시계열 데이터 특성 및 처리 방법
 date: 2026-06-20
-private: false
+tags:
+  - Time Series Analysis
 ---
 시계열(time series) 데이터는 "시간 순서를 갖고 관측된 값들의 나열"이다. 주가, 기온, 공장 설비의 센서 값처럼 우리 주변의 많은 데이터가 시계열이다. 이 글에서는 시계열을 수학적으로 다루기 위한 기본 개념인 **stochastic process**, **stationarity**, **autocorrelation**을 살펴보고, 이를 바탕으로 가장 고전적인 예측 모델인 **ARIMA**까지 정리한다.
 
