@@ -122,11 +122,31 @@ $$
 
 이렇게 하면 하나의 시계열이 trend + seasonality + residual로 깔끔하게 분해된다.
 
+## 분해를 자동화한 도구: Prophet
+
+지금까지의 분해는 사람이 moving average와 de-trending을 직접 적용하는 절차였다. 이 과정을 자동화하고 *예측*까지 한 번에 해주는 대표적인 실무 도구가 Meta(Facebook)에서 공개한 **Prophet**이다 ([Taylor & Letham, 2017](https://doi.org/10.7287/peerj.preprints.3190v2)).
+
+Prophet의 핵심은 시계열을 다음과 같은 **가법(additive) 분해 모델**로 본다는 점이다.
+
+$$
+y(t) = g(t) + s(t) + h(t) + \epsilon_t
+$$
+
+- $g(t)$ — **trend**. 비주기적 추세를 piecewise linear 또는 logistic growth로 모델링하며, 추세가 꺾이는 지점(changepoint)을 자동으로 찾는다.
+- $s(t)$ — **seasonality**. 주기 성분을 Fourier series로 표현해 연·주·일 등 여러 주기를 동시에 담는다.
+- $h(t)$ — **holiday/event effect**. 휴일·프로모션처럼 불규칙하게 등장하는 효과. 앞서 본 trend + seasonality + residual 분해에 *없던 항*으로, 매출·트래픽 같은 실무 데이터에서 특히 중요하다.
+- $\epsilon_t$ — 설명되지 않은 잔차.
+
+이 식은 글 앞부분의 $\text{Data} = \text{Trend} + \text{Seasonality} + \text{Residual}$ 구조를 그대로 따르되 holiday 항을 더한 형태다. (seasonality는 필요하면 multiplicative로도 둘 수 있다.)
+
+Prophet은 결측치·이상치에 강하고 별다른 튜닝 없이도 합리적인 결과를 내, 분석 전문가가 아니어도 쉽게 쓰도록 설계됐다("forecasting at scale"). 다만 변수 간 상호작용이 복잡하거나 고빈도 데이터에서는 뒤에서 다룰 딥러닝 기반 모델이 더 유리할 수 있다.
+
 ## 요약
 
 - 시계열은 **trend**(전체 경향), **seasonality**(주기성), **residual**(남은 잡음)의 세 요소로 분해할 수 있다.
 - 세 요소는 **additive**($+$) 또는 **multiplicative**($\times$) 형태로 결합되며, 곱 형태는 log 변환으로 합 형태로 바꿀 수 있다.
 - **Data smoothing**(moving average, exponential moving average)으로 trend를 추출하고, de-trending과 주기별 평균을 거쳐 seasonality와 residual을 차례로 분리한다.
+- **Prophet**(Meta)은 이 분해를 자동화한 도구로, 시계열을 $y(t)=g(t)+s(t)+h(t)+\epsilon_t$의 가법 모델(trend·seasonality·holiday)로 보고 분해와 예측을 한 번에 수행한다.
 
 > 그림 출처: Kevin Kotze "Time Series Analysis" (University of Cape Town, 2021), Intel "Time Series Analysis" (2018), Ceylan Yozgatligil "Applied Time Series Analysis" (METU, 2011).
 
