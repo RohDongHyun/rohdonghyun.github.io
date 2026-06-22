@@ -1,3 +1,55 @@
 @use "./variables.scss" as *;
 
 // put your custom CSS here!
+
+// Explorer(좌측 목차): 글/폴더 제목이 길어도 줄바꿈하지 않고 한 줄로,
+// 사이드바 폭을 넘치면 ...(말줄임)으로 표시한다.
+.explorer-content {
+  ul li > a {
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  // 폴더명도 동일 처리 (flex 자식이라 min-width:0 필요)
+  .folder-container {
+    & > div {
+      min-width: 0;
+    }
+    .folder-button {
+      min-width: 0;
+      max-width: 100%;
+    }
+    .folder-title,
+    & > div > a {
+      display: block;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+}
+
+// 좌측 사이드바 우측 경계의 드래그 핸들 (JS가 .sidebar-resize-handle 을 주입)
+.sidebar-resize-handle {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 8px;
+  height: 100%;
+  cursor: col-resize;
+  z-index: 2;
+  background-color: transparent;
+  transition: background-color 0.2s ease;
+
+  &:hover,
+  &:active {
+    background-color: var(--lightgray);
+  }
+
+  // 모바일에서는 사이드바가 단일 컬럼이라 리사이즈 비활성화
+  @media all and (max-width: 800px) {
+    display: none;
+  }
+}
