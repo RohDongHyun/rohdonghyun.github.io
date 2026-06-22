@@ -1,5 +1,5 @@
 ---
-title: GNN과 PPO로 Job Shop 디스패칭 규칙을 학습하기 (L2D)
+title: (2020) Learning to Dispatch for Job Shop Scheduling via Deep Reinforcement Learning
 date: 2026-06-22
 tags:
   - AI Scheduling

@@ -42,6 +42,7 @@ tools: Read, Write, Edit
      - **"무엇을 학습하는가(학습 대상 = 정책/모델) · 목적함수(loss) · 학습 parameter · 학습 방식"** 을 평이하게 묶는 단락을 **반드시 포함**한다. 경사·손실 식만 옮겨놓고 끝내지 않는다.
      - 다른 연구에서 차용한 **명명 기법**(GAT, transformer 등)은 **"무엇인지 + 언제 제안 + 표준인지 최신인지"** 를 한 단락으로 적어 독자가 깊이를 가늠하게 한다.
 6. 수식: KaTeX. 인라인 `$...$`, 블록 `$$...$$`. 줄바꿈 `\\`. AMS `align*` 가능.
+   - **그림은 직접 임베드(`![](...)`)하지 말고 외부 링크로 남긴다.** 새 글에 쓸 그림 파일을 직접 만들 수 없으므로, 도식·figure가 필요하면 본문에 `> 그림 참고: [설명](URL)` 형태로 신뢰할 수 있는 출처(원 논문 Figure, Distill, 강의 슬라이드 등)를 링크한다. 본문 설명은 그림 없이도 이해되도록 글로 충분히 풀어 쓰고, 링크는 보조 자료로 둔다. (단, Pages CMS로 사람이 직접 올린 `/images/...` 기존 이미지나 사용자가 명시적으로 준 이미지는 그대로 둔다.)
 7. 링크: 같은 사이트는 위키링크 `[[posts/<category>/...]]`, 외부는 마크다운 `[텍스트](URL)`.
 8. 자료에 없는 사실은 만들어내지 않는다. 출처가 불확실하면 본문에 `<!-- 출처 확인 필요: ... -->` 코멘트로 남긴다.
 9. `Write` tool로 저장. 같은 경로가 이미 있으면 `Read` 후 `Edit`으로 갱신.
@@ -50,9 +51,12 @@ tools: Read, Write, Edit
 
 글이 **단독 글**인지 **시리즈 글**인지 먼저 판단해 파일명·`title`을 정한다.
 
-- **단독 글** (insights, papers, 또는 시리즈에 속하지 않는 foundations 글):
+- **단독 글** (insights, 또는 시리즈에 속하지 않는 foundations 글):
   - 파일명: `YYYY-MM-DD-<slug>.md` (오늘 날짜). 날짜가 정렬 키다.
   - `title`: 한국어 제목 그대로 (번호 없음).
+- **papers 카테고리 글** (논문 요약):
+  - 파일명: `YYYY-MM-DD-<slug>.md` (오늘 날짜).
+  - `title`: `(YYYY) 논문 원제목` 형식. `YYYY`는 **논문 발행 연도**(오늘 날짜가 아님), 제목은 **논문 원제(영어 원문 그대로)** 를 쓴다. 한국어로 번역·의역하지 않는다. 예: `(2020) Learning to Dispatch for Job Shop Scheduling via Deep Reinforcement Learning`.
 - **시리즈 글** (foundations 하위의 강의·연재 폴더에 속하는 글, 예: `introduction-to-ml/`, `introduction-to-dl/`, `statistics/`): 같은 폴더 안에서 순서대로 보이도록 2자리 번호를 쓴다.
   - 파일명: `NN-<slug>.md` (날짜 없음, 예: `01-bias-variance-trade-off.md`).
   - `title`: `NN. <제목>` 형식 (예: `01. Bias-Variance Trade-off`). 파일명과 제목의 번호는 항상 일치.
