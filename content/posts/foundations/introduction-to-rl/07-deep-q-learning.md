@@ -18,6 +18,8 @@ $$
 
 이러한 방법을 사용하면 우리가 일부의 경험만을 토대로 관찰하지 않은 state의 value function에 대해서도 어느정도 알아낼 수 있다.
 
+> 핵심은 **generalization**이다. Table 방식은 직접 방문한 칸만 채울 수 있지만, 함수 근사는 비슷한 state끼리 parameter를 공유하기 때문에 한 번도 보지 못한 state에도 학습된 패턴을 적용할 수 있다. 바둑처럼 state가 사실상 무한한 문제에서도 RL이 동작하는 이유가 바로 이 일반화 능력에 있다.
+
 Approximation 함수의 경우 다양한 알고리즘들이 가능하나, 가장 좋은 효과를 거둔 것은 deep learning 모델을 이용한 approximation 이다.
 
 ### Deep Reinforcement Learning
@@ -52,9 +54,12 @@ $$
 \Rightarrow \Delta w = \alpha (q_{\pi}(s, a) - \hat{q}(s, a, w)) \nabla_{w} \hat{q}(s, a, w)
 $$
 
+그런데 위 update 식에는 결정적인 문제가 있다. 우변의 $q_{\pi}(s, a)$, 즉 우리가 정답으로 삼아야 할 true value를 실제로는 알지 못한다는 것이다. 만약 안다면 애초에 학습할 필요도 없다. 따라서 이 자리를 **현재 추정값으로 직접 만들어낸 target**으로 메워야 하는데, 여기서 supervised learning과 RL이 갈라진다.
 
 ## Deep Q-learning
 **Deep Q-learning** 모델은 우리가 알지 못하는 true Q-value $q_{\pi}(s, a)$를 Q-learning의 TD target으로 간주한 모델이다. 이 때, Q-value를 추정하는 모델을 **Q-network**라고 한다.
+
+> 즉, 정답 자리에 Q-network 스스로가 만든 추정값($R + \gamma \max_{a'} Q(s', a', w)$)을 끼워 넣는다. 이렇게 추정값으로 추정값을 학습시키는 것을 **bootstrapping**이라 한다. 학습 신호를 외부 정답 없이 자급자족할 수 있다는 점에서 강력하지만, 동시에 아래에서 볼 학습 불안정의 근본 원인이기도 하다.
 
 $$
 \Delta w = \alpha (R + \gamma \max_{a'} Q(s', a', w) - \hat{q}(s, a, w)) \nabla_{w} \hat{q}(s, a, w)
@@ -72,8 +77,12 @@ Deep Q-learning 모델에 대해서 위 식으로 바로 학습을 진행하면 
 3. Reward 및 Q-value의 크기가 예상보다 클 수 있다.
 	* 예상보다 큰 Q-value 또는 reward가 들어오게 되면, exploding gradient 현상이 발생하여 학습이 불안정해질 수 있다.
 
+> 특히 1번과 2번이 결합되면 문제가 심각해진다. 함수 근사(generalization) + bootstrapping(추정값으로 target을 만듦) + off-policy(과거 경험으로 학습)의 세 요소가 동시에 작용하면 학습이 발산하기 쉬운데, 이를 **deadly triad**라 부른다. 아래의 세 가지 trick은 각각 이 불안정 요인을 하나씩 완화하는 처방으로 이해하면 좋다.
+
 ### Experience Replay
 우선 input data가 non-iid하여 생기는 학습의 불안정 및 local optimum 수렴을 방지하기 위해 **replay memory** $\mathcal{D}$에 agent의 experience를 저장해두고, 해당 replay memory에서 batchsize 만큼의 sample을 random하게 골라내어 학습에 사용한다. 이러한 방식을 **experience replay**라고 한다.
+
+시간순으로 들어오는 연속된 경험은 서로 강하게 correlated 되어 있어, 그대로 학습하면 직전 몇 step의 상황에 과적합되기 쉽다. Random sampling은 이 시간적 상관관계를 끊어 mini-batch를 iid에 가깝게 만든다. 덤으로, 한 번 겪은 경험을 버리지 않고 여러 번 재사용하므로 **sample efficiency**도 크게 올라간다.
 
 > Experience replay는 off-policy 알고리즘에서만 사용할 수 있다.
 
@@ -89,7 +98,9 @@ Deep Q-learning 모델에 대해서 위 식으로 바로 학습을 진행하면 
     $$
 
 ### Fixed Target Q-network
-학습 과정 중에 policy가 지속적으로 바뀌고, 또 수렴을 제대로 하지 못하는 현상을 방지하기 위해, TD target을 계산하는데 사용되는 **target Q-network**를 일정 학습 기간동안은 고정시켜놓는 방법을 사용한다.
+앞서 본 loss를 다시 보면, 정답 역할을 하는 TD target도 학습 대상인 prediction도 **모두 같은 parameter $w$로 계산된다**. 즉 $w$를 한 번 update할 때마다 쫓아가야 할 target 자체가 같이 움직인다. 자기 그림자를 밟으려 뛰는 것과 비슷해서, 학습이 진동하거나 발산하기 쉽다.
+
+이를 막기 위해, TD target을 계산하는데 사용되는 **target Q-network**를 일정 학습 기간동안은 고정시켜놓는 방법을 사용한다. Target을 잠시 멈춰 세워 고정된 과녁으로 만든 뒤 그것을 향해 학습하고, 주기적으로만 과녁을 현재 위치로 옮기는 것이다.
 
 1. Target Q-network의 parameter를 현재 Q-network의 값 $w$으로 고정한다. 고정된 parameter를 $w^-$라고 하자.
 	

@@ -38,6 +38,8 @@ $$
 
 TRPO는 old policy에 기반하여 new policy의 performance를 maximize한다. 수리적으로 보면, TRPO의 objective는 new policy에 대한 advantage function의 기댓값이다. 다만, 여기서의 advantage function $A$는 old policy를 통해 estimate 된 값으로, $\frac{\pi_\theta(a \mid s)}{\pi_{\theta_{\text{old}}}(a \mid s)}$를 이용해 new policy의 값으로 조정된다.
 
+> 이 비율 $\frac{\pi_\theta(a \mid s)}{\pi_{\theta_{\text{old}}}(a \mid s)}$이 등장하는 이유는 **importance sampling** 때문이다. 우리가 평가하고 싶은 것은 new policy $\pi_\theta$의 성능이지만, 손에 든 data는 old policy로 모은 것이다. 데이터를 다시 모으지 않고 재활용하려면, "new policy라면 이 행동을 얼마나 더(또는 덜) 했을까"를 비율로 보정해줘야 한다. 한 batch의 data로 여러 번 update할 수 있게 해주는 것이 바로 이 trick이며, 동시에 old/new가 너무 벌어지면 보정이 부정확해지는 이유이기도 하다.
+
 > Objective의 경우 old policy와 new policy의 차이가 클수록 조정의 정확도가 떨어진다.
 
 TRPO의 constraint는 old/new policy간의 KL-divergence에 대한 크기 제한($\delta$)을 통해 new policy가 너무 크게 변화하는 것을 방지한다.
@@ -142,6 +144,8 @@ $$
 
 여기서 $\epsilon$은 clipping의 정도를 결정하는 hyperparameter로, policy의 ratio가 $(1-\epsilon, 1+\epsilon)$으로 제한되도록 강제한다.
 
+PPO의 영리한 점은, KL constraint를 명시적으로 풀지 않고도 같은 효과를 objective 자체에 녹여냈다는 데 있다. TRPO가 "제약 조건을 두고 그 안에서 최대화"하는 어려운 문제였다면, PPO는 "비율이 trust region을 벗어나면 그 방향으로 더 가봐야 이득이 없도록 보상을 잘라버리는" 방식으로 같은 목표를 달성한다.
+
 만약, advantage $A$가 positive한 경우, $J_{\text{PPO}}$는 다음과 같다.
 
 $$
@@ -153,6 +157,8 @@ $$
 $$
 J_{\text{PPO}} = \max \left( \frac{\pi_\theta(a \mid s)}{\pi_{\theta_{\text{old}}}(a \mid s)}, \, 1 - \epsilon \right) A^{\pi_{\theta_{\text{old}}}}(s, a)
 $$
+
+두 경우를 직관적으로 풀어보면 clipping의 역할이 분명해진다. Advantage가 positive, 즉 좋은 행동이면 그 확률을 키우고 싶지만 ratio가 $1+\epsilon$에 도달하면 objective가 평평해져 더 키워도 이득이 없다. 반대로 advantage가 negative, 즉 나쁜 행동이면 확률을 줄이되 ratio가 $1-\epsilon$ 밑으로는 더 내려도 이득이 없다. 어느 쪽이든 **좋은 방향이라도 한 번에 너무 멀리 가지 말라**는 제동을 거는 것이다. Gradient가 0이 되어 그 sample이 update를 더 끌고 가지 못하게 만드는 것이 핵심이다.
 
 이러한 clipping 방법은 일종의 regularization의 효과를 갖는다.
 

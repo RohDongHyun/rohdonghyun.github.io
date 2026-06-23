@@ -72,6 +72,10 @@ $$
 
 > 즉, sample을 통해 직접적으로 gradient 계산이 가능하다.
 
+이 변형이 왜 중요한지 짚어보자. 원래 $\nabla_\theta J$에는 우리가 직접 계산하기 어려운 환경 항(상태 분포 $d^{\pi_\theta}$ 등)이 얽혀 있다. 그런데 likelihood ratio trick을 거치면 gradient가 $\mathbb{E}_{\pi_\theta}[\cdots]$ 형태의 **기댓값**으로 바뀌고, 기댓값은 곧 sample 평균으로 근사할 수 있다. 즉 환경의 dynamics를 전혀 몰라도, agent가 직접 굴려 모은 trajectory만으로 gradient를 추정할 수 있게 된다.
+
+직관적으로 update 식 $\nabla_\theta \log \pi_\theta(s,a)\, r$이 하는 일은 단순하다. $\nabla_\theta \log \pi_\theta(s,a)$는 "이 행동의 확률을 높이는 방향"을 가리키고, 거기에 reward $r$이 가중치로 곱해진다. 따라서 **좋은 결과(큰 $r$)를 낸 행동은 더 자주 하도록, 나쁜 결과를 낸 행동은 덜 하도록** policy가 조정된다. 보상으로 행동의 확률을 직접 밀고 당기는 셈이다.
+
 ### Softmax Policy: Discrete Actions
 Action space가 discrete한 경우에 많이 사용되는 policy로는 **softmax policy**가 있다. Softmax policy의 경우, 각 action에 대해서 state-action feature vector $\phi(s,a)$를 이용하여 다음과 같이 확률을 부여한다.
 
@@ -118,11 +122,15 @@ $$
 ### REINFORCEMENT Algorithm
 Policy gradient theorem에 기반하여 Monte-Carlo estimation을 이용하면 policy gradient RL이 가능해진다. 이를 **REINFORCEMENT** 알고리즘이라고 한다.
 
-REINFORCEMENT 알고리즘은 $Q^{\pi_\theta}(s,a)$에 대한 unbiased sample로 return $G_t$를 사용한다.
+REINFORCEMENT 알고리즘은 $Q^{\pi_\theta}(s,a)$에 대한 unbiased sample로 return $G_t$를 사용한다. 즉, true action-value를 모르므로 그 자리에 "그 행동 이후 에피소드 끝까지 실제로 받은 누적 보상" $G_t$를 그대로 꽂아 넣는다.
 
 $$
 \Delta \theta_t = \alpha \nabla_\theta \log \pi_\theta(s_t, a_t) \;  G_t
 $$
+
+이것이 앞서 말한 밀고 당기기의 구체적 형태다. 에피소드가 끝난 뒤, 좋은 return을 가져다준 $(s_t, a_t)$들의 확률은 올리고 나쁜 것들은 내린다.
+
+> 하지만 $G_t$는 **하나의 에피소드 전체에서 나온 단일 sample**이라는 점이 약점이다. 같은 state에서 같은 행동을 해도, 이후 운에 따라 return이 크게 출렁이므로 $G_t$의 variance가 매우 크다. 그 결과 gradient 추정도 noisy해져 학습이 느리고 불안정하다. 이 높은 variance를 어떻게 줄일 것인가가 다음 글(Actor-Critic)의 출발점이다.
 
 REINFORCEMENT 알고리즘의 pseudocode는 다음과 같다.
 
