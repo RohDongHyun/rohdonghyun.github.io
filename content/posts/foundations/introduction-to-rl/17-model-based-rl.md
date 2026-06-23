@@ -57,5 +57,3 @@ $$
 ## 정리
 
 Model-based RL은 환경 모델을 학습하거나 활용해 가상 경험으로 계획을 세움으로써, model-free의 고질적 약점인 sample 비효율을 공략한다. Dyna는 실제·가상 경험을 같은 value에 합치는 background planning을, MCTS/AlphaZero는 결정 시점마다 탐색하는 decision-time planning을 보여준다. 모델이 정확하다면 강력하지만, 모델 오차가 곧 성능 한계가 된다는 점이 핵심 trade-off다.
-
-이로써 [[posts/foundations/introduction-to-rl/06-model-free-control|model-free]]에서 시작한 control의 두 축이 모두 채워졌다.

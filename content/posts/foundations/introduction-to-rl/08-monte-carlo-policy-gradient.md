@@ -116,7 +116,7 @@ $$
 > For any differentiable policy $\pi_\theta$ and any policy objective function, the policy gradient is
 >
 >$$
-\nabla_\theta J(\theta) = \mathbb{E}_{\pi_\theta} [\nabla_\theta \log \pi_\theta(s, a) \; Q^{\pi_\theta}(s,a) ]
+>\nabla_\theta J(\theta) = \mathbb{E}_{\pi_\theta} [\nabla_\theta \log \pi_\theta(s, a) \; Q^{\pi_\theta}(s,a) ]
 >$$
 
 ### REINFORCEMENT Algorithm

@@ -84,7 +84,7 @@ $$
 > $r=Corr(X,Y)$과 $\hat{\beta}$은 다음과 같은 관계를 갖는다.
 >
 > $$
-r = \sqrt{\frac{Var(X)}{Var(Y)}}\hat{\beta}_1
+> r = \sqrt{\frac{Var(X)}{Var(Y)}}\hat{\beta}_1
 > $$
 
 
@@ -145,19 +145,46 @@ $$
 
 $Y$를 '월 저축액'이라고 할 때, $X_1$을 '월 소득', $X_2$를 '가구 인원수'라고 하자. $Y$에 대해서 1. $X_1$만 이용해서, 2. $X_2$만 이용해서, 3. $X_1$과 $X_2$를 같이 이용해서 Regression을 진행했을 때의 결과가 각각 다음과 같다.
 
-1. 
-|     feature     | coefficient | std. error | p-value |
-| :-------------: | :---------: | :--------: | :-----: |
-| 월 소득 ($X_1$) |    0.205    |   0.035    |  0.000  |
-
-2. |       feature       | coefficient | std. error | p-value |
-| :-----------------: | :---------: | :--------: | :-----: |
-| 가구 인원수 ($X_2$) |    1.625    |   1.182    |  0.000  |
-
-3. |       feature       |              coefficient              | std. error | p-value |
-| :-----------------: | :-----------------------------------: | :--------: | :-----: |
-|   월 소득 ($X_1$)   |                 0.301                 |   0.029    |  0.000  |
-| 가구 인원수 ($X_2$) | <span style="color:red">-2.091</span> |   0.470    |  0.003  |
+<table>
+  <thead>
+    <tr>
+      <th>번호</th>
+      <th>feature</th>
+      <th>coefficient</th>
+      <th>std. error</th>
+      <th>p-value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>월 소득 ($X_1$)</td>
+      <td>0.205</td>
+      <td>0.035</td>
+      <td>0.000</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>가구 인원수 ($X_2$)</td>
+      <td>1.625</td>
+      <td>1.182</td>
+      <td>0.000</td>
+    </tr>
+    <tr>
+      <td rowspan="2">3</td>
+      <td>월 소득 ($X_1$)</td>
+      <td>0.301</td>
+      <td>0.029</td>
+      <td>0.000</td>
+    </tr>
+    <tr>
+      <td>가구 인원수 ($X_2$)</td>
+      <td><span style="color:red">-2.091</span></td>
+      <td>0.470</td>
+      <td>0.003</td>
+    </tr>
+  </tbody>
+</table>
 
 $X_1$과 $X_2$간에는 positive correlation이 존재하므로, $X_1$과 $X_2$로 만든 linear regression model에는 multicollinearity가 존재한다. 위 결과를 단순히 가구 인원수이 늘어나면 월 저축액이 줄어든다고 해석해서는 안되며, 월 소득이 동일한 경우에 가구 인원수가 적을수록 월 저축액이 늘어난다라고 이해하는 것이 더 올바른 해석이 된다.
 

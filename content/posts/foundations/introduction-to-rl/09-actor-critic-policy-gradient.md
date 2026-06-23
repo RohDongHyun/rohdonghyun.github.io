@@ -175,7 +175,6 @@ $$
 >$$
 >A(s,a) = Q_w(s,a) - V_v(s)
 >$$
-{: .prompt-info}
 
 ### Critics at Different Time-Scale
 Critic은 value function $V_v(s)$에 대한 추정을 다음과 같이 다양하게 진행할 수 있다.

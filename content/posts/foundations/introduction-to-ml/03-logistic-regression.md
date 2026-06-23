@@ -85,9 +85,9 @@ $$
 > 간혹 $y_i$의 값이 1 or 0이 아닌, 1 or -1으로 문제가 정의되는 경우가 있다. 이 때의 log-likelihood는 다음과 같다.
 >
 > $$
-\begin{aligned}
-\ell(\beta|x_i, y_i) = -\sum_{i=1}^n \log \left(1+\exp(-y_ix_i^\top \beta)\right)
-\end{aligned}
+> \begin{aligned}
+> \ell(\beta|x_i, y_i) = -\sum_{i=1}^n \log \left(1+\exp(-y_ix_i^\top \beta)\right)
+> \end{aligned}
 > $$
 
 ### Loss Function
