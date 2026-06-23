@@ -15,7 +15,7 @@ Model-free policy improvement 역시 현재 상태에서 얻어낸 value functio
 
 $$
 \begin{aligned}
-\pi'(s) &= \arg\max_{a \in A} \left( R^a_s + \gamma \sum_{s' \in S} P_{ss'}^a V_{\pi}(s') \right)
+\pi'(s) &= \arg\max_{a \in A} \left( R^a_s + \gamma \sum_{s' \in S} P_{ss'}^a V_{\pi}(s') \right) \\
 &= \arg\max\limits_{a \in \mathcal{A}} Q_\pi(s,a)
 \end{aligned}
 $$
@@ -33,7 +33,7 @@ $$
 $$
 \pi(a|s) = 
 \begin{cases} 
-\frac{\epsilon}{m} + 1 - \epsilon & \text{for } a^* = \arg\max\limits_{a \in A} Q(s, a)  
+\frac{\epsilon}{m} + 1 - \epsilon & \text{for } a^* = \arg\max\limits_{a \in A} Q(s, a) \\  
 \frac{\epsilon}{m} & \text{for other } a 
 \end{cases}
 $$
@@ -130,7 +130,7 @@ SARSA와 Q-learning은 유사한 알고리즘이나, 각각 on-policy와 off-pol
 
 $$  
 \begin{aligned}  
-\text{SARSA:} \quad & R + \gamma Q(S', A') \quad &(A' \text{는 behavior policy로 } \textbf{실제로 선택한} \text{ 다음 action})  
+\text{SARSA:} \quad & R + \gamma Q(S', A') \quad &(A' \text{는 behavior policy로 } \textbf{실제로 선택한} \text{ 다음 action}) \\  
 \text{Q-learning:} \quad & R + \gamma \max_{a'} Q(S', a') \quad &(\max \text{는 greedy target policy가 } \textbf{했을} \text{ 행동})  
 \end{aligned}  
 $$
