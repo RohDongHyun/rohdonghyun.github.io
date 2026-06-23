@@ -26,12 +26,12 @@
 - [x] `06` 실습: minikube/kind로 로컬에서 Pod 띄우기, `kubectl` 기본
 
 ### 4부 — Airflow & DAG (워크플로 스케줄링)
-- [ ] `07` DAG란 무엇인가: 방향성 비순환 그래프로 작업 의존성 표현 (Airflow 글 도입부 개념으로 통합 가능)
-- [ ] `08` Airflow 구조: Scheduler / Executor / Worker / Metadata DB, Task와 Operator
-- [ ] `09` 첫 DAG 작성: Python task 정의, 의존성 연결(`>>`), 재시도·스케줄
-- [ ] `10` (선택) 셋을 잇기: KubernetesPodOperator로 컨테이너 task를 K8s에 던지는 MLOps 파이프라인 전체 조망
+- [x] `07` DAG란 무엇인가: 방향성 비순환 그래프로 작업 의존성 표현 (별도 글로 작성)
+- [x] `08` Airflow 구조: Scheduler / Executor / Worker / Metadata DB, Task와 Operator
+- [x] `09` 첫 DAG 작성: Python task 정의, 의존성 연결(`>>`), 재시도·스케줄
+- [x] `10` 셋을 잇기: KubernetesPodOperator로 컨테이너 task를 K8s에 던지는 MLOps 파이프라인 전체 조망
 
 ## 메모
-- 00~06 작성·push 완료 (2026-06-23). 다음 작업은 `07`(DAG/Airflow 도입)부터.
+- 00~10 **전편 작성·push 완료** (2026-06-23). 시리즈 1차 완결.
 - 이미지가 없으므로 텍스트 다이어그램/코드블록으로 설명. 필요 시 나중에 `/images/`에 추가.
 - 톤·형식은 같은 foundations의 `time-series-analysis`, `introduction-to-rl` 시리즈를 기준으로 맞춤.
