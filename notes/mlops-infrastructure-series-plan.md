@@ -21,9 +21,9 @@
 - [x] `03` 데이터 관리와 통신: volume(영속화), port/network, docker-compose
 
 ### 3부 — Kubernetes (오케스트레이션)
-- [ ] `04` 왜 오케스트레이션인가: 컨테이너 수백 개를 손으로 못 굴리는 이유 (스케일링·장애복구·롤아웃)
-- [ ] `05` K8s 핵심 오브젝트: Pod / Deployment / Service / Namespace, declarative("원하는 상태 선언") 개념
-- [ ] `06` (선택) 실습: minikube/kind로 로컬에서 Pod 띄우기, `kubectl` 기본
+- [x] `04` 왜 오케스트레이션인가: 컨테이너 수백 개를 손으로 못 굴리는 이유 (스케일링·장애복구·롤아웃)
+- [x] `05` K8s 핵심 오브젝트: Pod / Deployment / Service / Namespace, declarative("원하는 상태 선언") 개념
+- [x] `06` 실습: minikube/kind로 로컬에서 Pod 띄우기, `kubectl` 기본
 
 ### 4부 — Airflow & DAG (워크플로 스케줄링)
 - [ ] `07` DAG란 무엇인가: 방향성 비순환 그래프로 작업 의존성 표현 (Airflow 글 도입부 개념으로 통합 가능)
@@ -32,6 +32,6 @@
 - [ ] `10` (선택) 셋을 잇기: KubernetesPodOperator로 컨테이너 task를 K8s에 던지는 MLOps 파이프라인 전체 조망
 
 ## 메모
-- 00~03 작성·push 완료 (2026-06-23). 다음 작업은 `04`(Kubernetes 도입)부터.
+- 00~06 작성·push 완료 (2026-06-23). 다음 작업은 `07`(DAG/Airflow 도입)부터.
 - 이미지가 없으므로 텍스트 다이어그램/코드블록으로 설명. 필요 시 나중에 `/images/`에 추가.
 - 톤·형식은 같은 foundations의 `time-series-analysis`, `introduction-to-rl` 시리즈를 기준으로 맞춤.
