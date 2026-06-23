@@ -11,7 +11,7 @@ private: false
 
 ## Model-free Policy Improvement
 
-Model-free policy improvement 역시 현재 상태에서 얻어낸 value function을 maximize하는 action을 선택하는 것을 통해 얻어낼 수 있다. 이렇게 얻은 **greedy policy $\pi'$**은 다음과 같다.
+Model-free policy improvement 역시 현재 상태에서 얻어낸 value function을 maximize하는 action을 선택하는 것을 통해 얻어낼 수 있다. 이렇게 얻은 **greedy policy $\pi'$** 은 다음과 같다.
 
 $$
 \begin{aligned}
@@ -54,9 +54,10 @@ $$
 4. 새로운 state $S'$에서 policy $\pi$를 기반으로 action $A'$를 선택한다.
 5. 다음 식으로 $(S,A)$에서의 action-value $Q(S,A)$를 update한다.
 
-  $$
-    Q(S,A) \leftarrow Q(S,A) + \alpha(R + \gamma Q(S',A') - Q(S,A))
-    $$
+  $$  
+  Q(S,A) \leftarrow Q(S,A) + \alpha(R + \gamma Q(S',A') - Q(S,A))  
+  $$  
+  
 6. $S\leftarrow S'$, $A\leftarrow A'$. 이후, 2번으로 돌아간다.
 
 > SARSA는 state-action-reward-state-action 각각의 앞글자를 따 정해진 이름이다.
@@ -74,9 +75,10 @@ Off-policy 알고리즘에서는 두 개의 서로 다른 policy를 사용한다
 
 - Agent의 action-value를 update할 때 사용되는 다음 시점의 $Q(S_{t+1},A')$ 중 $A'$을 결정하는 policy: **target policy** $\pi$ ($A' \sim \pi(\cdot \mid S_t)$)
 
-    $$
-    Q(S_t,A_t) \leftarrow Q(S_t,A_t) + \alpha(R_{t+1} + \gamma Q(S_{t+1},A') - Q(S_t,A_t))
-    $$
+  $$  
+  Q(S_t,A_t) \leftarrow Q(S_t,A_t) + \alpha(R_{t+1} + \gamma Q(S_{t+1},A') - Q(S_t,A_t))  
+  $$  
+  
 - Agent의 실제 action 결정하는 policy: **behavior policy** $\mu$ ($A_{t+1} \sim \mu(\cdot \mid S_t)$)
 
 Q-learning에서는 target policy로 greedy policy ($\pi(S_{t+1}) = \arg\max\limits_{a'}Q(S_{t+1}, a')$를, behavior policy로 $\epsilon$-greedy policy를 사용한다. 즉, Q-learning은 다음과 같이 동작한다.
@@ -86,10 +88,10 @@ Q-learning에서는 target policy로 greedy policy ($\pi(S_{t+1}) = \arg\max\lim
 3. Action $A$를 수행하고, 새로운 state $S'$과 reward $R$을 얻는다.
 4. 다음 식으로 $(S,A)$에서의 action-value $Q(S,A)$를 update한다.
 
-  $$
-    Q(S,A) \leftarrow Q(S,A) + \alpha(R + \gamma \max_{a'} Q(S',a') - Q(S,A))
-
-    $$
+  $$  
+  Q(S,A) \leftarrow Q(S,A) + \alpha(R + \gamma \max_{a'} Q(S',a') - Q(S,A))  
+  $$  
+  
 5. $S\leftarrow S'$. 이후, 2번으로 돌아간다.
 
 > Q-learning 역시 SARSA와 마찬가지로 optimal로 수렴한다는 것이 알려져 있다.
@@ -131,7 +133,7 @@ SARSA와 Q-learning은 유사한 알고리즘이나, 각각 on-policy와 off-pol
 
 $$  
 \begin{aligned}  
-\text{SARSA:} \quad & R + \gamma Q(S', A') \quad &(A' \text{는 behavior policy로 } \textbf{실제로 선택한} \text{ 다음 action})  
+\text{SARSA:} \quad & R + \gamma Q(S', A') \quad &(A' \text{는 behavior policy로 } \textbf{실제로 선택한} \text{ 다음 action}) \\  
 \text{Q-learning:} \quad & R + \gamma \max_{a'} Q(S', a') \quad &(\max \text{는 greedy target policy가 } \textbf{했을} \text{ 행동})  
 \end{aligned}  
 $$
