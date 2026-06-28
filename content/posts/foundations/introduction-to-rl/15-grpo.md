@@ -2,7 +2,7 @@
 title: 15. GRPO (Group Relative Policy Optimization)
 date: 2026-06-23
 tags:
-  - Introduction to RL
+  - Reinforcement Learning
 ---
 [[posts/foundations/introduction-to-rl/14-rlhf|RLHF]]에서 PPO가 짊어진 가장 무거운 짐은 policy와 맞먹는 크기의 **value network**(critic)였다. **GRPO** (Group Relative Policy Optimization)는 이 critic을 통째로 없앤다. 대신 같은 prompt에 대해 여러 답을 뽑아 **그 그룹의 평균을 baseline으로** 삼는다. DeepSeekMath에서 제안되어 DeepSeek-R1의 핵심 학습 알고리즘으로 쓰이며 널리 알려졌다.
 

@@ -2,7 +2,7 @@
 title: 07. Deep Q-Learning
 date: 2025-09-22
 tags:
-  - Introduction to RL
+  - Reinforcement Learning
 ---
 * 참고: [Model-free Control](https://velog.io/@rdh7014/Model-free-Control/)
 

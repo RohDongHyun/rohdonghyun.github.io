@@ -2,7 +2,7 @@
 title: 15. Boosting
 date: 2025-09-21
 tags:
-  - Introduction to ML
+  - Machine Learning
 ---
 ## Boosting
 **Boosting**은 weak learner 또는 baseline model 여러 개를 결합하여 보다 높은 성능의 prediction model을 만드는 방법으로, Bagging 및 Random Forest와 함께 널리 사용되는 ensemble 방법 중 하나이다 ([Bagging and Random Forest](https://velog.io/@rdh7014/Bagging-and-Random-Forest)). 이 때, boosting model은 baseline model의 linear combination으로 볼 수 있다.

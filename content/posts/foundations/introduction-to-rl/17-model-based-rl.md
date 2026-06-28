@@ -2,7 +2,7 @@
 title: 17. Model-based RL
 date: 2026-06-23
 tags:
-  - Introduction to RL
+  - Reinforcement Learning
 ---
 시리즈의 출발점이었던 [[posts/foundations/introduction-to-rl/06-model-free-control|Model-free Control]]은 환경의 dynamics를 모른 채, 오직 경험으로 value나 policy를 직접 학습하는 방법이었다. 이번 글은 그 짝이 되는 반대편 축, **model-based RL**을 다룬다. 환경의 모델 — 전이확률 $P(s' \mid s, a)$와 보상 $R(s, a)$ — 을 학습하거나 활용해 **계획**(planning)을 세우는 접근이다.
 

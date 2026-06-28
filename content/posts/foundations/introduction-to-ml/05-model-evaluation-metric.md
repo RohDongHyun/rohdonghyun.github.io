@@ -2,7 +2,7 @@
 title: 05. Model Evaluation Metric
 date: 2025-09-21
 tags:
-  - Introduction to ML
+  - Machine Learning
 ---
 Model evaluation은 당연하게도 무척 중요하다. 특정 application에 적용할 model이라면, 해당 application에서 요구하는 수준의 performance를 낼 수 있는지 미리 확인 할 수 있어야 한다. 또한, model 자체를 optimizing 하는 것에 있어서도 optimal의 기준이 되는 metric이 필요하다.
 

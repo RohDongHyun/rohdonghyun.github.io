@@ -2,7 +2,7 @@
 title: 01. Introduction to Deep Learning
 date: 2025-09-22
 tags:
-  - Introduction to DL
+  - Deep Learning
 ---
 ## Deep Learning as a Machine Learning
 

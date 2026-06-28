@@ -2,7 +2,7 @@
 title: 14. Hyperparameters in Deep Learning
 date: 2025-09-22
 tags:
-  - Introduction to DL
+  - Deep Learning
 ---
 **Hyperparameter**에 관한 기초 내용은 아래 post를 참조하길 바란다.
 * [Hyperparameter](https://velog.io/@rdh7014/Hyperparameter)

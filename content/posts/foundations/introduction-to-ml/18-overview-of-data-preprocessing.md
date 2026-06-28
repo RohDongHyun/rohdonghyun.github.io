@@ -2,7 +2,7 @@
 title: 18. Overview of Data Preprocessing
 date: 2025-09-21
 tags:
-  - Introduction to ML
+  - Machine Learning
 ---
 Garbage-in garbage-out의 관점에서, 좋은 모델이 되기 위해서는 결국 좋은 data가 필요하다. 하지만 좋은 data를 모으기는 정말 어렵고, 또 모은 data는 항상 생각한 것만큼 좋지는 않다. 따라서, data를 깊게 살펴보는 작업을 통해 data를 이해하고, 적절한 형태의 data로 transform하는 것은 좋은 model을 만드는 것에 있어서 필수적이고 가장 중요한 과정이며, 더 나아가 결과를 올바르게 이해하는 것에도 도움을 준다.
 

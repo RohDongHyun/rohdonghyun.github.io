@@ -2,7 +2,7 @@
 title: 08. Monte-Carlo Policy Gradient
 date: 2025-09-22
 tags:
-  - Introduction to RL
+  - Reinforcement Learning
 ---
 * 참고: [Deep Q-learning](https://velog.io/@rdh7014/Deep-Q-Learning/)
 

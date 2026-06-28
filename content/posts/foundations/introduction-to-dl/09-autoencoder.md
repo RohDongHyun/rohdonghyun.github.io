@@ -2,7 +2,7 @@
 title: 09. Autoencoder
 date: 2025-09-22
 tags:
-  - Introduction to DL
+  - Deep Learning
 ---
 ## Autoencoder
 **Autoencoder (AE)** 란 input과 output이 동일하도록 학습하는 neural network를 의미한다. 언뜻보면 아무런 의미가 없는 NN으로 보이지만, 주로 데이터의 dimension reduction 및 feature extraction을 위해 사용되는 모델이다. 

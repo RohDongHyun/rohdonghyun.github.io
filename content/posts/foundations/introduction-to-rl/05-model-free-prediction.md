@@ -2,7 +2,7 @@
 title: 05. Model-free Prediction
 date: 2025-09-22
 tags:
-  - Introduction to RL
+  - Reinforcement Learning
 ---
 * 참고: [Monte Carlo Method](https://velog.io/@rdh7014/Monte-Carlo-Method/)
 

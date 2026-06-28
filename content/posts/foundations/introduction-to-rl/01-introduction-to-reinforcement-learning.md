@@ -2,7 +2,7 @@
 title: 01. Introduction to Reinforcement Learning
 date: 2025-09-22
 tags:
-  - Introduction to RL
+  - Reinforcement Learning
 ---
 ## What is Reinforcement Learning?
 

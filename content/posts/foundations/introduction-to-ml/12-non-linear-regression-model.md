@@ -2,7 +2,7 @@
 title: 12. Non-Linear Regression Model
 date: 2025-09-21
 tags:
-  - Introduction to ML
+  - Machine Learning
 ---
 현실의 data는 결코 linear하지 않지만, linear model은 interpretability에서 큰 장점을 가지고 있기에 자주 사용된다. 여기서는 기존 linear model에 non-linearity를 더해 accuracy와 interpretability를 모두 잡기위한 노력으로 개발된 방법론들을 소개한다.
 

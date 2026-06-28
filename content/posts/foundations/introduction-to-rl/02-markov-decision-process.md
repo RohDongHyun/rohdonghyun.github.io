@@ -2,7 +2,7 @@
 title: 02. Markov Decision Process
 date: 2025-09-22
 tags:
-  - Introduction to RL
+  - Reinforcement Learning
 ---
 ## Markov Process
 **Markov process**란, Markov property를 만족하는 random variable의 sequence로, $\langle S,P \rangle$로 나타낸다.

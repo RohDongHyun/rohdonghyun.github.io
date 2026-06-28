@@ -2,7 +2,7 @@
 title: 03. Logistic Regression
 date: 2025-09-21
 tags:
-  - Introduction to ML
+  - Machine Learning
 ---
 주어진 data, 또는 feature vector X,에 대해, 해당 data가 어떤 category에 포함될 지를 결정하는 것을 **classification**이라고 한다. 이는 X가 각 category C에 포함될 확률을 통해 결정된다.
 

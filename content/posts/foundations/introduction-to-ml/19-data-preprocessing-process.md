@@ -2,7 +2,7 @@
 title: 19. Data Preprocessing Process
 date: 2025-09-21
 tags:
-  - Introduction to ML
+  - Machine Learning
 ---
 ## Data Cleaning
 **Data cleaning**이란 데이터의 품질을 높이기 위해 다양한 규칙을 검사하여 데이터의 일관성을 유지하고 오류를 방지하는 작업이다. Data preprocessing에서 필수적이고 중요한 단계이다.

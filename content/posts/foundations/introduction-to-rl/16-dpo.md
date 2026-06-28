@@ -2,7 +2,7 @@
 title: 16. DPO (Direct Preference Optimization)
 date: 2026-06-23
 tags:
-  - Introduction to RL
+  - Reinforcement Learning
 ---
 [[posts/foundations/introduction-to-rl/14-rlhf|RLHF]]는 강력하지만 절차가 무겁다. reward model을 따로 학습하고, 그 위에서 [[posts/foundations/introduction-to-rl/10-proximal-policy-optimization|PPO]]로 RL을 돌려야 하며, 그 과정은 불안정하고 메모리도 많이 먹는다. **DPO** (Direct Preference Optimization)는 놀라운 주장을 한다. **reward model도, RL loop도 없이**, 선호 데이터만으로 policy를 직접 최적화할 수 있다는 것이다.
 

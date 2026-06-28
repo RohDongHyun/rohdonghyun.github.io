@@ -2,7 +2,7 @@
 title: 08. LSTM and GRU
 date: 2025-09-22
 tags:
-  - Introduction to DL
+  - Deep Learning
 ---
  참고: [RNN](https://velog.io/@rdh7014/Recurrent-Neural-Network/)
 

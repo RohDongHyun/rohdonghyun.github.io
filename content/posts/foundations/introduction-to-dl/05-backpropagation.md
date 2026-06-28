@@ -2,7 +2,7 @@
 title: 05. Backpropagation
 date: 2025-09-22
 tags:
-  - Introduction to DL
+  - Deep Learning
 ---
 우리는 앞서 [FFN](https://velog.io/@rdh7014/FeedForward-Neural-Networks)을 통해 input layer부터 output layer까지 순서대로 값을 계산하고 저장하는 작업을 수행했다. 이를 **forward propagation**이라고 한다. 
 

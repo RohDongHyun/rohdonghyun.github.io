@@ -2,7 +2,7 @@
 title: 04. Discriminant Analysis
 date: 2025-09-21
 tags:
-  - Introduction to ML
+  - Machine Learning
 ---
 Logistic regression과 다른 방법으로도 classification을 진행할 수 있다.
 

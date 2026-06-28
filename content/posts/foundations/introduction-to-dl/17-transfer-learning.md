@@ -2,7 +2,7 @@
 title: 17. Transfer Learning
 date: 2025-09-22
 tags:
-  - Introduction to DL
+  - Deep Learning
 ---
 ## Transfer Learning
 

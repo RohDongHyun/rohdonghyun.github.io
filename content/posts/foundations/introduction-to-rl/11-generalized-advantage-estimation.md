@@ -2,7 +2,7 @@
 title: 11. Generalized Advantage Estimation
 date: 2026-06-23
 tags:
-  - Introduction to RL
+  - Reinforcement Learning
 ---
 [[posts/foundations/introduction-to-rl/09-actor-critic-policy-gradient|Actor-Critic]]과 [[posts/foundations/introduction-to-rl/10-proximal-policy-optimization|PPO]]까지 오면서, policy gradient를 계산할 때 **advantage function** $A(s,a)$를 쓰면 variance가 크게 줄어든다는 것을 보았다. 그런데 정작 advantage를 *어떻게 추정하느냐*는 깊게 다루지 않고 넘어갔다. 사실 이 추정 방식이 학습의 안정성과 속도를 좌우하며, TRPO·PPO를 비롯한 현대 policy gradient 알고리즘이 거의 예외 없이 사용하는 표준 기법이 바로 **generalized advantage estimation** (GAE)이다.
 

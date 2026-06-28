@@ -2,7 +2,7 @@
 title: 10. Regularization
 date: 2025-09-21
 tags:
-  - Introduction to ML
+  - Machine Learning
 ---
 ## Regularization
 **Regularization**은 model의 flexibility를 조절하여 overfitting을 방지하고, model의 성능을 향상시키기 위해 사용되는 기법을 말한다. 주로 regression analysis와 machine learning에서 사용된다.

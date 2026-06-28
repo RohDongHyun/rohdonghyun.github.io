@@ -2,7 +2,7 @@
 title: 07. Recurrent Neural Network
 date: 2025-09-22
 tags:
-  - Introduction to DL
+  - Deep Learning
 ---
 **Recurrent neural network (RNN)** 은 sequential data를 처리하는 것에 특화된 neural network로, 자연어 처리(natural language processing, NLP), 기계 번역(machine translation) 등 다양한 분야에서 사용된다.
 

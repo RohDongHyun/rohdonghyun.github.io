@@ -2,7 +2,7 @@
 title: 07. Cross-validation
 date: 2025-09-21
 tags:
-  - Introduction to ML
+  - Machine Learning
 ---
 기본적으로 model의 성능은 test error를 기반으로 평가된다. 그러나 test set은 기본적으로 training 과정에서 알 수 없기 때문에, training 시에는 test error를 예측하는 방법이 필요하다.
 

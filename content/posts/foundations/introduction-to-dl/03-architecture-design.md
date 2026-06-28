@@ -2,7 +2,7 @@
 title: 03. Architecture Design
 date: 2025-09-22
 tags:
-  - Introduction to DL
+  - Deep Learning
 ---
 ## Architecture Design
 **Architecture**란 network의 전반적인 구조를 말한다. Neural networks에서의 architecture란 몇 개의 layer를 사용할 것인지, 각 layer 별로 몇 개의 unit을 어떤 식으로 사용할 것인지, 각 unit들을 어떻게 연결할 것인지와 같은 의사결정을 통해 생성되는 network의 구조를 말한다.

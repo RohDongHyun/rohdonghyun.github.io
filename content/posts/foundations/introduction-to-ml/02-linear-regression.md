@@ -2,7 +2,7 @@
 title: 02. Linear Regression
 date: 2025-09-21
 tags:
-  - Introduction to ML
+  - Machine Learning
 ---
 Linear regression은 가장 간단한 버전의 supervised learning으로, 이는 $Y$가 $X_1, X_2, \dots, X_p$와 linear dependency를 가진다고 가정한다.
 

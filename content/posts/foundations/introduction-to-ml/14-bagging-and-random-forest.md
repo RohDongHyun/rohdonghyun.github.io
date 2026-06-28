@@ -2,7 +2,7 @@
 title: 14. Bagging and Random Forest
 date: 2025-09-21
 tags:
-  - Introduction to ML
+  - Machine Learning
 ---
 ## Ensemble
 **Ensemble** 방법이란 하나의 target에 대해 여러개의 prediction model을 만든 후, 이를 결합하여 최종적인 prediction model을 만드는 방법을 통칭한다.

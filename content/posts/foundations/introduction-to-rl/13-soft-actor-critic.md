@@ -2,7 +2,7 @@
 title: 13. Soft Actor-Critic
 date: 2026-06-23
 tags:
-  - Introduction to RL
+  - Reinforcement Learning
 ---
 [[posts/foundations/introduction-to-rl/12-ddpg-and-td3|DDPG·TD3]]는 continuous action을 off-policy로 잘 풀었지만, actor가 deterministic이라 탐험을 외부 noise에 의존하고 hyperparameter에 민감했다. **Soft Actor-Critic** (SAC)은 탐험을 외부에서 주입하는 대신 **목적함수 안에 entropy를 직접 넣어** 더 견고하게 학습하는 off-policy actor-critic이다. 오늘날 continuous control의 사실상 표준으로 널리 쓰인다.
 

@@ -2,7 +2,7 @@
 title: 02. Mathematics for Deep Learning
 date: 2025-09-22
 tags:
-  - Introduction to DL
+  - Deep Learning
 ---
 ## Distributions 
 ### Logistic Sigmoid

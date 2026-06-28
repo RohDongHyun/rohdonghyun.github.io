@@ -2,7 +2,7 @@
 title: 04. Solving MDP
 date: 2025-09-22
 tags:
-  - Introduction to RL
+  - Reinforcement Learning
 ---
 * 참고
   * [MDP](https://velog.io/@rdh7014/Markov-Decision-Process/)

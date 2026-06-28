@@ -2,7 +2,7 @@
 title: 09. Feature Subset Selection
 date: 2025-09-21
 tags:
-  - Introduction to ML
+  - Machine Learning
 ---
 ## Feature Subset Selection
 Machine learning에서 가장 중요한 것 중 하나는 올바른 feature들을 찾는 것이다. 이는 결과와 무관한 feature들을 제거하여 prediction accuracy와 model interpretability를 향상시키는 것을 말한다.

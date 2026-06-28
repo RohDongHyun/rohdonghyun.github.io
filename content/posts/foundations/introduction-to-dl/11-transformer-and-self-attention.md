@@ -2,7 +2,7 @@
 title: 11. Transformer and Self-attention
 date: 2025-09-22
 tags:
-  - Introduction to DL
+  - Deep Learning
 ---
 * 참고
   * [Sequence-to-Sequence and Attention](https://velog.io/@rdh7014/Sequence-to-Sequence-and-Attention/)

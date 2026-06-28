@@ -2,7 +2,7 @@
 title: 12. Variational Autoencoders
 date: 2025-09-22
 tags:
-  - Introduction to DL
+  - Deep Learning
 ---
 **Generative model** 이란 training data $p_{data}(x)$으로부터 유사한 분포를 갖는 새로운 sample ($p_{model}(x)$)을 생성하는 모델을 말한다. Explicit modeling은 그러한 $p_{model}(x)$을 수리적으로 정의하고 이를 표현한 모델을 말하며, implicit modeling은 $p_{model}(x)$을 따로 정의하지 않고 생성해내는 모델을 말한다.
 

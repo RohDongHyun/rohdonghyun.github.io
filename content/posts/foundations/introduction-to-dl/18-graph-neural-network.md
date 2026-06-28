@@ -2,7 +2,7 @@
 title: 18. Graph Neural Network
 date: 2026-06-22
 tags:
-  - Introduction to DL
+  - Deep Learning
 private: false
 ---
 - 참고

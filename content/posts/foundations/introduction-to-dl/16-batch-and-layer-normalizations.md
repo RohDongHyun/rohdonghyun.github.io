@@ -2,7 +2,7 @@
 title: 16. Batch and Layer Normalizations
 date: 2025-09-22
 tags:
-  - Introduction to DL
+  - Deep Learning
 ---
 ## Internal Covariate Shift
 

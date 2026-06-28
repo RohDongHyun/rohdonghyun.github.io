@@ -2,7 +2,7 @@
 title: 03. Bellman Equation and Optimality
 date: 2025-09-22
 tags:
-  - Introduction to RL
+  - Reinforcement Learning
 ---
 * 참고: [Markov Decision Process (MDP)](https://velog.io/@rdh7014/Markov-Decision-Process/)
 

@@ -2,7 +2,7 @@
 title: 13. Decision Trees
 date: 2025-09-21
 tags:
-  - Introduction to ML
+  - Machine Learning
 ---
 ## Regresssion Decision Tree
 아래 예시는 야구 선수의 연차(Years)와 연간 안타 수(Hits)에 따른 연봉(Salary)를 표시한 그림이다. Salary는 낮으면 blue, 높으면 red로 표시된다.

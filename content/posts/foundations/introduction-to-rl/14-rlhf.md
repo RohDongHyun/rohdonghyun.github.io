@@ -2,7 +2,7 @@
 title: 14. RLHF (Reinforcement Learning from Human Feedback)
 date: 2026-06-23
 tags:
-  - Introduction to RL
+  - Reinforcement Learning
 ---
 [[posts/foundations/introduction-to-rl/10-proximal-policy-optimization|PPO]]까지 익혔다면, 이제 LLM이 어떻게 RL로 **정렬**(alignment)되는지 볼 수 있다. ChatGPT·InstructGPT를 사람의 의도에 맞게 다듬은 핵심 기법이 바로 **RLHF** (Reinforcement Learning from Human Feedback)다. 한마디로, PPO를 환경이 주는 보상이 아니라 **사람의 선호를 학습한 reward model**에 대해 돌리는 것이다.
 

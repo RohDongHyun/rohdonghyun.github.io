@@ -2,7 +2,7 @@
 title: 10. Sequence-to-Sequence and Attention
 date: 2025-09-22
 tags:
-  - Introduction to DL
+  - Deep Learning
 ---
 ## Sequence-to-Sequence (Seq2seq)
 **Sequence-to-Sequence (seq2seq)** 는 **encoder-decoder structure**라고도 불리우는 모델이자 일종의 framework이다. Seq2seq은 input (또는 source) sequence를 입력받는 encoder 부분과 output (또는 target) sequence를 생성하는 decoder 부분으로 나뉘어진다.

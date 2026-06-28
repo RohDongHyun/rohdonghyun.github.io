@@ -2,7 +2,7 @@
 title: 06. Hyperparameter
 date: 2025-09-21
 tags:
-  - Introduction to ML
+  - Machine Learning
 ---
 ## Hyperparameter
 **Hyperparameter**는 일반적인 model의 parameter와 다르게, 학습 과정으로부터 배우는 parameter가 아니라 학습 과정을 control하기 위해 사용자가 직접 설정하는 parameter를 말한다. 일반적인 model의 parameter는 learnable parameter라고도 한다.

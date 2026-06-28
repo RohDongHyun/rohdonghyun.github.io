@@ -2,7 +2,7 @@
 title: 09. Actor-Critic Policy Gradient
 date: 2025-09-22
 tags:
-  - Introduction to RL
+  - Reinforcement Learning
 ---
 * 참고: [Monte-Carlo Policy Gradient](https://velog.io/@rdh7014/Monte-Carlo-Policy-Gradient/)
 

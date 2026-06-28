@@ -2,7 +2,7 @@
 title: 11. Dimension Reduction
 date: 2025-09-21
 tags:
-  - Introduction to ML
+  - Machine Learning
 ---
 **Dimension reduction**이란 high dimensional data에서 중요한 정보를 유지하면서 data의 dimension을 줄이는 기법을 말한다. 기본적으로 data를 2-dim 또는 3-dim으로 표현하게 되면 data visulalization, interpretation, processing time 측면에서 장점이 있다. 특히, curse of dimensionality의 관점에서 적절한 dimension reduction을 적용한 data는 feature selection의 효과가 있어 model의 performance를 향상시킨다.
 

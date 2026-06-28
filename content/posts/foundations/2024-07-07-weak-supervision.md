@@ -2,7 +2,7 @@
 title: Weak Supervision
 date: 2024-07-07
 tags:
-  - Introduction to ML
+  - Machine Learning
 private: true
 ---
 ### Weak Supervision

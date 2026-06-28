@@ -2,7 +2,7 @@
 title: 17. Clustering
 date: 2025-09-21
 tags:
-  - Introduction to ML
+  - Machine Learning
 ---
 **Clustering**이란 대표적인 unsupervised learning 방법 중 하나로, data set에 대해서 homogeneous subgroup 또는 cluster를 찾는 기법을 말한다.
 

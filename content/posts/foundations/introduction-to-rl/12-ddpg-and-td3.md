@@ -2,7 +2,7 @@
 title: 12. DDPG and TD3
 date: 2026-06-23
 tags:
-  - Introduction to RL
+  - Reinforcement Learning
 ---
 지금까지 본 알고리즘을 두 축으로 나눠보자. [[posts/foundations/introduction-to-rl/07-deep-q-learning|DQN]]은 value-based이자 off-policy지만 **discrete action**에서만 동작하고, [[posts/foundations/introduction-to-rl/10-proximal-policy-optimization|PPO]]는 continuous action을 다룰 수 있지만 **on-policy**라 sample 효율이 떨어진다. 그렇다면 "continuous action을 다루면서 동시에 off-policy인" 알고리즘은 없을까? 이 빈자리를 채우는 대표적인 방법이 **DDPG**와 그 개선판인 **TD3**다.
 

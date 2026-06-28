@@ -2,7 +2,7 @@
 title: 06. Model-free Control
 date: 2025-09-22
 tags:
-  - Introduction to RL
+  - Reinforcement Learning
 private: false
 ---
 - 참고: [Model-free Prediction](https://velog.io/@rdh7014/Model-free-Prediction/)

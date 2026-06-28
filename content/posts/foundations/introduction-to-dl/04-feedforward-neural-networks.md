@@ -2,7 +2,7 @@
 title: 04. FeedForward Neural Networks
 date: 2025-09-22
 tags:
-  - Introduction to DL
+  - Deep Learning
 ---
 ## FeedForward Neural Networks (FNN)
 **Feedforward neural network (FNN)** 는 가장 핵심적이고 기본적인 deep learning model이다. **Deep feedforward network** 또는 **multi-layer perceptrons (MLP)** 로도 불린다.

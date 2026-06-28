@@ -2,7 +2,7 @@
 title: 15. Advanced Regularization
 date: 2025-09-22
 tags:
-  - Introduction to DL
+  - Deep Learning
 ---
 **Regularization**은 model의 flexibility를 조절하여 overfitting을 방지하고, model의 성능을 향상시키기 위해 사용되는 기법을 말한다.
 

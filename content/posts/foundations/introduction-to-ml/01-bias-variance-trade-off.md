@@ -2,7 +2,7 @@
 title: 01. Bias-Variance Trade-off
 date: 2025-09-21
 tags:
-  - Introduction to ML
+  - Machine Learning
 ---
 ## Regression Function
 두 variable Y, X가 있을 때, X를 사용해서 Y를 예측하는 model은 다음과 같이 쓸 수 있다.

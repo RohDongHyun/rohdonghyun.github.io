@@ -2,7 +2,7 @@
 title: 16. Support Vector Machines
 date: 2025-09-21
 tags:
-  - Introduction to ML
+  - Machine Learning
 ---
 **Support Vector Machines(SVMs)** 는 deep learning model의 큰 발전이 있기 전에는 boosting과 함께 가장 널리 사용되던 machine learning model이다.
 

@@ -2,7 +2,7 @@
 title: 13. Generative Adversarial Network
 date: 2025-09-22
 tags:
-  - Introduction to DL
+  - Deep Learning
 ---
 ## Generative Adversarial Network (GAN)
 Variational autoencoder (VAE)이 sample의 분포를 미리 정해두고 이를 학습하는 explicit modeling이었다면, **generative adversarial network (GAN)** 은 density function에 대한 가정이 필요없는 implicit modeling이다.
