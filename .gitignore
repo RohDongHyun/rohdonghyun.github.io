@@ -13,3 +13,5 @@ replit.nix
 quartz/cli/tui/dist/
 .env
 .claude/settings.local.json
+
+.playwright-mcp

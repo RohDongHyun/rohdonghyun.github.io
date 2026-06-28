@@ -128,6 +128,15 @@ plugins:
     options:
       folderClickBehavior: collapse
       folderDefaultState: collapsed
+      mapFn: |
+        (node) => {
+          if (Array.isArray(node.slugSegments) && node.slugSegments.length === 0) {
+            const posts = node.children.find((c) => c.slugSegment === "posts");
+            if (posts && posts.children) {
+              node.children = posts.children;
+            }
+          }
+        }
     layout:
       position: left
       priority: 50
