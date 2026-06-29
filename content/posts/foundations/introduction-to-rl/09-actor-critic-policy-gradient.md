@@ -122,8 +122,8 @@ $$
 
 $$
 \begin{aligned}
-\mathbb{E}*{\pi*\theta}\left[\nabla_\theta \log \pi_\theta(s, a) B(s)\right] &= \sum_s d^{\pi_\theta}(s) \sum_a \nabla_\theta \pi_\theta(s, a) B(s)  
-&= \sum_s d^{\pi_\theta}(s) B(s) \nabla_\theta \sum_a \pi_\theta(s, a)  
+\mathbb{E}*{\pi*\theta}\left[\nabla_\theta \log \pi_\theta(s, a) B(s)\right] &= \sum_s d^{\pi_\theta}(s) \sum_a \nabla_\theta \pi_\theta(s, a) B(s) \\
+&= \sum_s d^{\pi_\theta}(s) B(s) \nabla_\theta \sum_a \pi_\theta(s, a) \\
 &= \sum_s d^{\pi_\theta}(s) B(s) \nabla_\theta 1 = 0
 \end{aligned}
 $$
@@ -236,9 +236,9 @@ Policy gradient는 다음과 같이 다양한 형태를 가질 수 있다.
 
 $$
 \begin{aligned}
-\nabla_\theta J(\theta) &= \mathbb{E}_{\pi_\theta}\left[\nabla_\theta \log \pi_\theta(s, a)  G_t\right] \quad &\text{REINFORCE}  
-&= \mathbb{E}_{\pi_\theta}\left[\nabla_\theta \log \pi_\theta(s, a)  Q_w(s, a)\right] \quad &\text{Q Actor-Critic}  
-&= \mathbb{E}_{\pi_\theta}\left[\nabla_\theta \log \pi_\theta(s, a)  A(s, a)\right] \quad &\text{Advantage Actor-Critic}  
+\nabla_\theta J(\theta) &= \mathbb{E}_{\pi_\theta}\left[\nabla_\theta \log \pi_\theta(s, a)  G_t\right] \quad &\text{REINFORCE} \\
+&= \mathbb{E}_{\pi_\theta}\left[\nabla_\theta \log \pi_\theta(s, a)  Q_w(s, a)\right] \quad &\text{Q Actor-Critic} \\
+&= \mathbb{E}_{\pi_\theta}\left[\nabla_\theta \log \pi_\theta(s, a)  A(s, a)\right] \quad &\text{Advantage Actor-Critic} \\
 &= \mathbb{E}_{\pi_\theta}\left[\nabla_\theta \log \pi_\theta(s, a)  \delta\right] \quad &\text{TD Actor-Critic}
 \end{aligned}
 $$
