@@ -197,7 +197,7 @@ $$
 
 $$
 \begin{cases}
-\lambda \leftarrow \lambda / 2 & \text{if} \quad d < d_{\text{targ}} / 1.5 
+\lambda \leftarrow \lambda / 2 & \text{if} \quad d < d_{\text{targ}} / 1.5 \\
 \lambda \leftarrow \lambda \times 2 & \text{if} \quad d > d_{\text{targ}} \times 1.5
 \end{cases}
 $$
