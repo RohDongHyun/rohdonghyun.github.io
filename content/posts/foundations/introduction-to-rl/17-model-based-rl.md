@@ -57,3 +57,15 @@ $$
 ## 정리
 
 Model-based RL은 환경 모델을 학습하거나 활용해 가상 경험으로 계획을 세움으로써, model-free의 고질적 약점인 sample 비효율을 공략한다. Dyna는 실제·가상 경험을 같은 value에 합치는 background planning을, MCTS/AlphaZero는 결정 시점마다 탐색하는 decision-time planning을 보여준다. 모델이 정확하다면 강력하지만, 모델 오차가 곧 성능 한계가 된다는 점이 핵심 trade-off다.
+
+## 더 깊이
+
+이 글은 model-based RL의 큰 지도를 그렸다. 각 주제를 더 깊이 파고드는 후속 글들을 이어서 읽어볼 수 있다.
+
+- [[posts/foundations/introduction-to-rl/18-learning-the-dynamics-model|18. 환경 모델 학습하기]] — 모델의 종류, supervised 학습, compounding error, 불확실성(ensemble)
+- [[posts/foundations/introduction-to-rl/19-dyna-and-prioritized-sweeping|19. Dyna 심화]] — prioritized sweeping, Dyna-Q+
+- [[posts/foundations/introduction-to-rl/20-monte-carlo-tree-search|20. MCTS 깊이 보기]] — 네 단계와 UCT
+- [[posts/foundations/introduction-to-rl/21-alphago-alphazero-muzero|21. AlphaGo에서 MuZero까지]] — 학습된 latent 모델로의 진화
+- [[posts/foundations/introduction-to-rl/22-model-based-continuous-control|22. 연속 제어를 위한 Model-based RL]] — PILCO·PETS·MBPO
+- [[posts/foundations/introduction-to-rl/23-world-models-and-dreamer|23. World Models와 Dreamer]] — latent imagination
+- [[posts/foundations/introduction-to-rl/24-when-is-model-based-better|24. Model-based는 언제 유리한가]] — model-free와의 trade-off와 스펙트럼
