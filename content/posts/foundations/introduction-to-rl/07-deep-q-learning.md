@@ -114,9 +114,53 @@ Deep Q-learning 모델에 대해서 위 식으로 바로 학습을 진행하면 
     \mathcal{L}(w) = \mathbb{E}_{s,a,r,s' \sim \mathcal{D}} \left[ \left( R + \gamma \max_{a'} Q(s', a', w^-) - \hat{q}(s, a, w) \right)^2 \right]
     $$
     
-3. 주기적으로 $w-$ update: $w- \leftarrow w$
+3. 주기적으로 $w^-$ update: $w^- \leftarrow w$
 
 ### Reward Clipping
 Q-value가 너무 커지지 않도록 reward를 $[-1, 1]$과 같이 특정 범위 내로 제한하는 **reward clipping** 방법이 있다. 이를 통해 exploding gradient 현상을 방지할 수 있다.
 
 하지만, 이는 reward의 크기를 제대로 구별하지 못해 학습이 제대로 진행되지 못할 가능성이 있으므로 tuning을 통해 적절한 범위를 찾는 것이 중요하다.
+
+## Double DQN
+
+앞서 본 experience replay, fixed target, reward clipping은 모두 학습의 *안정성*을 다루는 처방이었다. 그런데 DQN에는 안정성과 별개로, target을 만드는 방식 자체에서 비롯되는 구조적인 **편향(bias)** 문제가 하나 더 있다. 이를 바로잡는 것이 **Double DQN**이다 ([van Hasselt et al., 2015](https://arxiv.org/abs/1509.06461)).
+
+### Maximization Bias
+
+DQN의 TD target을 다시 보자.
+
+$$
+Y^{\text{DQN}} = R + \gamma \max_{a'} Q(s', a', w^-)
+$$
+
+여기서 $\max$ 연산이 문제의 핵심이다. Q-network의 추정값 $Q(s', a', w^-)$는 참값 $q_\pi(s', a')$에 학습 도중의 noise가 더해진 값이다. 이 noisy한 추정값들 중 **최댓값**을 고르면, 우연히 위쪽으로 튄 추정값이 선택될 확률이 높아진다. 즉, **선택(어떤 action이 최선인가)과 평가(그 action의 값이 얼마인가)를 같은 추정값으로 한꺼번에 처리**하기 때문에, 추정 오차가 0 평균이더라도 max를 거친 target은 체계적으로 참값보다 커지는 쪽으로 치우친다.
+
+> 직관적인 예: 모든 action의 참 Q-value가 똑같이 0인 state를 생각하자. 추정값에 $+$, $-$ 방향의 noise가 무작위로 섞여 있어도, $\max$는 그중 가장 크게 양으로 튄 값을 골라낸다. 따라서 target은 0이 아니라 양수가 되고, 이 과대평가가 bootstrapping을 타고 이전 state들로 계속 전파된다.
+
+이 현상을 **maximization bias**(또는 overestimation bias)라 한다. 단순히 값을 부풀리는 데 그치지 않고, action마다 부풀려지는 정도가 달라 잘못된 action을 최선으로 오인하게 만들 수 있어 policy의 질을 떨어뜨린다.
+
+### Decoupling Selection and Evaluation
+
+해결의 아이디어는 **action을 고르는 network와 그 action의 값을 평가하는 network를 분리**하는 것이다. 한쪽이 어떤 action을 과대평가했더라도, 독립적인 다른 network가 그 action을 평가하면 같은 방향으로 똑같이 부풀려질 이유가 없으므로 bias가 상쇄된다. 이것이 원래 tabular 환경에서 제안된 **double Q-learning**의 핵심이다.
+
+DQN은 이미 online network($w$)와 target network($w^-$)라는 두 개의 network를 가지고 있으므로, 별도의 network를 추가할 필요 없이 이 둘을 selection과 evaluation에 나눠 쓰면 된다.
+
+기존 DQN target은 사실 다음과 같이 풀어쓸 수 있다. **선택도 평가도 모두 $w^-$가 담당**한다.
+
+$$
+Y^{\text{DQN}} = R + \gamma\, Q\big(s',\ \arg\max_{a'} Q(s', a', w^-),\ w^-\big)
+$$
+
+Double DQN은 여기서 **action 선택만 online network $w$로 넘긴다.**
+
+$$
+Y^{\text{DoubleDQN}} = R + \gamma\, Q\big(s',\ \arg\max_{a'} Q(s', a', w),\ w^-\big)
+$$
+
+즉, "어떤 action이 최선인가"는 현재 학습 중인 online network $w$가 정하고, "그 action의 값이 얼마인가"는 고정된 target network $w^-$가 평가한다. 두 추정의 noise가 독립적이므로, 우연히 한 network에서 과대평가된 action이 다른 network에서도 똑같이 과대평가될 가능성이 낮아져 maximization bias가 완화된다.
+
+### 정리
+
+- **구현 부담이 거의 없다.** Fixed target Q-network 구조를 그대로 쓰면서 target 계산의 한 줄, 즉 max를 취하는 부분만 위 식으로 바꾸면 된다. network 추가나 별도 hyperparameter도 필요 없다.
+- DQN의 다른 trick들(experience replay, fixed target, reward clipping)이 학습의 **불안정성**을 다룬다면, Double DQN은 target의 **편향**을 다룬다. 서로 보완 관계이므로 함께 쓴다.
+- 원 논문에서는 Atari 벤치마크에서 DQN의 Q-value 과대평가가 실제로 관찰되며, Double DQN이 이를 줄여 여러 게임에서 더 좋은 policy를 학습함을 보였다.
