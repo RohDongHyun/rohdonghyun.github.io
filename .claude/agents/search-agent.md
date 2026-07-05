@@ -38,7 +38,8 @@ tools: WebSearch, WebFetch, Read, Grep, mcp__context7__resolve-library-id, mcp__
 3. `WebSearch`로 후보 발견 → 신뢰도 높은 것을 `WebFetch`로 본문 확보.
 4. 라이브러리/프레임워크가 주제면 context7으로 공식 문서 우선.
 5. 핵심 수식·정의가 있으면 KaTeX 호환 표기로 옮긴다.
-6. 아래 형식대로 반환 (모드에 맞게 변형).
+6. **이해를 돕는 그림 URL을 수집한다** (Writer가 본문에 임베드할 수 있도록). 안정적인 호스트 우선: Wikimedia Commons, ar5iv 논문 figure(`https://ar5iv.labs.arxiv.org/html/<arXiv-id>/assets/...`), 논문 공식 프로젝트 페이지. `WebFetch`로 URL이 살아 있고 어떤 그림인지 확인한 것만 `검증됨`으로 표시하고, 그림이 무엇을 보여주는지 1줄 설명 + 출처를 함께 적는다. 확인 못 한 URL은 `미검증`으로 표시 (Writer는 미검증 URL을 임베드하지 않는다).
+7. 아래 형식대로 반환 (모드에 맞게 변형).
 
 ## 출력 형식
 
@@ -57,6 +58,10 @@ tools: WebSearch, WebFetch, Read, Grep, mcp__context7__resolve-library-id, mcp__
 
 ## 예시
 대학생 수준에서 이해 가능한 구체 예시 1~2개.
+
+## 그림 후보
+- [검증됨] URL — 무엇을 보여주는 그림인지 1줄 + 출처
+- [미검증] URL — ...
 
 ## 참고문헌
 - [저자, 제목 (연도)](URL) — 어떤 부분에 사용했는지 한 줄 메모
