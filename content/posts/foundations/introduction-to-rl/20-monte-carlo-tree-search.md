@@ -16,13 +16,17 @@ MCTS는 이를 위해 모델(시뮬레이터)을 이용해 현재 state를 뿌�
 
 ## 네 단계
 
-**1. Selection (선택).** 뿌리에서 출발해, 이미 트리에 있는 노드 안에서는 **tree policy**에 따라 자식을 골라 내려간다. 아직 펼치지 않은 자식이 있는 노드에 도달할 때까지 내려간다. tree policy로는 보통 **UCT**(아래)를 쓴다.
+![MCTS의 네 단계](https://upload.wikimedia.org/wikipedia/commons/b/b3/MCTS_%28English%29.svg)
 
-**2. Expansion (확장).** 도달한 노드에서 아직 시도하지 않은 행동 하나를 골라, 그에 해당하는 자식 노드를 트리에 새로 추가한다.
+*MCTS 한 번의 반복: selection → expansion → simulation → backpropagation. node의 숫자는 (이긴 횟수 / 방문 횟수)다. 출처: [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:MCTS_%28English%29.svg) (CC BY-SA)*
 
-**3. Simulation (시뮬레이션, rollout).** 새로 추가한 노드에서부터 **default policy**(가장 단순하게는 무작위)로 게임이 끝날 때까지 빠르게 진행해, 그 결과(승패 또는 누적 보상)를 하나 얻는다. 이 단계는 트리에 저장하지 않는, 한 번 쓰고 버리는 추정이다.
+**1. Selection (선택).** 뿌리에서 출발해, 이미 트리에 있는 node 안에서는 **tree policy**에 따라 자식을 골라 내려간다. 아직 펼치지 않은 자식이 있는 node에 도달할 때까지 내려간다. tree policy로는 보통 **UCT**(아래)를 쓴다.
 
-**4. Backpropagation (역전파).** 시뮬레이션 결과를 방금 내려온 경로를 따라 뿌리까지 거슬러 올리며, 경로상 각 노드의 방문 횟수 $N$과 가치 추정 $Q$를 갱신한다.
+**2. Expansion (확장).** 도달한 node에서 아직 시도하지 않은 행동 하나를 골라, 그에 해당하는 자식 node를 트리에 새로 추가한다.
+
+**3. Simulation (시뮬레이션, rollout).** 새로 추가한 node에서부터 **default policy**(가장 단순하게는 무작위)로 게임이 끝날 때까지 빠르게 진행해, 그 결과(승패 또는 누적 보상)를 하나 얻는다. 이 단계는 트리에 저장하지 않는, 한 번 쓰고 버리는 추정이다.
+
+**4. Backpropagation (역전파).** 시뮬레이션 결과를 방금 내려온 경로를 따라 뿌리까지 거슬러 올리며, 경로상 각 node의 방문 횟수 $N$과 가치 추정 $Q$를 갱신한다.
 
 $$
 N(s,a) \leftarrow N(s,a) + 1, \quad Q(s,a) \leftarrow Q(s,a) + \frac{1}{N(s,a)}\left( G - Q(s,a) \right)
@@ -34,7 +38,7 @@ $$
 
 ## UCT: 탐색과 활용의 균형
 
-Selection 단계의 핵심은 tree policy다. 각 노드에서 어떤 자식으로 내려갈지는 **UCT**(Upper Confidence bounds applied to Trees) 기준으로 정한다. 이는 multi-armed bandit의 UCB1을 트리에 적용한 것이다.
+Selection 단계의 핵심은 tree policy다. 각 node에서 어떤 자식으로 내려갈지는 **UCT**(Upper Confidence bounds applied to Trees) 기준으로 정한다. 이는 multi-armed bandit의 UCB1을 트리에 적용한 것이다.
 
 $$
 a = \arg\max_a \left( Q(s, a) + c \sqrt{\frac{\ln N(s)}{N(s, a)}} \right)
@@ -44,6 +48,24 @@ $$
 
 - $Q(s,a)$ — **활용(exploitation)**: 지금까지 좋았던 행동을 선호한다.
 - $c \sqrt{\ln N(s) / N(s,a)}$ — **탐색(exploration)**: 부모는 많이 방문됐는데($N(s)$ 큼) 정작 적게 시도된($N(s,a)$ 작음) 행동에 보너스를 준다. $c$는 둘의 비중을 정하는 상수다.
+
+### 보너스 항은 어디서 왔나: Hoeffding에서 UCB1까지
+
+탐색 항의 정확한 꼴은 임의로 정한 것이 아니라 **신뢰구간의 폭**에서 유도된다. 어떤 $(s,a)$를 $N(s,a)$번 시뮬레이션해 평균 $\hat{Q}(s,a)$를 얻었다고 하자. 결과가 $[0,1]$ 범위의 독립 표본이라면, Hoeffding 부등식이 "추정이 참값보다 $u$ 이상 낮게 나올 확률"을 제한한다.
+
+$$
+\Pr\left( Q(s,a) \ge \hat{Q}(s,a) + u \right) \le e^{-2 N(s,a)\, u^2}
+$$
+
+이제 이 실패 확률을, 탐색이 진행될수록($N(s)$가 클수록) 더 엄격해지도록 $N(s)^{-4}$에 맞춰 잡으면 신뢰폭 $u$가 풀려 나온다.
+
+$$
+e^{-2 N(s,a)\, u^2} = N(s)^{-4} \quad\Longrightarrow\quad u = \sqrt{\frac{2 \ln N(s)}{N(s,a)}}
+$$
+
+이것이 UCB1이고, UCT의 탐색 항은 정확히 이 $u$다 (위 유도의 상수가 $c = \sqrt{2}$에 해당). 그래서 UCT 점수 $\hat{Q} + u$는 "$Q$가 그럴듯하게 가질 수 있는 최댓값", 즉 **신뢰구간의 상한**이라는 뜻을 갖는다. 매번 상한이 가장 높은 행동을 고르는 것 — **optimism in the face of uncertainty** — 이 UCB 계열의 핵심 원리다. 시도가 적어 불확실한 행동은 상한이 높아 선택되고, 선택되고 나면 $N(s,a)$가 늘어 상한이 내려오므로, 나쁜 행동은 로그 빈도로만 재방문된다.
+
+분자가 $N(s)$가 아니라 $\ln N(s)$인 것도 여기서 설명된다. 실패 확률을 다항식 꼴로 조이는 데는 로그만큼의 보너스면 충분하고, 그 덕에 모든 행동이 **무한히 자주, 그러나 점점 드물게** 재검토된다. 탐색 낭비(regret)가 시뮬레이션 수에 로그로만 자라는 이유다.
 
 이 보너스 덕분에, 한두 번 운 나쁘게 나쁜 결과가 나온 행동도 영영 버려지지 않고 충분히 재검토된다. 시뮬레이션이 무한히 많아지면 UCT는 최적 행동으로 수렴함이 알려져 있다. [[posts/foundations/introduction-to-rl/06-model-free-control|Model-free Control]]의 $\epsilon$-greedy가 모든 비최적 행동을 똑같은 확률로 찔러보는 것과 달리, UCT는 **불확실한 행동에 더, 확실히 나쁜 행동에 덜** 탐색을 배분한다는 점이 핵심이다.
 

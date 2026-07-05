@@ -13,13 +13,21 @@ tags:
 - **Model-free**: 경험 $(s, a, r, s')$로 value/policy를 **직접** 업데이트한다. 단순하지만, 환경과 실제로 부딪힌 만큼만 배우므로 sample이 많이 필요하다.
 - **Model-based**: 경험으로 먼저 **환경 모델 $\hat{P}, \hat{R}$를 학습**하고, 그 모델로 가상의 경험을 만들어 계획을 세운다. 모델이라는 중간 단계를 둔다.
 
+수식으로 보면 model-based가 하는 일은, 학습된 모델로 정의된 **가상의 MDP** $\langle \mathcal{S}, \mathcal{A}, \hat{P}, \hat{R}, \gamma \rangle$를 푸는 것이다.
+
+$$
+\hat{\pi}^{*} = \arg\max_{\pi}\ \mathbb{E}_{\pi,\, \hat{P}} \left[ \sum_{t=0}^{\infty} \gamma^{t}\, \hat{R}(s_t, a_t) \right]
+$$
+
+[[posts/foundations/introduction-to-rl/04-solving-mdp|Solving MDP]]에서 본 value iteration·policy iteration이 곧 이 문제를 푸는 도구가 된다. 다만 진짜 $P, R$ 대신 $\hat{P}, \hat{R}$ 위에서 최적화하므로, 얻어진 $\hat{\pi}^{*}$의 **실제 환경 성능은 모델이 실제와 다른 만큼 깎인다**. 이 gap을 정량화한 bound는 [[posts/foundations/introduction-to-rl/24-when-is-model-based-better|24장]]에서 다룬다.
+
 Model-based의 가장 큰 장점은 **sample efficiency**다. 실제 환경과의 상호작용은 비싸지만(로봇을 망가뜨리거나 시간이 오래 걸린다), 한 번 모델을 얻으면 머릿속에서 값싼 "상상 경험"을 무한히 만들어 학습할 수 있다.
 
 > 단, 공짜는 아니다. 학습된 모델이 틀리면 계획은 그 오차를 파고들어(**model bias**) 실제 환경에서 엉뚱하게 행동한다. "효율적이지만 편향된 모델"과 "비싸지만 정확한 실제 경험" 사이의 trade-off가 model-based RL의 본질적 긴장이다.
 
 ## Dyna: 학습·계획·행동의 통합
 
-**Dyna**(Sutton)는 model-free와 model-based를 한 틀에 녹인 고전적 architecture다. 같은 value function을 **실제 경험**과 **모델이 만든 가상 경험** 양쪽으로 업데이트한다.
+**Dyna**([Sutton, 1991](https://doi.org/10.1145/122344.122377))는 model-free와 model-based를 한 틀에 녹인 고전적 architecture다. 같은 value function을 **실제 경험**과 **모델이 만든 가상 경험** 양쪽으로 업데이트한다.
 
 대표적인 **Dyna-Q**는 다음과 같이 동작한다.
 
@@ -40,7 +48,7 @@ Model-based의 가장 큰 장점은 **sample efficiency**다. 실제 환경과�
 
 Dyna가 전역 value function을 꾸준히 개선하는 **background planning**이라면, **Monte-Carlo Tree Search** (MCTS)는 **지금 이 state에서 어떤 행동을 할지**를 그 자리에서 탐색하는 **decision-time planning**이다.
 
-MCTS는 모델(시뮬레이터)을 이용해 현재 state로부터 탐색 트리를 키우며, 유망한 가지에 탐색을 집중한다. 이때 각 노드에서 다음 **UCT** 기준으로 행동을 고른다 — 즉 [[posts/foundations/introduction-to-rl/06-model-free-control|Model-free Control]]의 $\epsilon$-greedy 대신 UCB 식 exploration을 쓴다.
+MCTS는 모델(시뮬레이터)을 이용해 현재 state로부터 탐색 트리를 키우며, 유망한 가지에 탐색을 집중한다. 이때 각 node에서 다음 **UCT** 기준으로 행동을 고른다 — 즉 [[posts/foundations/introduction-to-rl/06-model-free-control|Model-free Control]]의 $\epsilon$-greedy 대신 UCB 식 exploration을 쓴다.
 
 $$
 a = \arg\max_a \left( Q(s, a) + c \sqrt{\frac{\ln N(s)}{N(s, a)}} \right)

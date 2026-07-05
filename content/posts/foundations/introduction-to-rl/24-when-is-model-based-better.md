@@ -15,7 +15,25 @@ tags:
 
 이 대비의 뿌리는 [[posts/foundations/introduction-to-rl/18-learning-the-dynamics-model|모델 오차]]다. Model-based는 "모델"이라는 지렛대로 효율을 얻는 대신, 그 모델이 틀린 만큼 성능에 상한이 생긴다. Model-free는 지렛대가 없어 느리지만 환경의 진짜 신호만 보므로 편향이 없다.
 
+"모델이 틀린 만큼"은 정량화할 수 있다. [[posts/foundations/introduction-to-rl/22-model-based-continuous-control|MBPO]]의 분석에 따르면, 모델 위에서 측정한 정책의 성능 $\hat{\eta}[\pi]$와 실제 성능 $\eta[\pi]$의 gap은 다음처럼 제한된다.
+
+$$
+\eta[\pi] \;\ge\; \hat{\eta}[\pi] \;-\; \underbrace{\left( \frac{2\gamma\, r_{\max} \left( \epsilon_m + 2 \epsilon_\pi \right)}{(1-\gamma)^2} + \frac{4 r_{\max}\, \epsilon_\pi}{1-\gamma} \right)}_{C(\epsilon_m,\ \epsilon_\pi)}
+$$
+
+$\epsilon_m$은 모델의 한 step 예측 오차, $\epsilon_\pi$는 데이터를 모은 정책에서 현재 정책이 벗어난 정도다. 이 식이 위의 trade-off를 그대로 담고 있다.
+
+- 모델 안에서 성능 $\hat{\eta}$를 아무리 끌어올려도, 실제 성능은 $C$만큼 낮을 수 있다. **$C$가 곧 model-based의 천장**이고, $\epsilon_m \to 0$일 때만 천장이 사라진다.
+- $C$의 분모 $(1-\gamma)^2$는 유효 horizon의 제곱 스케일이다. 한 step 오차가 horizon을 따라 누적된다는 [[posts/foundations/introduction-to-rl/18-learning-the-dynamics-model|compounding error]]가 성능의 언어로 번역된 것이다.
+- 반대로 $C$가 작게 유지되는 한, 모델 안의 개선은 실제 개선을 보증한다. 모델을 "신뢰 구간 안에서만" 쓰라는 처방의 이론적 근거다.
+
 > 한 줄 요약: **실제 경험이 비쌀수록 model-based가, 시뮬레이션이 값싸고 데이터가 무한할수록 model-free가 유리**하다. 그래서 게임(값싼 시뮬레이터)에서는 model-free가 오래 강세였고, 실물 로봇에서는 model-based가 빛난다.
+
+이 trade-off는 학습 곡선에서 눈으로 확인할 수 있다.
+
+![알고리즘별 학습 곡선 비교](https://ar5iv.labs.arxiv.org/html/1906.08253/assets/x2.png)
+
+*연속 제어 벤치마크의 학습 곡선 (MBPO와 5개 baseline). 하이브리드인 MBPO(파랑)는 model-free인 SAC(초록)·PPO(보라)보다 훨씬 적은 step으로 같은 성능에 도달한다(sample efficiency) — 예컨대 Ant에서 MBPO의 30만 step 성능은 SAC의 300만 step 성능과 맞먹는다. 순수 MPC 계열인 PETS(주황)는 InvertedPendulum 같은 쉬운 과제에서는 가장 빠르지만, Hopper·Walker2d·Ant처럼 dynamics가 어려운 과제에서는 낮은 성능에서 정체된다 — 모델 오차의 천장이다. 출처: [Janner et al. (2019)](https://arxiv.org/abs/1906.08253) Figure 2*
 
 ## 무엇이 model-based를 어렵게 만드나
 
@@ -25,7 +43,7 @@ Model-based가 늘 이기지 못하는 이유는 분명하다.
 - **[[posts/foundations/introduction-to-rl/18-learning-the-dynamics-model|Compounding error]].** 한 step 오차가 rollout을 따라 누적돼, 길게 내다볼수록 계획이 환상에 빠진다.
 - **Model exploitation.** 계획은 모델이 좋다고 말하는 행동을 고르는데, 모델이 안 가본 영역을 근거 없이 좋다고 착각하면 그 허점을 파고든다.
 
-흥미롭게도 앞 글들에서 본 처방은 대부분 이 문제들에 대한 답이었다. [[posts/foundations/introduction-to-rl/22-model-based-continuous-control|PILCO]]의 불확실성 전파, PETS의 앙상블 + 잦은 MPC replanning, MBPO의 짧은 rollout, Dreamer의 latent 모델은 모두 "모델 오차를 어떻게 통제하며 그 이점만 취할까"에 대한 서로 다른 설계다.
+흥미롭게도 앞 글들에서 본 처방은 대부분 이 문제들에 대한 답이었다. [[posts/foundations/introduction-to-rl/22-model-based-continuous-control|PILCO]]의 불확실성 전파, PETS의 ensemble + 잦은 MPC replanning, MBPO의 짧은 rollout, Dreamer의 latent 모델은 모두 "모델 오차를 어떻게 통제하며 그 이점만 취할까"에 대한 서로 다른 설계다.
 
 ## 스펙트럼으로 보기
 
