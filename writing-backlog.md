@@ -12,6 +12,65 @@
 
 ---
 
+## 확정 시리즈 확장: 09. Simulation & Digital Twin 통합 목차 (입문 + 심화)
+
+> **2026-07-17 확정.** 기존 "09. Simulation & Digital Twin" 시리즈(입문 편 01~17)에 **심화 편(7부~, 18번부터)을 같은 폴더에 이어 붙인다.**
+> 사용자 관심 축: ① DES·ABS·Digital Twin 심화(DT는 최신 트렌드 위주) ② FAB/스케줄링 DES ③ 시뮬레이션×RL.
+>
+> - 위치: 전부 `content/posts/foundations/simulation-and-digital-twin/` **한 폴더** (insights 분리 없음, 사용자 결정).
+> - 기존 01~17은 URL 보존을 위해 파일명·번호 유지. 신규 글은 18번부터 순번 부여.
+> - 편당 워크플로: (필요 시) search-agent → writer-agent → review-agent → `npm run build`로 katex-error/잔존 `$$` grep 검증.
+> - 태그: `Simulation` 기본. DT 글(25~27, 39)은 `Digital Twin`, FAB·RL 글(28~39)은 `AI Scheduling` 추가.
+> - 완료 시 체크박스 갱신. 17편 말미·index.md는 "입문 편/심화 편" 구조로 이미 수정됨 (2026-07-17).
+
+### 입문 편 (완료, 2026-06-30)
+
+- [x] 1부 (01~02) 시뮬레이션이란 / 모델 분류
+- [x] 2부 (03~05) 난수·분포 샘플링·Monte Carlo
+- [x] 3부 (06~09) DES 개념·큐잉·직접 구현·SimPy
+- [x] 4부 (10~14) input modeling·output analysis·V&V·VRT/DOE·시뮬레이션 최적화
+- [x] 5부 (15~16) 연속 시뮬레이션/System Dynamics·agent-based 개요
+- [x] 6부 (17) Digital Twin 개념 (model/shadow/twin, Kritzinger 분류)
+
+### 7부 — DES 심화 (18~21)
+
+- [x] **18** DES 형식론 (1): Event Graph — `18-event-graph.md` (2026-07-18 작성·검토·빌드 검증 완료)
+- [x] **19** DES 형식론 (2): DEVS — `19-devs-formalism.md` (2026-07-18 작성·검토·빌드 검증 완료)
+- [x] **20** DES 엔진의 내부: Future Event List와 성능 — `20-inside-a-des-engine.md` (2026-07-18 작성·검토·빌드 검증 완료)
+- [x] **21** 병렬·분산 DES — `21-parallel-and-distributed-des.md` (2026-07-18 작성·검토·빌드 검증 완료)
+
+### 8부 — ABS·Digital Twin 심화 (22~27)
+
+- [x] **22** ABS 설계 방법론: ODD 프로토콜 — `22-odd-protocol.md` (2026-07-18 작성·검토 완료)
+- [x] **23** ABS 보정과 검증 — `23-abs-calibration-and-validation.md` (2026-07-18 작성·검토 완료)
+- [x] **24** 하이브리드 시뮬레이션: DES × ABS × SD — `24-hybrid-simulation.md` (2026-07-18 작성·검토 완료)
+- [x] **25** Digital Twin 아키텍처와 표준 — `25-digital-twin-architecture-and-standards.md` (2026-07-18 작성·검토 완료, 자료: `notes/materials-dt-architecture-standards.md`)
+- [x] **26** Digital Twin 동기화와 모델 자동 생성 — `26-digital-twin-synchronization-and-model-generation.md` (2026-07-18 작성·검토 완료)
+- [x] **27** Digital Twin 최신 트렌드 — `27-digital-twin-trends.md` (2026-07-18 작성·검토 완료, 자료: `notes/materials-dt-trends.md`)
+
+### 9부 — FAB·스케줄링을 위한 DES (28~33)
+
+- [x] **28** 제조 시스템 시뮬레이션과 FAB의 특수성 — `28-manufacturing-simulation-and-fab.md` (2026-07-18 작성·검토 완료)
+- [x] **29** FAB DES 모델의 구성요소 (1): 장비 — `29-fab-equipment-modeling.md` (2026-07-18 작성·검토 완료)
+- [x] **30** FAB DES 모델의 구성요소 (2): 흐름과 물류 — `30-fab-flow-and-logistics-modeling.md` (2026-07-18 작성·검토 완료)
+- [x] **31** 디스패칭 룰 평가 플랫폼으로서의 DES — `31-des-for-dispatching-evaluation.md` (2026-07-18 작성·검토 완료)
+- [x] **32** 시뮬레이션 기반 스케줄링과 온라인 시뮬레이션 — `32-simulation-based-scheduling.md` (2026-07-18 작성·검토 완료)
+- [x] **33** FAB 시뮬레이션 벤치마크와 도구 — `33-fab-simulation-benchmarks-and-tools.md` (2026-07-18 작성·검토 완료, 자료: `notes/materials-fab-benchmarks.md`)
+
+### 10부 — 시뮬레이션 × 강화학습 (34~39)
+
+- [x] **34** DES를 RL 환경으로 만들기 — `34-des-as-rl-environment.md` (2026-07-18 작성·검토 완료)
+- [x] **35** 불규칙한 결정 시점: Semi-MDP 정식화 — `35-semi-mdp-formulation.md` (2026-07-19 작성·검토 완료)
+- [x] **36** 학습 친화적 시뮬레이터 설계 — `36-simulator-design-for-learning.md` (2026-07-19 작성·검토 완료)
+- [x] **37** Sim-to-Real Gap — `37-sim-to-real-gap.md` (2026-07-19 작성·검토 완료)
+- [x] **38** 사례 연구: RL 기반 FAB 디스패칭 연구 흐름 — `38-rl-fab-dispatching-research.md` (2026-07-19 작성·검토 완료, 자료: `notes/materials-rl-fab-dispatching.md`)
+- [x] **39** 사례 연구: Digital Twin과 RL의 결합 (+ 시리즈 마무리) — `39-digital-twin-and-rl.md` (2026-07-19 작성·검토 완료)
+
+> **시리즈 전편(01~39) 완료 (2026-07-19).** 심화 편 18~39 전부 작성·review·`npm run build` 검증 통과(katex-error·잔존 `$$` 없음). 커밋 대기.
+> 38편에서 파생 가능한 papers 글 후보: Tassel 2023(SMT2020 전체 fab), Jang 2024(leader-follower MARL, Intel backend), Yeganeh 2026(event-driven RL) — 자료는 `notes/materials-rl-fab-dispatching.md`.
+
+---
+
 ## ① RL 기반 스케줄링 / 디스패칭
 
 기존에 RL **기초**와 스케줄링 **논문 1편**은 있으나, 둘을 잇는 *이론·방법론 다리*가 비어 있다.
