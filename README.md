@@ -21,7 +21,12 @@ content/
     │   ├── optimization-in-learning/
     │   ├── introduction-to-ml/
     │   ├── introduction-to-dl/
-    │   └── introduction-to-rl/
+    │   ├── introduction-to-rl/
+    │   ├── nlp/
+    │   ├── time-series-analysis/
+    │   ├── simulation-and-digital-twin/
+    │   ├── software-testing/
+    │   └── mlops-infrastructure/
     ├── insights/     카테고리: 세미나·기사·글 신지식
     └── papers/       카테고리: 논문 요약
 .pages.yml            Pages CMS 설정 (웹 편집·이미지 업로드)
