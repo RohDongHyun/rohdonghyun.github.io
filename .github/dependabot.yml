@@ -4,6 +4,12 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+    # These git deps stopped shipping a build step on install after migrating
+    # to npm publishing; bumping their default-branch commit leaves node_modules
+    # without dist/ and breaks the Quartz build. Pin manually instead.
+    ignore:
+      - dependency-name: "@quartz-community/types"
+      - dependency-name: "@quartz-community/utils"
     groups:
       production-dependencies:
         applies-to: "version-updates"
