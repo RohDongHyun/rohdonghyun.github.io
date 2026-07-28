@@ -57,16 +57,16 @@ def test_registered_lot_appears_in_schedule(live_server):
 ```
 [test pyramid — Mike Cohn]
 
-         /\
+         / \
         /E2E\          적게: 느리고, 비싸고, 잘 깨진다
-       /------\
-      /        \
-     / integra- \      중간
-    /   tion     \
-   /--------------\
-  /                \
- /       unit       \   많이: 빠르고, 싸고, 원인을 정확히 짚는다
- --------------------
+       /-----\
+      /       \
+     / integra-\      중간
+    /   tion    \
+   /-------------\
+  /               \
+ /       unit      \   많이: 빠르고, 싸고, 원인을 정확히 짚는다
+ -------------------
 ```
 
 (Cohn의 원래 그림은 세 층을 UI / service / unit test라고 불렀다. 오늘날은 보통 위처럼 E2E / integration / unit으로 옮겨 읽는다.)

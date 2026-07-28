@@ -42,12 +42,15 @@ $$
 ### SGD is Often Better
 
 SGD는 당연하게도 GD보다 속도가 빠른데, 이에 더해 심지어 performance도 더 좋은 편이다.
-이는 SGD가 이론적으로 GD에 비해 noisy하게 minimum으로 다가가기에 오히려 local optima에 빠지는 것을 피할 수 있기 때문이라고 생각된다.
+이는 SGD가 이론적으로 GD에 비해 noisy하게 minimum으로 다가가기에 오히려 local optima에 빠지는 것을 피할 수 있기 때문으로 볼 수 있다.
 
 > Noisy gradients가 regularization으로 작동하는 것으로 볼 수 있다.
 
-또한, GD는 data의 distribution보다 data 자체에 대해 최적의 값을 도출하려는 편인데 반해, 
-SGD는 매 instance마다 학습에 사용되는 data가 data distribution에서 새롭게 생성되는 data라고 볼 수 있으므로, GD에 비해 generalization error를 최소화하는 경향이 있다.
+또한, GD는 매 스텝마다 학습 데이터셋 전체(N개 샘플)의 gradient를 정확히 계산해서 업데이트한다. 그러다 보니 GD는 "주어진 이 N개의 데이터 자체"에 대해 loss를 최소화하는 방향으로 최적화가 진행된다. 즉, 데이터의 **모집단 분포(data distribution)**가 아니라 손에 쥔 샘플 자체에 맞춰서 최적점을 찾아가는 경향이 있다. 이는 곧 주어진 학습 샘플에 지나치게 맞춰지는 과적합(overfitting) 위험으로 이어진다.
+
+반면에, SGD는 매 스텝마다 전체가 아니라 minibatch(무작위로 뽑은 일부 샘플)만 사용해서 gradient를 계산한다. 이때 매번 다른 부분집합을 뽑기 때문에, 마치 매 스텝마다 "data distribution에서 새로 샘플링된 데이터"로 학습하는 것과 비슷한 효과가 난다. 이 과정에서 섞여 들어가는 noise가 일종의 regularization처럼 작용하여, 특정 샘플 하나하나에 과도하게 맞춰지는 것을 방지한다.
+
+그 결과 SGD는 GD에 비해 데이터의 모집단 분포 자체를 더 잘 반영하는 방향으로 학습되며, generalization error(학습에 쓰이지 않은 새로운(unseen) 데이터에 대한 성능과 학습 데이터에 대한 성능의 차이(즉, 얼마나 과적합됐는지))를 최소화하는 경향이 있다.
 
 > 따라서, dataset을 minibatch로 나눌 때 minibatch 간 distribution이 유사하도록 분리하는 것이 좋기 때문에 일반적으로 나누기 전 data를 한번 섞어준다.
 
