@@ -21,7 +21,10 @@ content/
     ├── foundations/  카테고리: 학술 기초 지식
     ├── insights/     카테고리: 세미나·기사·글 신지식
     └── papers/       카테고리: 논문 요약
-        └── <date>-<slug>.md
+        ├── <date>-<slug>.md      단독 글
+        └── <series-slug>/        시리즈 (여러 편으로 나뉜 글)
+            ├── index.md          시리즈 이름(title) + 편 목록
+            └── NN-<slug>.md      01-, 02- … 순서대로
 .pages.yml            Pages CMS 설정 (웹 편집·이미지 업로드)
 quartz/               Quartz 5 엔진 (수정 금지)
 quartz.config.yaml    사이트 설정 (수정 가능)
@@ -30,9 +33,12 @@ scripts/build.mjs     배포 빌드 + 카테고리 강제 검증 / 비공개 글
 .github/workflows/deploy.yml  Pages 자동 배포
 ```
 
-- 글은 항상 `content/posts/<category>/<date>-<slug>.md` 에 바로 쓴다. 초안 폴더는 더 이상 쓰지 않는다.
-- 파일명 슬러그는 영문 kebab-case (`2026-06-14-llm-agent-trends.md`). 제목은 한국어여도 파일명은 영문.
+- 글은 항상 `content/posts/<category>/` 아래에 바로 쓴다. 초안 폴더는 더 이상 쓰지 않는다.
+- 단독 글은 `<date>-<slug>.md`. 파일명 슬러그는 영문 kebab-case (`2026-06-14-llm-agent-trends.md`). 제목은 한국어여도 파일명은 영문.
+- **여러 편으로 나뉘는 글은 카테고리 폴더 아래에 시리즈 하위 폴더를 만든다.** 이때 파일명은 날짜 접두어 대신 `01-`, `02-` 같은 순서 번호를 쓴다 (`papers/ai-hw-2035/01-vision-and-1000x.md`). 날짜는 각 글의 frontmatter `date`가 갖는다. `build.mjs`는 카테고리 폴더(첫 번째 세그먼트)만 검사하므로 하위 폴더 깊이는 제한이 없다.
+  - 한 편으로 쓰면 내용이 뭉개지는 분량일 때만 시리즈로 나눈다. 편끼리는 위키링크로 이전/다음을 연결한다.
 - 각 카테고리 폴더의 `index.md`는 explorer에 표시되는 폴더 이름(`title`)을 결정한다. 건드리지 말 것.
+- 시리즈 폴더에도 `index.md`를 둔다. 기존 시리즈와 동일하게 **frontmatter는 `title`만** 넣고(`date`·`tags`를 넣으면 시리즈 인덱스가 태그 목록에 본문 글처럼 섞여 나온다), 본문에 시리즈 소개와 각 편 위키링크를 적는다. `build.mjs`는 `index.md`를 카테고리·태그 검증에서 제외한다.
 
 ## 카테고리와 태그
 
@@ -112,7 +118,7 @@ tags:
 절차:
 
 1. **자료 수집** — 위 표대로 필요한 에이전트만 (병렬 가능) 호출. (B)는 보통 papers 카테고리, (A)도 papers, (C)·(D)는 내용에 따라 insights.
-2. **작성** → `writer-agent` (수집 결과를 `materials`로 전달). 카테고리를 판단해 `content/posts/<category>/YYYY-MM-DD-<slug>.md`에 **직접** 작성. 공개 전 검수가 필요한 글이면 `private: true`를 넣는다.
+2. **작성** → `writer-agent` (수집 결과를 `materials`로 전달). 카테고리를 판단해 `content/posts/<category>/YYYY-MM-DD-<slug>.md`에 **직접** 작성. 분량이 커서 여러 편으로 나눌 때는 위 '디렉토리 구조'의 시리즈 하위 폴더 규칙을 따른다. 공개 전 검수가 필요한 글이면 `private: true`를 넣는다.
 3. **검토·교정** → `review-agent` (작성된 `posts/<category>/<file>.md`를 직접 revise).
 4. Main은 최종 파일 경로(라이브 URL 포함)와 review의 변경 요약·의문점을 사용자에게 보고. 사용자는 웹에서 확인 후 필요하면 `private`를 해제하거나 직접 수정.
 
