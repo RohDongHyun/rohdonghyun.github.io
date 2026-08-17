@@ -8,6 +8,17 @@ tags:
 
 "내 컴퓨터에선 됐는데(works on my machine)"는 배포 사고의 단골 변명이지만, 테스트에도 똑같은 병이 있다. 내 로컬에서는 전체 스위트가 초록불인데 동료 머신에서는 빨갛다 — 내가 설치해 둔 패키지, 남아 있는 테스트 데이터, 환경 변수 하나가 결과를 갈랐기 때문이다. **CI(continuous integration)** 는 이 변명을 구조적으로 없앤다: *깨끗한 환경에서, 모든 변경에 대해, 사람 손 없이* 테스트를 실행한다. 이번 편은 4부의 마지막으로, [[posts/foundations/software-testing/10-integration-and-e2e-testing|10편]]에서 미뤄둔 질문 — 느린 스위트와 flaky 테스트를 CI에서 어떻게 운영하나 — 까지 다룬다.
 
+
+<details>
+  <summary><b>`스위트`란?</b></summary>
+
+> 함께 실행되도록 묶인 테스트들의 집합입니다. 계층으로 보면:
+> - 테스트 케이스 — 개별 검증 하나 (test_할인율_10퍼센트_이상이면_뱃지_표시)
+> - 스위트 — 케이스들의 묶음. 중첩 가능 (스위트 안에 스위트)
+> - 런(run) — 스위트를 한 번 실행한 결과
+
+  </details>
+
 ## CI는 서버가 아니라 습관이다
 
 CI라는 말은 오늘날 "GitHub Actions 같은 빌드 서버"와 동의어처럼 쓰이지만, 원래 의미는 도구가 아니라 **작업 방식** 이다. Martin Fowler의 정의를 따르면 CI는 팀원 각자가 **최소 하루에 한 번은 공유 mainline에 자기 변경을 통합하고, 통합할 때마다 자동 빌드와 테스트로 검증하는** 실천이다([Continuous Integration](https://martinfowler.com/articles/continuousIntegration.html), 2000년 초판, 2024년 전면 개정). 핵심은 두 가지다.

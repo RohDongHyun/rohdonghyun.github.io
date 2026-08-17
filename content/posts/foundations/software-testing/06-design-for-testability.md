@@ -110,6 +110,54 @@ def run_dispatcher_daemon(mes, eq_ctrl, poll_sec=5):
 
 데몬 자체는 단위 테스트하지 않는다 — 대신 판단할 거리를 전부 `plan_assignments`로 밀어냈기 때문에 테스트 안 해도 불안하지 않다. Functional core/imperative shell과 같은 정신의 패턴이고, shell이 곧 humble object다.
 
+<details>
+  <summary><b>Humble Object 패턴 추가 설명</b></summary>
+
+> ### 핵심 아이디어
+> 
+> UI, DB, 네트워크, 프레임워크, 스레드 같은 경계(boundary)에 붙은 코드는 테스트가 어렵습니다. 이때 코드를 두 조각으로 쪼갭니다.
+> 
+> - **Humble(겸손한) 객체**: 경계에 직접 닿는 부분. 로직을 거의 갖지 않고, 값을 그대로 전달하거나 그리기만 함. *너무 단순해서 테스트할 게 없는* 수준까지 비워냄
+> - **Testable 객체**: 흥미로운 로직 전부. 경계에 대한 의존이 없어서 순수 단위 테스트 가능
+> 
+> "테스트하기 어려운 코드는 테스트할 필요가 없을 만큼 단순하게 만들고, 나머지 로직은 전부 밖으로 빼낸다"가 한 줄 요약입니다.
+> 
+> ### 예시
+> 
+> ```python
+> # Humble: 화면에 뿌리기만 함. 로직 없음
+> class OrderView:
+>     def render(self, vm: OrderViewModel):
+>         self.label.text = vm.total_text
+>         self.badge.visible = vm.show_discount_badge
+> 
+> # Testable: 포맷·판단 로직 전부 여기에. UI 의존 0
+> class OrderPresenter:
+>     def present(self, order: Order) -> OrderViewModel:
+>         return OrderViewModel(
+>             total_text=f"{order.total:,}원",
+>             show_discount_badge=order.discount_rate >= 0.1,
+>         )
+> ```
+> 
+> `OrderPresenter`는 UI 없이 단위 테스트가 되고, `OrderView`는 대입문 두 줄뿐이라 버그가 날 여지가 거의 없습니다.
+> 
+> ### 흔히 적용되는 곳
+> 
+> | 경계 | Humble | Testable |
+> |---|---|---|
+> | UI | View | Presenter / ViewModel (MVP, MVVM) |
+> | DB | Gateway 구현체 | Interactor / Use case |
+> | 프레임워크 | Controller, Main | Service 계층 |
+> | 스레드·시간 | Scheduler 래퍼 | 동기 로직 |
+> 
+> ### 주의할 점
+> 
+> - Humble 쪽에 로직이 슬금슬금 다시 들어가기 쉬움 (if 문이 늘어나면 신호)
+> - 클래스와 간접 계층이 늘어나서 단순한 코드까지 적용하면 과설계
+> - Humble 부분은 단위 테스트에서 빠지므로, 통합·E2E 테스트로 최소한의 커버는 필요
+</details>
+
 ## Seam — 고치지 않고 바꿀 수 있는 지점
 
 Michael Feathers는 *Working Effectively with Legacy Code*(2004)에서 **seam** 을 "그 자리의 코드를 편집하지 않고도 프로그램의 동작을 바꿀 수 있는 지점"이라 정의했다. `is_hot_lot`의 `now` 인자, `Dispatcher` 생성자의 `mes` 인자가 전부 seam이다 — 함수 본문은 그대로 둔 채 테스트가 다른 시간, 다른 MES를 꽂아 넣을 수 있다. 이 글에서 다룬 기법들은 결국 **코드에 seam을 미리 심는 방법**이다. 이 개념이 진짜 위력을 발휘하는 곳은 테스트가 하나도 없는 레거시 코드에 최소한의 수정으로 테스트를 붙일 때인데, 그 역방향 적용은 12편에서 다룬다.
