@@ -83,3 +83,5 @@ Airflow가 "이 Task를 Pod로 띄워라"라고 요청하면, [[posts/foundation
 - 연결 고리: Airflow의 **Task가 `KubernetesPodOperator`로 Pod가 되고**, **Kubernetes가 그 Pod를 노드에 배치·복구**하며, **Docker 이미지가 Pod의 실행 환경을 고정**한다.
 - 전체 흐름은 *Airflow가 지휘 → Kubernetes가 배치 → Docker가 환경 고정* 순으로 읽힌다.
 - 이 세 층의 조합이 **자동 재학습·환경 재현·자원 배치·장애 복구**를 갖춘 MLOps 파이프라인의 뼈대이며, 더 큰 스택도 이 위에 얹힌다.
+
+여기까지가 인프라 편이다. 위 문단에서 "이 위에 더 얹힌다"고 한 것들 중 실험 추적·모델 레지스트리를 실제로 얹는 이야기는 [[posts/foundations/mlops-infrastructure/11-mlflow-experiment-tracking|11편]]부터 MLflow로 이어진다.
