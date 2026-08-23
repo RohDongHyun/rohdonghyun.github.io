@@ -1,6 +1,6 @@
 ---
 title: 03. 데이터 관리와 통신 — Volume, Network, Compose
-date: 2026-06-23
+date: 2026-06-16
 tags:
   - MLOps
   - Docker
@@ -107,3 +107,8 @@ docker compose down    # 전체 스택 종료·정리
 - **port 매핑**(`-p 호스트:컨테이너`)으로 컨테이너를 바깥세상과 잇고, **network**로 컨테이너끼리 *이름 기반*으로 통신한다.
 - **docker-compose**는 여러 컨테이너의 구성(이미지·포트·볼륨·네트워크)을 한 YAML 파일에 **선언**하고 명령 하나로 띄운다.
 - 이 "원하는 상태를 선언한다"는 방식은 다음에 다룰 **Kubernetes**의 핵심 사고방식과 같다 — Compose가 한 대에서 하는 일을 여러 서버로 확장한 것이 Kubernetes다.
+
+---
+
+**이전 글**: [[posts/foundations/mlops-infrastructure/02-dockerfile-and-image-build|02. Dockerfile과 이미지 빌드 — 환경을 코드로 고정하기]]
+**다음 글**: [[posts/foundations/mlops-infrastructure/04-why-orchestration|04. 왜 오케스트레이션인가 — Kubernetes의 출발점]]

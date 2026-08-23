@@ -1,6 +1,6 @@
 ---
 title: 01. 컨테이너란 무엇인가 — Docker의 출발점
-date: 2026-06-23
+date: 2026-06-14
 tags:
   - MLOps
   - Docker
@@ -63,3 +63,8 @@ private: false
 - **이미지**는 템플릿(class), **컨테이너**는 그것을 실행한 실체(instance)다. 하나의 이미지로 여러 컨테이너를 띄울 수 있다.
 - **VM**은 게스트 OS를 통째로 올려 무겁지만, **컨테이너**는 호스트 OS 커널을 공유해 가볍고 빠르다.
 - 컨테이너는 의존 환경 전체를 이미지에 **고정**하므로, 호스트 환경과 무관하게 동일하게 동작한다 → 이것이 재현성의 근원이다.
+
+---
+
+**이전 글**: [[posts/foundations/mlops-infrastructure/00-mlops-infrastructure-overview|00. 내 코드는 왜 내 PC에서만 돌아갈까 — 시리즈 개요]]
+**다음 글**: [[posts/foundations/mlops-infrastructure/02-dockerfile-and-image-build|02. Dockerfile과 이미지 빌드 — 환경을 코드로 고정하기]]

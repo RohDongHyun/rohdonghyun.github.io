@@ -1,6 +1,6 @@
 ---
 title: 07. DAG란 무엇인가 — 작업의 순서를 그래프로
-date: 2026-06-23
+date: 2026-06-20
 tags:
   - MLOps
   - Airflow
@@ -31,13 +31,7 @@ private: false
 - **Directed(방향성)**: 각 엣지에는 방향이 있다. `A → B`는 "A 다음에 B"라는 뜻으로, 순서가 정해져 있다.
 - **Acyclic(비순환)**: 화살표를 따라가다 *다시 출발점으로 돌아오는 순환(cycle)이 없다*. 즉 `A → B → C → A` 같은 고리가 생기면 안 된다.
 
-```
-            ┌──▶ train ──┐
-            │            ▼
-extract ─▶ transform   evaluate ─▶ report
-            │            ▲
-            └──▶ stats ──┘
-```
+![](/images/image-20.png)
 
 위 그림에서 `extract → transform`은 순서(방향)를, transform 뒤에서 `train`과 `stats`가 갈라지는 것은 병렬을, 둘이 끝나야 `evaluate`로 합쳐지는 것은 합류를 나타낸다.
 
@@ -65,3 +59,8 @@ extract ─▶ transform   evaluate ─▶ report
 - 순환이 없기에 **위상 정렬**로 실행 순서를 정할 수 있다 — 선행 작업이 모두 끝난 노드부터 차례로 실행한다.
 - DAG 표현은 명확한 순서·병렬화·부분 재실행·시각화를 가능하게 하며, Airflow를 비롯한 여러 워크플로 도구의 공통 기반이다.
 - 다음 글에서는 이 DAG를 실제로 정의하고 스케줄링하는 도구 [[posts/foundations/mlops-infrastructure/08-airflow-architecture|Airflow의 구조]]를 본다.
+
+---
+
+**이전 글**: [[posts/foundations/mlops-infrastructure/06-kubernetes-hands-on|06. 로컬에서 직접 띄워보기 — minikube와 kubectl]]
+**다음 글**: [[posts/foundations/mlops-infrastructure/08-airflow-architecture|08. Airflow의 구조 — 무엇이 DAG를 돌리는가]]

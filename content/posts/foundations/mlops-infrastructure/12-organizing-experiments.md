@@ -1,6 +1,6 @@
 ---
 title: 12. 실험을 관리 가능하게 만들기
-date: 2026-08-22
+date: 2026-08-19
 tags:
   - MLOps
   - MLflow
@@ -182,3 +182,8 @@ mlflow.search_logged_models(
 - [Search Models](https://mlflow.org/docs/latest/ml/search/search-models/) — `search_logged_models()`의 다른 문법.
 - [Hyperparameter Tuning](https://mlflow.org/docs/latest/ml/getting-started/hyperparameter-tuning/) — Optuna parent/child 패턴.
 - [Automatic Logging](https://mlflow.org/docs/latest/ml/tracking/autolog/) — `max_tuning_runs` 등 autolog 동작.
+
+---
+
+**이전 글**: [[posts/foundations/mlops-infrastructure/11-mlflow-experiment-tracking|11. MLflow는 무엇을 푸는가 — 실험 추적의 기본]]
+**다음 글**: [[posts/foundations/mlops-infrastructure/13-models-and-registry|13. 모델을 자산으로 만들기 — Model과 Registry]]

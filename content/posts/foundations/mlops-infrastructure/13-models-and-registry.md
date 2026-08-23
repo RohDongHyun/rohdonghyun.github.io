@@ -1,6 +1,6 @@
 ---
 title: 13. 모델을 자산으로 만들기 — Model과 Registry
-date: 2026-08-22
+date: 2026-08-20
 tags:
   - MLOps
   - MLflow
@@ -238,3 +238,8 @@ docker run -p 5001:8080 "iris-serving"
 - [Model Registry](https://mlflow.org/docs/latest/ml/model-registry/) 및 [Registry Workflow](https://mlflow.org/docs/latest/ml/model-registry/workflow/) — alias, tag, stage deprecation.
 - [Deploy Model Locally](https://mlflow.org/docs/latest/ml/deployment/deploy-model-locally/) — `models serve`와 `build-docker`.
 - [MLflow CLI Reference](https://mlflow.org/docs/latest/api_reference/cli.html) — 두 명령의 옵션과 기본값.
+
+---
+
+**이전 글**: [[posts/foundations/mlops-infrastructure/12-organizing-experiments|12. 실험을 관리 가능하게 만들기]]
+**다음 글**: [[posts/foundations/mlops-infrastructure/14-mlflow-server-and-pipelines|14. 팀에서 굴리기 — 서버 구성과 파이프라인 통합]]

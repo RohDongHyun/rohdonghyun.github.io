@@ -1,6 +1,6 @@
 ---
 title: 06. 로컬에서 직접 띄워보기 — minikube와 kubectl
-date: 2026-06-23
+date: 2026-06-19
 tags:
   - MLOps
   - Kubernetes
@@ -135,3 +135,8 @@ minikube stop                    # 클러스터 정지 (minikube delete로 완�
 - **`kubectl`** 은 `kubectl <동사> <오브젝트> [이름]` 패턴으로 클러스터와 대화한다. 오브젝트 생성은 *명령형*(`create`/`run`)과 *선언형*(`apply -f`)이 있고, 실무 표준은 선언형이다.
 - Deployment의 Pod를 일부러 `delete` 해도 다시 채워지는 것을 통해 **self-healing**을, `kubectl scale`로 **scaling**을 눈으로 확인할 수 있다.
 - 여기까지가 Kubernetes 입문이다. 다음 파트에서는 *"이 작업들을 언제, 어떤 순서로 돌릴지"* 를 다루는 워크플로 스케줄링(Airflow & DAG)으로 넘어간다.
+
+---
+
+**이전 글**: [[posts/foundations/mlops-infrastructure/05-kubernetes-core-objects|05. Kubernetes 핵심 오브젝트 — Pod, Deployment, Service]]
+**다음 글**: [[posts/foundations/mlops-infrastructure/07-what-is-a-dag|07. DAG란 무엇인가 — 작업의 순서를 그래프로]]

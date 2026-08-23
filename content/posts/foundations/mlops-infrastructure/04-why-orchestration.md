@@ -1,6 +1,6 @@
 ---
 title: 04. 왜 오케스트레이션인가 — Kubernetes의 출발점
-date: 2026-06-23
+date: 2026-06-17
 tags:
   - MLOps
   - Kubernetes
@@ -33,15 +33,7 @@ Kubernetes는 이 지휘자 역할을 한다. 핵심 아이디어는 **선언형
 
 이렇게 "원하는 상태와 현재 상태의 차이를 계속 좁히는" 동작을 **reconciliation(조정) 루프**라 부른다. 사람이 "이렇게 해라(how)"를 일일이 명령하는 **명령형(imperative)** 이 아니라, "이런 상태여야 한다(what)"만 선언하면 시스템이 알아서 유지하는 것이 Kubernetes의 본질이다.
 
-```
-사용자: "웹 컨테이너 3개를 원한다"  ──선언──▶  [Kubernetes]
-                                                  │
-                                       현재 2개뿐임을 감지
-                                                  │
-                                       1개를 자동으로 새로 띄움
-                                                  ▼
-                                          원하는 상태(3개) 달성·유지
-```
+![](/images/image-17.png)
 
 이 방식의 강력함은 **장애 상황**에서 드러난다. 서버가 죽어 컨테이너 1개가 사라져도, 사람이 개입할 필요 없이 Kubernetes가 그 차이를 감지해 다른 서버에 자동으로 다시 띄운다. "원하는 상태"라는 약속이 깨지지 않도록 시스템이 알아서 떠받치는 것이다.
 
@@ -52,20 +44,7 @@ Kubernetes는 여러 서버를 묶어 하나의 거대한 컴퓨터처럼 다룬
 - **control plane(컨트롤 플레인)** — 클러스터의 *두뇌*. 사용자의 "원하는 상태" 선언을 받고, 전체를 관찰하며, 어느 서버에 무엇을 띄울지 결정한다. (API 서버, 스케줄러, 상태 저장소 등으로 구성)
 - **worker node(워커 노드)** — 실제로 컨테이너가 실행되는 *일꾼 서버*들. control plane의 지시를 받아 컨테이너를 띄우고 상태를 보고한다.
 
-```
-              ┌─────────────────────────────┐
-              │        Control Plane        │   ← 두뇌: 결정·조율
-              │  (API 서버 / 스케줄러 / 저장소)  │
-              └──────────────┬──────────────┘
-                  지시 ↓        ↑ 상태 보고
-        ┌──────────────┬───────┴──────┬──────────────┐
-        ▼              ▼              ▼              ▼
-   ┌─────────┐   ┌─────────┐    ┌─────────┐
-   │ Worker  │   │ Worker  │    │ Worker  │     ...   ← 일꾼 서버들
-   │ Node 1  │   │ Node 2  │    │ Node 3  │
-   │[컨테이너]│   │[컨테이너]│    │[컨테이너]│
-   └─────────┘   └─────────┘    └─────────┘
-```
+![](/images/image-18.png)
 
 사용자는 개별 서버에 일일이 접속하지 않는다. control plane에 "원하는 상태"를 선언하면, control plane이 *어느 워커 노드가 적당한지 골라* 컨테이너를 배치하고, 이후 그 상태가 유지되도록 계속 돌본다. 사용자는 서버 한 대 한 대가 아니라 *클러스터 전체*를 하나의 자원 풀로 바라보면 된다.
 
@@ -75,3 +54,8 @@ Kubernetes는 여러 서버를 묶어 하나의 거대한 컴퓨터처럼 다룬
 - Kubernetes의 핵심은 **선언형 운영**이다. 사용자는 "원하는 상태"만 선언하고, 시스템이 현재 상태를 관찰해 그 차이를 계속 좁힌다(**reconciliation 루프**) — 그래서 장애가 나도 스스로 복구한다.
 - Kubernetes는 여러 서버를 **클러스터**로 묶어, 결정·조율을 맡는 **control plane**과 컨테이너를 실제로 실행하는 **worker node**로 운영한다.
 - 그렇다면 "원하는 상태"는 구체적으로 무엇을 선언하는가? 이를 표현하는 [[posts/foundations/mlops-infrastructure/05-kubernetes-core-objects|핵심 오브젝트(Pod·Deployment·Service)]]를 다음 글에서 다룬다.
+
+---
+
+**이전 글**: [[posts/foundations/mlops-infrastructure/03-docker-volume-network-compose|03. 데이터 관리와 통신 — Volume, Network, Compose]]
+**다음 글**: [[posts/foundations/mlops-infrastructure/05-kubernetes-core-objects|05. Kubernetes 핵심 오브젝트 — Pod, Deployment, Service]]

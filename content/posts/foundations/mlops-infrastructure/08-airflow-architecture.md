@@ -1,6 +1,6 @@
 ---
 title: 08. Airflow의 구조 — 무엇이 DAG를 돌리는가
-date: 2026-06-23
+date: 2026-06-21
 tags:
   - MLOps
   - Airflow
@@ -41,20 +41,7 @@ Operator는 자주 쓰는 작업 유형별로 미리 마련돼 있다.
 
 Airflow는 한 덩어리 프로그램이 아니라, 여러 컴포넌트가 협력하는 시스템이다. 핵심 넷을 보자.
 
-```
-        ┌──────────────────────────────────────────────┐
-        │                Web Server (UI)               │  ← 사람이 보는 대시보드
-        └───────────────────────┬──────────────────────┘
-                                │ 상태 조회/조작
-        ┌───────────────────────┴──────────────────────┐
-        │              Metadata Database               │  ← 모든 상태의 단일 출처
-        └───────────────────────┬──────────────────────┘
-              읽기/쓰기 ↑         │ ↓ 읽기/쓰기
-        ┌──────────────┴──┐   ┌──┴───────────────────┐
-        │    Scheduler    │──▶│   Executor / Workers  │
-        │ (언제·무엇을 실행)│   │  (실제 Task 실행)      │
-        └─────────────────┘   └──────────────────────┘
-```
+![](/images/image-21.png)
 
 - **Scheduler(스케줄러)** — Airflow의 *심장*. DAG들을 읽어, 지금 실행할 때가 된 DAG가 있는지, 그 안에서 선행 의존성이 충족돼 *실행 가능해진* Task가 무엇인지 끊임없이 판단한다. 실행할 Task를 정해 Executor에 넘긴다.
 - **Executor(이그제큐터) / Worker(워커)** — Scheduler가 "이 Task를 실행하라"고 정한 것을 *실제로 실행*하는 부분. Executor는 실행 방식을 결정하는 전략이고, Worker는 실제 작업을 수행하는 프로세스다. (아래에서 부연)
@@ -80,3 +67,8 @@ Airflow는 한 덩어리 프로그램이 아니라, 여러 컴포넌트가 협�
 - 구성 요소: **Scheduler**(언제·무엇을 실행할지 결정) · **Executor/Worker**(실제 실행) · **Metadata DB**(모든 상태의 단일 출처) · **Web Server**(모니터링 UI).
 - **Executor**(Local/Celery/Kubernetes)를 바꾸면 코드 변경 없이 실행 규모·방식을 조절할 수 있다.
 - 다음 글에서는 이 개념들을 코드로 옮겨 [[posts/foundations/mlops-infrastructure/09-first-dag|첫 DAG를 직접 작성]]한다.
+
+---
+
+**이전 글**: [[posts/foundations/mlops-infrastructure/07-what-is-a-dag|07. DAG란 무엇인가 — 작업의 순서를 그래프로]]
+**다음 글**: [[posts/foundations/mlops-infrastructure/09-first-dag|09. 첫 DAG 작성하기 — 코드로 워크플로 만들기]]

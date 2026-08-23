@@ -1,6 +1,6 @@
 ---
 title: 11. MLflow는 무엇을 푸는가 — 실험 추적의 기본
-date: 2026-08-22
+date: 2026-08-18
 tags:
   - MLOps
   - MLflow
@@ -29,25 +29,7 @@ tags:
 
 MLflow의 구조는 단순하다. 학습 스크립트가 client가 되어 서버에 기록을 보내고, 서버는 그것을 두 종류의 저장소에 나눠 담는다.
 
-```
-┌───────────────────────────────────────────────────────────┐
-│  MLflow Client  ── 학습 스크립트 (train.py) ──              │
-│    mlflow.log_param / log_metric / log_model               │
-└────────────────────────────┬──────────────────────────────┘
-                             │ REST (MLFLOW_TRACKING_URI)
-                             ▼
-┌───────────────────────────────────────────────────────────┐
-│  Tracking Server  ── REST API + 웹 UI ──                   │
-│    (선택적. 없으면 로컬 저장소에 직접 기록)                   │
-└──────┬────────────────────────────────────┬───────────────┘
-       │ 작고 잦은 기록                       │ 크고 드문 산출물
-       ▼                                    ▼
-┌────────────────────────┐      ┌───────────────────────────┐
-│  Backend Store         │      │  Artifact Store           │
-│  SQLite / PostgreSQL   │      │  S3 / MinIO / 로컬 디스크  │
-│  run·param·metric·tag  │      │  모델 파일·그림·데이터셋   │
-└────────────────────────┘      └───────────────────────────┘
-```
+![](/images/image-23.png)
 
 두 저장소를 나눈 이유가 핵심이다. **backend store** 에는 검색·비교의 대상이 되는 작은 구조화 데이터(run ID, 파라미터, 지표, 태그)가 들어가므로 데이터베이스가 맡는다. **artifact store** 에는 수백 MB짜리 모델 가중치나 그림 파일처럼 크고 자주 조회하지 않는 것이 들어가므로 오브젝트 스토리지가 맡는다. 조직 규모로 쓸 때 backend는 동시성 때문에 PostgreSQL·MySQL을 권장한다.
 
@@ -182,3 +164,8 @@ model_info = mlflow.pytorch.log_model(
 - [MLflow Quickstart](https://mlflow.org/docs/latest/ml/getting-started/quickstart/) — 위 sklearn 예제의 원본.
 - [MLflow 3](https://mlflow.org/docs/latest/ml/mlflow-3/) — LoggedModel과 2.x 마이그레이션.
 - [Automatic Logging](https://mlflow.org/docs/latest/ml/tracking/autolog/) — 지원 라이브러리와 명시된 한계.
+
+---
+
+**이전 글**: [[posts/foundations/mlops-infrastructure/10-tying-it-together|10. 셋을 잇기 — Docker·Kubernetes·Airflow가 만나는 MLOps 파이프라인]]
+**다음 글**: [[posts/foundations/mlops-infrastructure/12-organizing-experiments|12. 실험을 관리 가능하게 만들기]]

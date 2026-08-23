@@ -1,6 +1,6 @@
 ---
 title: 05. Kubernetes 핵심 오브젝트 — Pod, Deployment, Service
-date: 2026-06-23
+date: 2026-06-18
 tags:
   - MLOps
   - Kubernetes
@@ -95,15 +95,7 @@ spec:
       targetPort: 5000           # Pod(컨테이너)의 포트
 ```
 
-```
-                        ┌──────────────┐
-   요청 ──▶ Service ──▶  │ Pod (app=myapp) │
-       (고정 주소)    │   ├──────────────┤
-       부하 분산      ├──▶│ Pod (app=myapp) │
-                     │   ├──────────────┤
-                     └──▶│ Pod (app=myapp) │
-                         └──────────────┘
-```
+![](/images/image-19.png)
 
 Service 덕분에 *"누가 요청을 처리하는가"(개별 Pod, 계속 바뀜)* 와 *"어디로 요청을 보내는가"(Service, 고정)* 가 분리된다. 이것이 [[posts/foundations/mlops-infrastructure/04-why-orchestration|이전 글]]에서 말한 **service discovery**의 실체다. Service에는 클러스터 내부에서만 쓰는 것부터(`ClusterIP`) 외부에 노출하는 것까지(`NodePort`, `LoadBalancer`) 몇 가지 종류가 있는데, 입문 단계에서는 "Pod 앞의 고정 진입점"이라는 역할만 기억하면 충분하다.
 
@@ -135,3 +127,8 @@ Service 덕분에 *"누가 요청을 처리하는가"(개별 Pod, 계속 바뀜)
 - **Service**: 라벨로 Pod들을 묶어 *고정 주소*와 *부하 분산*을 제공 — 변하는 Pod 위의 안정적 진입점(service discovery).
 - **Namespace**: 하나의 클러스터를 환경·팀별로 나누는 논리적 칸막이.
 - 다음 글에서는 이 개념들을 [[posts/foundations/mlops-infrastructure/06-kubernetes-hands-on|로컬 클러스터에서 직접 띄워]] 본다.
+
+---
+
+**이전 글**: [[posts/foundations/mlops-infrastructure/04-why-orchestration|04. 왜 오케스트레이션인가 — Kubernetes의 출발점]]
+**다음 글**: [[posts/foundations/mlops-infrastructure/06-kubernetes-hands-on|06. 로컬에서 직접 띄워보기 — minikube와 kubectl]]

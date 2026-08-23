@@ -40,30 +40,7 @@ Airflow가 "이 Task를 Pod로 띄워라"라고 요청하면, [[posts/foundation
 
 ## 한 그림으로 보는 전체 파이프라인
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│  Airflow  ── DAG: 매일 새벽 2시, 아래 순서로 실행 ──            │
-│                                                             │
-│   extract ──▶ transform ──▶ train ──▶ evaluate ──▶ deploy    │
-│     │            │           │          │           │       │
-│     ▼            ▼           ▼          ▼           ▼       │
-│  각 Task = KubernetesPodOperator (Pod 하나로 실행)            │
-└───────────────────────────┬─────────────────────────────────┘
-                            │ "이 이미지로 Pod를 띄워라"
-                            ▼
-┌─────────────────────────────────────────────────────────────┐
-│  Kubernetes  ── 요청받은 Pod를 워커 노드에 배치·복구 ──         │
-│                                                             │
-│   [Node A: transform Pod]   [Node B(GPU): train Pod]   ...   │
-└───────────────────────────┬─────────────────────────────────┘
-                            │ 각 Pod의 컨테이너는…
-                            ▼
-┌─────────────────────────────────────────────────────────────┐
-│  Docker  ── 레지스트리의 이미지로 환경을 고정 ──                │
-│                                                             │
-│   transform:1.0   train:1.0(+CUDA)   evaluate:1.0   ...      │
-└─────────────────────────────────────────────────────────────┘
-```
+![](/images/image-22.png)
 
 위에서 아래로 읽으면, **Airflow가 *언제·무엇을* 지휘하고 → Kubernetes가 *어디서* 실행할지 배치하고 → Docker가 *무엇을* 실행할지 고정한다**. 시리즈에서 아래층부터 쌓아 올린 것을, 실제 운영에서는 위층(Airflow)이 아래층(K8s, Docker)을 부려 쓰는 구조다.
 
@@ -85,3 +62,8 @@ Airflow가 "이 Task를 Pod로 띄워라"라고 요청하면, [[posts/foundation
 - 이 세 층의 조합이 **자동 재학습·환경 재현·자원 배치·장애 복구**를 갖춘 MLOps 파이프라인의 뼈대이며, 더 큰 스택도 이 위에 얹힌다.
 
 여기까지가 인프라 편이다. 위 문단에서 "이 위에 더 얹힌다"고 한 것들 중 실험 추적·모델 레지스트리를 실제로 얹는 이야기는 [[posts/foundations/mlops-infrastructure/11-mlflow-experiment-tracking|11편]]부터 MLflow로 이어진다.
+
+---
+
+**이전 글**: [[posts/foundations/mlops-infrastructure/09-first-dag|09. 첫 DAG 작성하기 — 코드로 워크플로 만들기]]
+**다음 글**: [[posts/foundations/mlops-infrastructure/11-mlflow-experiment-tracking|11. MLflow는 무엇을 푸는가 — 실험 추적의 기본]]

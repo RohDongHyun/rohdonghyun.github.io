@@ -1,6 +1,6 @@
 ---
 title: 09. 첫 DAG 작성하기 — 코드로 워크플로 만들기
-date: 2026-06-23
+date: 2026-06-22
 tags:
   - MLOps
   - Airflow
@@ -63,9 +63,9 @@ t1 >> [t2, t3]        # t1 다음에 t2와 t3를 병렬 실행
 ```
 
 ```
-        ┌──▶ t2 ──┐
-t1 ─────┤         ├──▶ t4
-        └──▶ t3 ──┘
+       +--> t2 --+
+t1 ----+         +--> t4
+       +--> t3 --+
 ```
 
 리스트로 묶으면 그 Task들이 *서로 의존하지 않아 동시에* 돌 수 있고, 뒤의 Task는 *앞의 것들이 모두 끝나야* 시작한다. 그래프 그림이 코드에 거의 그대로 옮겨진다.
@@ -119,3 +119,8 @@ with DAG(
 - `schedule`(@daily·cron)로 실행 주기를, `default_args`의 `retries`·`retry_delay`로 **자동 재시도**를 설정한다. `catchup=False`로 과거 소급 실행을 막는다.
 - 웹 UI에서 그래프·상태·로그를 보고, 실패한 Task만 골라 재실행할 수 있다.
 - 다음 글에서는 이 Airflow가 [[posts/foundations/mlops-infrastructure/10-tying-it-together|Docker·Kubernetes와 한데 묶이는]] 전체 MLOps 파이프라인을 조망한다.
+
+---
+
+**이전 글**: [[posts/foundations/mlops-infrastructure/08-airflow-architecture|08. Airflow의 구조 — 무엇이 DAG를 돌리는가]]
+**다음 글**: [[posts/foundations/mlops-infrastructure/10-tying-it-together|10. 셋을 잇기 — Docker·Kubernetes·Airflow가 만나는 MLOps 파이프라인]]

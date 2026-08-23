@@ -1,6 +1,6 @@
 ---
 title: 00. 내 코드는 왜 내 PC에서만 돌아갈까 — 시리즈 개요
-date: 2026-06-23
+date: 2026-06-13
 tags:
   - MLOps
 private: false
@@ -60,3 +60,7 @@ private: false
 - 실제 운영에서는 여기에 **배포·확장**과 **자동화·스케줄링** 문제가 더해진다.
 - **Docker**(재현성) → **Kubernetes**(배포·확장) → **Airflow**(자동화)는 작은 단위에서 큰 단위로 쌓이며 이 문제들을 차례로 해결한다.
 - 다음 글부터 가장 아래층인 [[posts/foundations/mlops-infrastructure/01-what-is-a-container|컨테이너(Docker)]]부터 시작한다.
+
+---
+
+**다음 글**: [[posts/foundations/mlops-infrastructure/01-what-is-a-container|01. 컨테이너란 무엇인가 — Docker의 출발점]]

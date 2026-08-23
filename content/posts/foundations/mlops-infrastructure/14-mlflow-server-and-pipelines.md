@@ -1,6 +1,6 @@
 ---
 title: 14. 팀에서 굴리기 — 서버 구성과 파이프라인 통합
-date: 2026-08-22
+date: 2026-08-21
 tags:
   - MLOps
   - MLflow
@@ -76,26 +76,7 @@ export MLFLOW_TRACKING_URI=http://<server-host>:5000
 
 위 예제에서 왜 팀원 쪽에는 S3 키가 없어도 되는지가 이 절의 내용이다. MLflow는 아티팩트를 주고받는 경로를 두 가지로 제공하며, **어느 쪽을 고르느냐가 곧 "자격증명을 누구에게 나눠 주는가"** 를 결정한다.
 
-```
-(a) 프록시 모드 — mlflow server --artifacts-destination s3://bucket
-
-  ┌───────────┐  run 메타 + 아티팩트 본문  ┌────────────────────┐  S3 API  ┌──────────┐
-  │  Client   │ ─────────────────────────▶│  Tracking Server   │ ───────▶ │ S3/MinIO │
-  │ (팀원 PC) │        (HTTP)              │ [스토리지 키 보유]  │          └──────────┘
-  └───────────┘                            └────────────────────┘
-  → 팀원 PC에는 스토리지 키가 없어도 된다. run에 기록되는 URI: mlflow-artifacts:/...
-
-(b) 직접 접근 — mlflow server --no-serve-artifacts --default-artifact-root s3://bucket
-
-  ┌───────────┐  run 메타 + "어디에 쓰면 되나" 조회  ┌────────────────────┐
-  │  Client   │ ───────────────────────────────────▶│  Tracking Server   │
-  │[키 보유]  │                                      └────────────────────┘
-  └─────┬─────┘
-        │  아티팩트는 스토리지와 직접 주고받음
-        └───────────────────────────────────────────────────────▶ ┌──────────┐
-                                                                   │ S3/MinIO │
-  → 팀원 전원이 스토리지 자격증명을 가져야 한다.                       └──────────┘
-```
+![](/images/image-24.png)
 
 (a)에서는 **서버가 대신** 원격 저장소를 읽고 쓰고, (b)에서는 클라이언트가 서버에 "저장 위치가 어디냐"만 물은 뒤 스토리지와 직접 주고받는다. 문서가 주는 rule of thumb은 두 줄이다.
 
@@ -211,3 +192,8 @@ mlflow.models.predict(model_uri=model_info.model_uri, input_data="<input_data>")
 - [Migrate from File Store](https://mlflow.org/docs/latest/self-hosting/migrate-from-file-store/) · [Remote Server 튜토리얼](https://mlflow.org/docs/latest/ml/tracking/tutorials/remote-server/).
 - [Basic HTTP Auth](https://mlflow.org/docs/latest/self-hosting/security/basic-http-auth/) · [SSO](https://mlflow.org/docs/latest/self-hosting/security/sso/) · [Workspaces](https://mlflow.org/docs/latest/self-hosting/workspaces/).
 - [Datasets](https://mlflow.org/docs/latest/ml/dataset/) · [Model Dependencies](https://mlflow.org/docs/latest/ml/model/dependencies/) — lineage와 환경 재현.
+
+---
+
+**이전 글**: [[posts/foundations/mlops-infrastructure/13-models-and-registry|13. 모델을 자산으로 만들기 — Model과 Registry]]
+**다음 글**: [[posts/foundations/mlops-infrastructure/15-mlflow-genai|15. MLflow 3와 GenAI — tracing·evaluation·prompt registry]]

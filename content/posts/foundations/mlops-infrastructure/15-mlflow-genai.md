@@ -189,3 +189,7 @@ mlflow.genai.set_prompt_alias("summarization-prompt", alias="production", versio
 - [Tracing FAQ](https://mlflow.org/docs/latest/genai/tracing/faq/) — 프로덕션 운영, 비동기 로깅, 저장 구조.
 - [Scorers와 LLM judge](https://mlflow.org/docs/latest/genai/eval-monitor/scorers/) — 내장 judge 목록과 judge 모델 지정.
 - [Prompt Registry](https://mlflow.org/docs/latest/genai/prompt-registry/).
+
+---
+
+**이전 글**: [[posts/foundations/mlops-infrastructure/14-mlflow-server-and-pipelines|14. 팀에서 굴리기 — 서버 구성과 파이프라인 통합]]

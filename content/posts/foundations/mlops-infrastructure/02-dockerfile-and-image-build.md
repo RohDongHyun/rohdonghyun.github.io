@@ -1,6 +1,6 @@
 ---
 title: 02. Dockerfile과 이미지 빌드 — 환경을 코드로 고정하기
-date: 2026-06-23
+date: 2026-06-15
 tags:
   - MLOps
   - Docker
@@ -131,3 +131,8 @@ docker pull myregistry/myapp:1.0    # 다른 곳에서 내려받기
 - `docker build`로 이미지를 만들고 `docker run`으로 컨테이너를 띄운다.
 - 이미지는 명령어마다 쌓인 **레이어**로 이뤄지며, 바뀌지 않은 레이어는 **빌드 캐시**로 재사용된다. *자주 바뀌는 것(소스 코드)을 아래쪽에* 두면 빌드가 빨라진다.
 - 빌드한 이미지는 **레지스트리**(예: Docker Hub)를 통해 공유하며, 이는 대규모 배포의 토대가 된다.
+
+---
+
+**이전 글**: [[posts/foundations/mlops-infrastructure/01-what-is-a-container|01. 컨테이너란 무엇인가 — Docker의 출발점]]
+**다음 글**: [[posts/foundations/mlops-infrastructure/03-docker-volume-network-compose|03. 데이터 관리와 통신 — Volume, Network, Compose]]
