@@ -10,6 +10,11 @@ updates:
     ignore:
       - dependency-name: "@quartz-community/types"
       - dependency-name: "@quartz-community/utils"
+      # Keep compatible with Quartz peer dependencies and .node-version.
+      - dependency-name: "preact"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "chokidar"
+        update-types: ["version-update:semver-major"]
     groups:
       production-dependencies:
         applies-to: "version-updates"
